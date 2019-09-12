@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29201.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cafsa.Common", "Cafsa.Common\Cafsa.Common.csproj", "{4264C724-C4FC-486C-8C90-3BF94B64BC26}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cafsa.Web", "Cafsa.Web\Cafsa.Web.csproj", "{0614208B-693B-4C71-910D-A4A1CA972991}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4264C724-C4FC-486C-8C90-3BF94B64BC26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4264C724-C4FC-486C-8C90-3BF94B64BC26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4264C724-C4FC-486C-8C90-3BF94B64BC26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4264C724-C4FC-486C-8C90-3BF94B64BC26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0614208B-693B-4C71-910D-A4A1CA972991}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0614208B-693B-4C71-910D-A4A1CA972991}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0614208B-693B-4C71-910D-A4A1CA972991}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0614208B-693B-4C71-910D-A4A1CA972991}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9AACDF2E-3803-47DA-8028-75D5D7335302}
+	EndGlobalSection
+EndGlobal
