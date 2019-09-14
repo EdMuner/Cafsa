@@ -7,6 +7,7 @@ namespace Cafsa.Web.Data.Entities
 {
     public class Referee
     {
-
+        public int Id { get; set; }
+        public User User { get; set;}
     }
 }
