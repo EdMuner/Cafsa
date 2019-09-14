@@ -13,7 +13,7 @@ namespace Cafsa.Web.Data
         }
         //creo las tablas que van a la base de datos
         //Estas seran propiedades tipo Dbset
-        //Lo prulalizo de como quiero que se llmame la coleccion
+        //Lo pluralizo de como quiero que se llame la coleccion
         //va a cojer el modelo y lo va a convertir en una tabla 
         public DbSet<Referee> Referees { get; set; }
 
