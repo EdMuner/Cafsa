@@ -2,16 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Cafsa.Web.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cafsa.Web
 {
+    //En esta clase se matriculan las inyecciones de dependencias
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -31,6 +34,14 @@ namespace Cafsa.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            //Le indicamos que el proyecto va a implementar base de datos
+            //vamos a agregar un dbcontext con el contexto de datos datacontext(esta es mi clase)
+            services.AddDbContext<DataContext>(cfg =>
+            {
+                //le decimos que utilice sql server
+                //llama la configuracion de la aplicacion (appsettings.json) y trae el string de conexion
+                cfg.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+            });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
