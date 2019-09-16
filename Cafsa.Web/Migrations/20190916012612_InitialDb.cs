@@ -16,6 +16,7 @@ namespace Cafsa.Web.Migrations
                     Document = table.Column<string>(maxLength: 20, nullable: false),
                     FirstName = table.Column<string>(maxLength: 50, nullable: false),
                     LastName = table.Column<string>(maxLength: 50, nullable: false),
+                    Category = table.Column<string>(maxLength: 50, nullable: false),
                     CellPhone = table.Column<string>(maxLength: 20, nullable: true),
                     Address = table.Column<string>(nullable: true)
                 },

@@ -26,6 +26,10 @@ namespace Cafsa.Web.Migrations
 
                     b.Property<string>("Address");
 
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
                     b.Property<string>("CellPhone")
                         .HasMaxLength(20);
 

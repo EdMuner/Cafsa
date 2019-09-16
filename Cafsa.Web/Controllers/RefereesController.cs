@@ -54,7 +54,7 @@ namespace Cafsa.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Document,FirstName,LastName,CellPhone,Address")] Referee referee)
+        public async Task<IActionResult> Create([Bind("Id,Document,FirstName,LastName,Category,CellPhone,Address")] Referee referee)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace Cafsa.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Document,FirstName,LastName,CellPhone,Address")] Referee referee)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Document,FirstName,LastName,Category,CellPhone,Address")] Referee referee)
         {
             if (id != referee.Id)
             {

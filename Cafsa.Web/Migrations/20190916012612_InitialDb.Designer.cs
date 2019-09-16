@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cafsa.Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20190916010020_InitialDb")]
+    [Migration("20190916012612_InitialDb")]
     partial class InitialDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,6 +27,10 @@ namespace Cafsa.Web.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Address");
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
                     b.Property<string>("CellPhone")
                         .HasMaxLength(20);
