@@ -1,5 +1,5 @@
-﻿using Cafsa.Web.Data.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Cafsa.Web.Data.Entities;
 
 namespace Cafsa.Web.Data
 {

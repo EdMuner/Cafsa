@@ -1,4 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Cafsa.Web.Data.Entities
 {
@@ -8,7 +12,7 @@ namespace Cafsa.Web.Data.Entities
         //Declaramos la propiedad id de la clase
         public int Id { get; set; }
         //Mostramos el nombre del campo en pantalla
-        [Display(Name ="Service Type")]
+        [Display(Name = "Service Type")]
         //Tamaño máximo de caracteres
         [MaxLength(50, ErrorMessage = "The {0} Field cann't have more than {1} characters.")]
         //El campo es obligatorio
@@ -18,3 +22,4 @@ namespace Cafsa.Web.Data.Entities
         public string Name { get; set; }
     }
 }
+

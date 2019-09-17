@@ -7,10 +7,17 @@ namespace Cafsa.Web.Data.Entities
     {
         public int Id { get; set; }
 
+        [Display(Name = "Neighborhood")]
+        [MaxLength(50, ErrorMessage = "The {0} field can not have more than {1} characters.")]
         [Required(ErrorMessage = "The field {0} is mandatory.")]
-        public string Remarks { get; set; }
+        public string Neighborhood { get; set; }
 
-        [Display(Name = "quantity")]
+        [Display(Name = "Address")]
+        [MaxLength(50, ErrorMessage = "The {0} field can not have more than {1} characters.")]
+        [Required(ErrorMessage = "The field {0} is mandatory.")]
+        public string Address { get; set; }
+        
+        [Display(Name = "Quantity")]
         [Required(ErrorMessage = "The field {0} is mandatory.")]
         [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]
         public decimal Quantity { get; set; }
@@ -20,35 +27,24 @@ namespace Cafsa.Web.Data.Entities
         [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]
         public decimal Price { get; set; }
 
-        [Display(Name = "Start Date")]
+        [Display(Name = "Date")]
         [Required(ErrorMessage = "The field {0} is mandatory.")]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public DateTime StartDate { get; set; }
 
-        [Display(Name = "End Date")]
-        [Required(ErrorMessage = "The field {0} is mandatory.")]
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
-        public DateTime EndDate { get; set; }
-
-        [Display(Name = "Is Active?")]
-        public bool IsActive { get; set; }
-
-        [Display(Name = "Start Date")]
+        [Display(Name = "Date")]
         [Required(ErrorMessage = "The field {0} is mandatory.")]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public DateTime StartDateLocal => StartDate.ToLocalTime();
 
-        [Display(Name = "End Date")]
         [Required(ErrorMessage = "The field {0} is mandatory.")]
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
-        public DateTime EndDateLocal => EndDate.ToLocalTime();
+        public string Remarks { get; set; }
 
         public User user { get; set; }
 
+        public ServiceType ServiceType { get; set; }
+
         public Client client { get; set; }
-
-
-
 
     }
 }
