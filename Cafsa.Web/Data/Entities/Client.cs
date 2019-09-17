@@ -9,6 +9,15 @@ namespace Cafsa.Web.Data.Entities
     {
         public int Id { get; set; }
 
+
+
+
+        //prueba pull request
+
+
+
+
+
           public User User { get; set; }
 
       
