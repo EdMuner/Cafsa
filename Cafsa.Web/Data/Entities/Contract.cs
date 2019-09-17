@@ -44,6 +44,10 @@ namespace Cafsa.Web.Data.Entities
 
         public ServiceType ServiceType { get; set; }
 
+
+
+        //Prueba de Pull request
+
         public Client client { get; set; }
 
     }
