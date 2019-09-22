@@ -10,11 +10,20 @@ namespace Cafsa.Web.Data.Entities
     {
         public int Id { get; set; }
 
-        public int Price { get; set; }
-
+        [Display(Name = "Price")]
+        [Required(ErrorMessage = "The field {0} is mandatory.")]
+        [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]
+        public decimal Price { get; set; }
 
         [Display(Name = "Is Available?")]
         public bool IsAvailable { get; set; }
+
+
+        public ServiceType ServiceType { get; set; } 
+
+        public ICollection<Contract> Contracts { get; set; }
+
+        public ICollection<ServiceImage> ServiceImages { get; set; }
 
     }
 }

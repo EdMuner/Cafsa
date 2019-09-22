@@ -16,10 +16,13 @@ namespace Cafsa.Web.Data.Entities
         public string ImageUrl { get; set; }
 
 
-       
+       //TODO
+
         public string ImageFullPath => String.IsNullOrEmpty(ImageUrl)
             ? null
             : $"https://myleasingmunera.azurewebsites.net{ImageUrl.Substring(1)}";
+
+        public Referee Referee { get; set; }
 
     }
 }
