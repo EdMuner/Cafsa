@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cafsa.Web.Data.Entities
 {
-    public class FieldImage
+    public class ServiceImage
     {
         public int Id { get; set; }
 
@@ -20,6 +20,8 @@ namespace Cafsa.Web.Data.Entities
         public string ImageFullPath => String.IsNullOrEmpty(ImageUrl)
             ? null
             : $"https://myleasingmunera.azurewebsites.net{ImageUrl.Substring(1)}";
+
+        public Service Service { get; set; }
 
     }
 }

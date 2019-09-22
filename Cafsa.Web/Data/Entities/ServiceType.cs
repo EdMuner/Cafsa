@@ -20,6 +20,8 @@ namespace Cafsa.Web.Data.Entities
 
         //Declaramos la propiedad nombre
         public string Name { get; set; }
+        
+        public ICollection<Service> Services { get; set; }
     }
 }
 

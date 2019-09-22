@@ -37,12 +37,16 @@ namespace Cafsa.Web.Data.Entities
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public DateTime StartDateLocal => StartDate.ToLocalTime();
 
-        [Required(ErrorMessage = "The field {0} is mandatory.")]
+        
         public string Remarks { get; set; }
 
+        public Referee Referee { get; set; }
+
+        public Service Service { get; set; }
+
+        public Client Client { get; set; }
 
 
-     
 
 
     }
