@@ -40,15 +40,10 @@ namespace Cafsa.Web.Data.Entities
         [Required(ErrorMessage = "The field {0} is mandatory.")]
         public string Remarks { get; set; }
 
-        public User user { get; set; }
-
-        public ServiceType ServiceType { get; set; }
 
 
+     
 
-        //Prueba de Pull request
-
-        public Client client { get; set; }
 
     }
 }

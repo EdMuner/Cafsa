@@ -10,9 +10,11 @@ namespace Cafsa.Web.Data.Entities
     {
         public int Id { get; set; }
 
-        public string Remarks { get; set; }
+        public int Price { get; set; }
 
-        public Referee Referee { get; set; }
+
+        [Display(Name = "Is Available?")]
+        public bool IsAvailable { get; set; }
 
     }
 }

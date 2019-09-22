@@ -7,6 +7,7 @@ namespace Cafsa.Web.Data.Entities
 {
     public class User : IdentityUser
     {
+
         [Display(Name = "Document")]
         [MaxLength(20, ErrorMessage = "The {0} field can not have more than {1} characters.")]
         [Required(ErrorMessage = "The field {0} is mandatory.")]
@@ -31,6 +32,17 @@ namespace Cafsa.Web.Data.Entities
         [MaxLength(20, ErrorMessage = "The {0} field can not have more than {1} characters.")]
         [Required(ErrorMessage = "The field {0} is mandatory.")]
         public string Phone { get; set; }
+
+        [Display(Name = "Email")]
+        [MaxLength(20, ErrorMessage = "The {0} field can not have more than {1} characters.")]
+        [Required(ErrorMessage = "The field {0} is mandatory.")]
+        public string Email { get; set; }
+
+
+
+
+
+
 
         public string FullName => $"{FirstName} {LastName}";
 
