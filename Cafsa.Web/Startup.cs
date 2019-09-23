@@ -1,7 +1,10 @@
 ﻿using Cafsa.Web.Data;
+using Cafsa.Web.Data.Entities;
+using Cafsa.Web.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -28,6 +31,21 @@ namespace Cafsa.Web
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+            
+            
+            //Configura el comportamiento de la configuración de los usuarios.
+
+            services.AddIdentity<User, IdentityRole>(cfg =>
+            {
+                cfg.User.RequireUniqueEmail = true;
+                cfg.Password.RequireDigit = false;
+                cfg.Password.RequiredUniqueChars = 0;
+                cfg.Password.RequireLowercase = false;
+                cfg.Password.RequireNonAlphanumeric = false;
+                cfg.Password.RequireUppercase = false;
+            }).AddEntityFrameworkStores<DataContext>();
+
+
 
             //Le indicamos que el proyecto va a implementar base de datos
             //vamos a agregar un dbcontext con el contexto de datos datacontext(esta es mi clase)
@@ -38,7 +56,10 @@ namespace Cafsa.Web
                 cfg.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
 
+            //inyectamos el seedDb para que al ejecutar el proyecto el automaticamente cree la database
             services.AddTransient<SeedDb>();
+            // inyectamos el User Helper por codigo mantenible y pora reutilizar la clase en el momento que se cambie de proveedor como oracle.
+            services.AddScoped<IUserHelper, UserHelper>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -57,6 +78,7 @@ namespace Cafsa.Web
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseAuthentication();
             app.UseCookiePolicy();
 
             app.UseMvc(routes =>

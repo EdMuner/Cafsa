@@ -1,12 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Cafsa.Web.Data.Entities
 {
     public class Referee
     {
-        internal string Document;
-
         public int Id { get; set; }
 
         public User User { get; set; }
@@ -17,12 +15,8 @@ namespace Cafsa.Web.Data.Entities
         public string Category { get; set; }
 
         public ICollection<RefereeImage> RefereeImages { get; set; }
-      
 
         public ICollection<Contract> Contracts { get; set; }
-        public string FirstName { get; internal set; }
-        public string LastName { get; internal set; }
-        public string Address { get; internal set; }
-        public string Phone { get; internal set; }
+     
     }
 }

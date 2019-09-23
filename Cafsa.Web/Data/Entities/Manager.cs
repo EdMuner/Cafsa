@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Cafsa.Web.Data.Entities
+﻿namespace Cafsa.Web.Data.Entities
 {
     public class Manager
     {

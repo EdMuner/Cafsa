@@ -6,6 +6,7 @@ namespace Cafsa.Web.Data.Entities
     public class Client
     {
         public int Id { get; set; }
+
         public User User { get; set; }
 
         [Display(Name = "ClientName")]
@@ -14,11 +15,7 @@ namespace Cafsa.Web.Data.Entities
         public string ClientName { get; set; }
 
         public ICollection<Contract> Contracts { get; set; }
-        public string Document { get; internal set; }
-        public string FirstName { get; internal set; }
-        public string LastName { get; internal set; }
-        public string Address { get; internal set; }
-        public string Phone { get; internal set; }
+       
     }
 }
 
