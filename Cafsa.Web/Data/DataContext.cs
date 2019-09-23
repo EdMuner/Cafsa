@@ -1,10 +1,6 @@
 ﻿using Cafsa.Web.Data.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 
 namespace Cafsa.Web.Data
@@ -28,7 +24,7 @@ namespace Cafsa.Web.Data
         public DbSet<Service> Services { get; set; }
         public DbSet<ServiceImage> ServiceImages { get; set; }
         public DbSet<ServiceType> ServiceTypes { get; set; }
-        
+
 
 
 
