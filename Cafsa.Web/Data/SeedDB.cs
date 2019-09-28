@@ -131,7 +131,7 @@ namespace Cafsa.Web.Data
         {
             if (!_context.Clients.Any())
             {
-                _context.Clients.Add(new Client { User = user });
+                _context.Clients.Add(new Client { User = user, ClientName = "Colanta" });
                 await _context.SaveChangesAsync();
             }
         }
@@ -140,7 +140,8 @@ namespace Cafsa.Web.Data
         {
             if (!_context.Referees.Any())
             {
-                _context.Referees.Add(new Referee { User = user });
+                _context.Referees.Add(new Referee { User = user, Category = "Primera categoria" });
+
                 await _context.SaveChangesAsync();
             }
         }
