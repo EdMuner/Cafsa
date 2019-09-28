@@ -1,4 +1,5 @@
 ﻿using Cafsa.Web.Data.Entities;
+using Cafsa.Web.Models;
 using Microsoft.AspNetCore.Identity;
 
 using System.Threading.Tasks;
@@ -11,15 +12,15 @@ namespace Cafsa.Web.Helpers
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<User> _signInManager;
 
-
         public UserHelper(
             UserManager<User> userManager,
-            RoleManager<IdentityRole> roleManager)
+            RoleManager<IdentityRole> roleManager,
+            SignInManager<User> signInManager)
          
         {
             _userManager = userManager;
             _roleManager = roleManager;
-          
+            _signInManager = signInManager;
         }
 
 
@@ -57,6 +58,22 @@ namespace Cafsa.Web.Helpers
             return await _userManager.IsInRoleAsync(user, roleName);
         }
 
+        public async Task<SignInResult> LoginAsync(LoginViewModel model)
+        {
+            //logueo
+            return await _signInManager.PasswordSignInAsync(
+                model.Username,
+                model.Password,
+                model.RememberMe,
+                /*se utiliza este false es para bloquear la cuenta despues
+                 * de un numero de intentos*/
+                false);
+        }
+
+        public async Task LogoutAsync()
+        {
+            await _signInManager.SignOutAsync();
+        }
     }
 }
 

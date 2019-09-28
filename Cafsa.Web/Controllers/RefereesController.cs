@@ -12,17 +12,22 @@ namespace Cafsa.Web.Controllers
 {
     public class RefereesController : Controller
     {
-        private readonly DataContext _context;
+        private readonly DataContext _datacontext;
 
-        public RefereesController(DataContext context)
+        public RefereesController(DataContext datacontext)
         {
-            _context = context;
+            _datacontext = datacontext;
         }
 
         // GET: Referees
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Referees.ToListAsync());
+            //return View(await _datacontext.Referees.ToListAsync());
+            //No hay que materializar l alista con el Tolist()
+            return View(_datacontext.Referees
+                .Include(r => r.User)
+                .Include(r => r.RefereeImages)
+                .Include(r => r.Contracts));//No materializa la lista y le digo que me incluya los usuarios, en otras palabras busqueme los referees e inclullame lo susuarios
         }
 
         // GET: Referees/Details/5
@@ -33,7 +38,7 @@ namespace Cafsa.Web.Controllers
                 return NotFound();
             }
 
-            var referee = await _context.Referees
+            var referee = await _datacontext.Referees
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (referee == null)
             {
@@ -58,8 +63,8 @@ namespace Cafsa.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(referee);
-                await _context.SaveChangesAsync();
+                _datacontext.Add(referee);
+                await _datacontext.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(referee);
@@ -73,7 +78,7 @@ namespace Cafsa.Web.Controllers
                 return NotFound();
             }
 
-            var referee = await _context.Referees.FindAsync(id);
+            var referee = await _datacontext.Referees.FindAsync(id);
             if (referee == null)
             {
                 return NotFound();
@@ -97,8 +102,8 @@ namespace Cafsa.Web.Controllers
             {
                 try
                 {
-                    _context.Update(referee);
-                    await _context.SaveChangesAsync();
+                    _datacontext.Update(referee);
+                    await _datacontext.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -124,7 +129,7 @@ namespace Cafsa.Web.Controllers
                 return NotFound();
             }
 
-            var referee = await _context.Referees
+            var referee = await _datacontext.Referees
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (referee == null)
             {
@@ -139,15 +144,15 @@ namespace Cafsa.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var referee = await _context.Referees.FindAsync(id);
-            _context.Referees.Remove(referee);
-            await _context.SaveChangesAsync();
+            var referee = await _datacontext.Referees.FindAsync(id);
+            _datacontext.Referees.Remove(referee);
+            await _datacontext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool RefereeExists(int id)
         {
-            return _context.Referees.Any(e => e.Id == id);
+            return _datacontext.Referees.Any(e => e.Id == id);
         }
     }
 }
