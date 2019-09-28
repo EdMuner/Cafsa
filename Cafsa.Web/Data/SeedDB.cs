@@ -131,7 +131,7 @@ namespace Cafsa.Web.Data
         {
             if (!_context.Clients.Any())
             {
-                _context.Clients.Add(new Client { User = user, ClientName = "Colanta" });
+                _context.Clients.Add(new Client { User = user, ClientName = "Comfenalco" });
                 await _context.SaveChangesAsync();
             }
         }
