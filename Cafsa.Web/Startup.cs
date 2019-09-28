@@ -60,6 +60,7 @@ namespace Cafsa.Web
             services.AddTransient<SeedDb>();
             // inyectamos el User Helper por codigo mantenible y pora reutilizar la clase en el momento que se cambie de proveedor como oracle.
             services.AddScoped<IUserHelper, UserHelper>();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
