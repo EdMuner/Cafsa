@@ -1,6 +1,7 @@
 ﻿using Cafsa.Web.Data.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Cafsa.Web.Models;
 
 
 namespace Cafsa.Web.Data
@@ -24,6 +25,7 @@ namespace Cafsa.Web.Data
         public DbSet<Service> Services { get; set; }
         public DbSet<ServiceImage> ServiceImages { get; set; }
         public DbSet<ServiceType> ServiceTypes { get; set; }
+        public DbSet<Cafsa.Web.Models.AddUserViewModel> AddUserViewModel { get; set; }
 
 
 

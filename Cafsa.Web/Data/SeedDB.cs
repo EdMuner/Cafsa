@@ -23,12 +23,13 @@ namespace Cafsa.Web.Data
 
         public async Task SeedAsync()
         {
+            // Esta instrucción valida que exista DB y si no hay la  crea.
             await _context.Database.EnsureCreatedAsync();
             await CheckRoles();
 
             var manager = await CheckUserAsync("71219843", "Edison", "Munera", "edisonmunera72@gmail.com", "314 836 28 49", "Calle 57 # 36-58", "Manager");
             var client = await CheckUserAsync("43155023", "Aida", "Buitrago", "aidabuitrago@hotmail.com", "314 718 79 53", "Calle 57 # 36-49", "Referee");
-            var referee = await CheckUserAsync("15502341", "Alejandro", "Zapata", "alejozapata@gmail.com", "333 222 114 11", "Guarne parque", "Referee");
+            var referee = await CheckUserAsync("15502341", "Alejandro", "Zapata", "alejozapata@gmail.com", "333 222 114 11", "Guarne parque", "client");
 
             await CheckServiceTypesAsync();
             await CheckManagerAsync(manager);
@@ -131,7 +132,7 @@ namespace Cafsa.Web.Data
         {
             if (!_context.Clients.Any())
             {
-                _context.Clients.Add(new Client { User = user, ClientName = "Colanta" });
+                _context.Clients.Add(new Client { User = user, ClientName = "Comfenalco" });
                 await _context.SaveChangesAsync();
             }
         }
