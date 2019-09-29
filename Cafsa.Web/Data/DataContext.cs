@@ -20,8 +20,7 @@ namespace Cafsa.Web.Data
         public DbSet<Client> Clients { get; set; }
         public DbSet<Contract> Contracts { get; set; }
         public DbSet<Manager> Managers { get; set; }
-        public DbSet<Referee> Referees { get; set; }
-        public DbSet<RefereeImage> RefereeImages { get; set; }
+        public DbSet<Referee> Referees { get; set; }     
         public DbSet<Service> Services { get; set; }
         public DbSet<ServiceImage> ServiceImages { get; set; }
         public DbSet<ServiceType> ServiceTypes { get; set; }

@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Cafsa.Web.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Cafsa.Web.Data.Entities;
-using Cafsa.Web.Helpers;
 
 namespace Cafsa.Web.Data
 {
@@ -46,20 +46,18 @@ namespace Cafsa.Web.Data
             var service = _context.Services.FirstOrDefault();
             if (!_context.Contracts.Any())
             {
-                 _context.Contracts.Add(new Contract
+                _context.Contracts.Add(new Contract
                 {
                     StartDate = DateTime.Today,
                     Client = client,
                     Referee = referee,
-                    Price = 22000M,
-                    Service = service,
-                    Neighborhood = "Castilla",
                     Address = "Franzea",
-                    Quantity = 3,
+                    Price = 22000M,
+                    Service = service,                  
                     Remarks = "Llegar 15 minutos antes." +
-                    "Debes llevar las planillas e indicadores." +
-                    "Juagador sin carnet no puede jugar."
-                }); 
+                   "Debes llevar las planillas e indicadores." +
+                   "Juagador sin carnet no puede jugar."
+                });
 
                 await _context.SaveChangesAsync();
             }
@@ -75,12 +73,12 @@ namespace Cafsa.Web.Data
         }
 
         private async Task<User> CheckUserAsync(
-            string document, 
-            string firstName, 
-            string lastName, 
-            string email, 
-            string phone, 
-            string address, 
+            string document,
+            string firstName,
+            string lastName,
+            string email,
+            string phone,
+            string address,
             string role)
         {
             var user = await _userHelper.GetUserByEmailAsync(email);
@@ -94,7 +92,7 @@ namespace Cafsa.Web.Data
                     Email = email,
                     UserName = email,
                     Phone = phone,
-                    Address = address               
+                    Address = address
                 };
 
                 await _userHelper.AddUserAsync(user, "123456");
@@ -106,25 +104,32 @@ namespace Cafsa.Web.Data
 
         private async Task CheckServicesAsync()
         {
+            var Referee = _context.Referees.FirstOrDefault();
             var serviceType = _context.ServiceTypes.FirstOrDefault();
             if (!_context.Services.Any())
             {
-                addService(serviceType, 22000M);
-                addService(serviceType, 18000M);
-                addService(serviceType, 15000M);
+                addService("Poblado", "Calle 43 #23 32", 22000M, Referee , serviceType);
+                addService("Poblado", "Calle 43 #23 32", 22000M, Referee, serviceType);
+                addService("Poblado", "Calle 43 #23 32", 22000M, Referee, serviceType);
                 await _context.SaveChangesAsync();
 
             }
         }
 
         private void addService(
-            ServiceType serviceType,
-            decimal price)
+            string neighborhood,
+            string address,
+            decimal price,
+            Referee referee,
+            ServiceType serviceType)      
         {
             _context.Services.Add(new Service
             {
-                ServiceType = serviceType,
-                Price = price
+                Neighborhood = neighborhood,
+                Address = address,
+                Price = price,
+                Referee = referee,
+                ServiceType = serviceType,               
             });
         }
 
@@ -141,16 +146,16 @@ namespace Cafsa.Web.Data
         {
             if (!_context.Referees.Any())
             {
-                _context.Referees.Add(new Referee { User = user, Category = "Primera categoria" });
+                _context.Referees.Add(new Referee { User = user, Category = "Primera" });
 
                 await _context.SaveChangesAsync();
             }
         }
 
-       
+
         private async Task CheckServiceTypesAsync()
         {
-           if (!_context.ServiceTypes.Any())
+            if (!_context.ServiceTypes.Any())
             {
                 _context.ServiceTypes.Add(new ServiceType { Name = "Referee_1" });
                 _context.ServiceTypes.Add(new ServiceType { Name = "Referee_2" });

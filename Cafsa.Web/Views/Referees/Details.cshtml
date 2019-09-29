@@ -4,12 +4,48 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
+<h2>Referee</h2>
 
 <div>
-    <h4>Referee</h4>
+    <h4>Details</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Document)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.Document)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.FirstName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.FirstName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.LastName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.LastName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.Email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Address)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.Address)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Phone)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.Phone)
+        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Category)
         </dt>
@@ -19,6 +55,66 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+    <a asp-action="AddService" asp-route-id="@Model.Id" class="btn btn-primary">Add Service</a>
+    <a asp-action="Index" class="btn btn-success">Back to List</a>
 </div>
+
+@if (Model.Services.Count == 0)
+{
+    <h5>Not services added yet</h5>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Services.FirstOrDefault().Neighborhood)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Services.FirstOrDefault().Address)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Services.FirstOrDefault().Price)
+                </th>            
+                <th>
+                    @Html.DisplayNameFor(model => model.Services.FirstOrDefault().ServiceType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Services.FirstOrDefault().Contracts)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Services)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Neighborhood)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Address)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ServiceType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Contracts)
+                    </td>
+                    <td>
+                        <a asp-action="EditService" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
+                        <a asp-action="DetailsService" asp-route-id="@item.Id" class="btn btn-info">Details</a>
+                        <a asp-action="DeleteService" asp-route-id="@item.Id" class="btn btn-info">Delete</a>
+
+                      
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

@@ -10,6 +10,16 @@ namespace Cafsa.Web.Data.Entities
     {
         public int Id { get; set; }
 
+        [Display(Name = "Neighborhood")]
+        [MaxLength(50, ErrorMessage = "The {0} field can not have more than {1} characters.")]
+        [Required(ErrorMessage = "The field {0} is mandatory.")]
+        public string Neighborhood { get; set; }
+
+        [Display(Name = "Address")]
+        [MaxLength(50, ErrorMessage = "The {0} field can not have more than {1} characters.")]
+        [Required(ErrorMessage = "The field {0} is mandatory.")]
+        public string Address { get; set; }
+
         [Display(Name = "Price")]
         [Required(ErrorMessage = "The field {0} is mandatory.")]
         [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]
@@ -20,6 +30,8 @@ namespace Cafsa.Web.Data.Entities
 
 
         public ServiceType ServiceType { get; set; } 
+
+        public Referee Referee { get; set; }
 
         public ICollection<Contract> Contracts { get; set; }
 

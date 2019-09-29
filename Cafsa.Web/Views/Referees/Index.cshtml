@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Cafsa.Web.Data.Entities.Referee>
 
 @{
-    ViewData["Title"] = "Referee";
+    ViewData["Title"] = "Index";
 }
 
 <h2>Referee</h2>
@@ -31,7 +31,7 @@
                 @Html.DisplayNameFor(model => model.Category)
             </th>
             <th>
-                Images
+                @Html.DisplayNameFor(model => model.Services)
             </th>
             <th>
                 Contracts
@@ -55,12 +55,12 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.User.Phone)
-            </td>
+            </td>        
             <td>
                 @Html.DisplayFor(modelItem => item.Category)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.RefereeImages.Count)
+                @Html.DisplayFor(modelItem => item.Services.Count)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Contracts.Count)

@@ -14,7 +14,7 @@ namespace Cafsa.Web.Data.Entities
         [Required(ErrorMessage = "The field {0} is mandatory.")]
         public string Category { get; set; }
 
-        public ICollection<RefereeImage> RefereeImages { get; set; }
+        public ICollection<Service> Services { get; set; }
 
         public ICollection<Contract> Contracts { get; set; }
      
