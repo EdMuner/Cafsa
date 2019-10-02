@@ -4,20 +4,56 @@ using Cafsa.Web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Cafsa.Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20191001013656_AgregateCategories")]
+    partial class AgregateCategories
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.1.11-servicing-32099")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Cafsa.Web.Data.Entities.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("CategoryTypeId");
+
+                    b.Property<int?>("RefereeId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryTypeId");
+
+                    b.HasIndex("RefereeId");
+
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("Cafsa.Web.Data.Entities.CategoryType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CategoryTypes");
+                });
 
             modelBuilder.Entity("Cafsa.Web.Data.Entities.Client", b =>
                 {
@@ -94,32 +130,17 @@ namespace Cafsa.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("RefereeTypeId");
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
                     b.Property<string>("UserId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RefereeTypeId");
-
                     b.HasIndex("UserId");
 
                     b.ToTable("Referees");
-                });
-
-            modelBuilder.Entity("Cafsa.Web.Data.Entities.RefereeType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("RefereeTypes");
                 });
 
             modelBuilder.Entity("Cafsa.Web.Data.Entities.Service", b =>
@@ -132,8 +153,6 @@ namespace Cafsa.Web.Migrations
                         .IsRequired()
                         .HasMaxLength(50);
 
-                    b.Property<bool>("IsAvailable");
-
                     b.Property<string>("Neighborhood")
                         .IsRequired()
                         .HasMaxLength(50);
@@ -143,6 +162,8 @@ namespace Cafsa.Web.Migrations
                     b.Property<int?>("RefereeId");
 
                     b.Property<int?>("ServiceTypeId");
+
+                    b.Property<DateTime>("StartDate");
 
                     b.HasKey("Id");
 
@@ -364,6 +385,17 @@ namespace Cafsa.Web.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Cafsa.Web.Data.Entities.Category", b =>
+                {
+                    b.HasOne("Cafsa.Web.Data.Entities.CategoryType", "CategoryType")
+                        .WithMany("Categories")
+                        .HasForeignKey("CategoryTypeId");
+
+                    b.HasOne("Cafsa.Web.Data.Entities.Referee", "Referee")
+                        .WithMany()
+                        .HasForeignKey("RefereeId");
+                });
+
             modelBuilder.Entity("Cafsa.Web.Data.Entities.Client", b =>
                 {
                     b.HasOne("Cafsa.Web.Data.Entities.User", "User")
@@ -395,10 +427,6 @@ namespace Cafsa.Web.Migrations
 
             modelBuilder.Entity("Cafsa.Web.Data.Entities.Referee", b =>
                 {
-                    b.HasOne("Cafsa.Web.Data.Entities.RefereeType", "RefereeType")
-                        .WithMany("Referees")
-                        .HasForeignKey("RefereeTypeId");
-
                     b.HasOne("Cafsa.Web.Data.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
@@ -406,7 +434,7 @@ namespace Cafsa.Web.Migrations
 
             modelBuilder.Entity("Cafsa.Web.Data.Entities.Service", b =>
                 {
-                    b.HasOne("Cafsa.Web.Data.Entities.Referee")
+                    b.HasOne("Cafsa.Web.Data.Entities.Referee", "Referee")
                         .WithMany("Services")
                         .HasForeignKey("RefereeId");
 

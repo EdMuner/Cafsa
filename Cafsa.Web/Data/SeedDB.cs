@@ -33,7 +33,7 @@ namespace Cafsa.Web.Data
 
             await CheckServiceTypesAsync();
             await CheckManagerAsync(manager);
-            await CheckRefereesAsync(referee);
+            //await CheckRefereesAsync(referee);
             await CheckClientsAsync(client);
             await CheckServicesAsync();
             await CheckContractsAsync();
@@ -142,7 +142,7 @@ namespace Cafsa.Web.Data
             }
         }
 
-        private async Task CheckRefereesAsync(User user)
+       /* private async Task CheckRefereesAsync(User user)
         {
             if (!_context.Referees.Any())
             {
@@ -150,7 +150,7 @@ namespace Cafsa.Web.Data
 
                 await _context.SaveChangesAsync();
             }
-        }
+        }*/
 
 
         private async Task CheckServiceTypesAsync()
@@ -164,11 +164,24 @@ namespace Cafsa.Web.Data
                 await _context.SaveChangesAsync();
             }
         }
+        private async Task CheckRefereeTypesAsync()
+        {
+            if (!_context.RefereeTypes.Any())
+            {
+                _context.RefereeTypes.Add(new RefereeType { Name = "Primera" });
+                _context.RefereeTypes.Add(new RefereeType { Name = "Segunda" });
+                _context.RefereeTypes.Add(new RefereeType { Name = "Tercera" });
+                _context.RefereeTypes.Add(new RefereeType { Name = "Aspirante" });
+                await _context.SaveChangesAsync();
+            }
+        }
         private async Task CheckRoles()
         {
             await _userHelper.CheckRoleAsync("Manager");
             await _userHelper.CheckRoleAsync("Referee");
             await _userHelper.CheckRoleAsync("Client");
         }
+
+
     }
 }

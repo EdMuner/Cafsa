@@ -1,7 +1,6 @@
 ﻿using Cafsa.Web.Data.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Cafsa.Web.Models;
 
 
 namespace Cafsa.Web.Data
@@ -18,16 +17,19 @@ namespace Cafsa.Web.Data
         //Lo pluralizo de como quiero que se llame la coleccion
         //va a cojer el modelo y lo va a convertir en una tabla 
         public DbSet<Client> Clients { get; set; }
-        public DbSet<Contract> Contracts { get; set; }
+
+        public DbSet<Contract> Contracts { get; set; }      
+
+        public DbSet<RefereeType> RefereeTypes { get; set; }
+
         public DbSet<Manager> Managers { get; set; }
-        public DbSet<Referee> Referees { get; set; }     
+
+        public DbSet<Referee> Referees { get; set; }
+
         public DbSet<Service> Services { get; set; }
+
         public DbSet<ServiceImage> ServiceImages { get; set; }
+
         public DbSet<ServiceType> ServiceTypes { get; set; }
-        public DbSet<Cafsa.Web.Models.AddUserViewModel> AddUserViewModel { get; set; }
-
-
-
-
     }
 }

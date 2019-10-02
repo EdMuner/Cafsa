@@ -1,18 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Cafsa.Web.Data;
+using Cafsa.Web.Data.Entities;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Cafsa.Web.Data;
-using Cafsa.Web.Data.Entities;
 
 namespace Cafsa.Web.Controllers
 {
+    [Authorize(Roles = "Manager")]
     public class ServiceTypesController : Controller
     {
+
         private readonly DataContext _context;
+
 
         public ServiceTypesController(DataContext context)
         {
@@ -34,7 +35,7 @@ namespace Cafsa.Web.Controllers
             }
 
             var serviceType = await _context.ServiceTypes
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(s => s.Id == id);
             if (serviceType == null)
             {
                 return NotFound();

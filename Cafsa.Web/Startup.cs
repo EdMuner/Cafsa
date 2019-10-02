@@ -61,6 +61,9 @@ namespace Cafsa.Web
             // inyectamos el User Helper por codigo mantenible y pora reutilizar la clase en el momento que se cambie de proveedor como oracle.
             services.AddScoped<IUserHelper, UserHelper>();
 
+            //inyectamos el helper que contiene todas los combos de la aplicacion
+            services.AddScoped<ICombosHelper, CombosHelper>();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

@@ -8,17 +8,28 @@ using Microsoft.EntityFrameworkCore;
 using Cafsa.Web.Data;
 using Cafsa.Web.Data.Entities;
 using Microsoft.AspNetCore.Authorization;
+using Cafsa.Web.Models;
+using Cafsa.Web.Helpers;
 
 namespace Cafsa.Web.Controllers
 {
     [Authorize(Roles = "Manager")]
     public class RefereesController : Controller
     {
-        private readonly DataContext _datacontext;
+        private readonly DataContext _dataContext;
+        private readonly IUserHelper _userHelper;
+        private readonly ICombosHelper _combosHelper;
 
-        public RefereesController(DataContext datacontext)
+
+        //Se le injecta el IUser helper para crear los User para crear los referees
+        public RefereesController(
+            DataContext datacontext,
+            IUserHelper userHelper,
+            ICombosHelper combosHelper)
         {
-            _datacontext = datacontext;
+            _dataContext = datacontext;
+            _userHelper = userHelper;
+            _combosHelper = combosHelper;
         }
 
         // GET: Referees
@@ -26,7 +37,7 @@ namespace Cafsa.Web.Controllers
         {
             //return View(await _datacontext.Referees.ToListAsync());
             //No hay que materializar l alista con el Tolist()
-            return View(_datacontext.Referees
+            return View(_dataContext.Referees
                 .Include(r => r.User)
                 .Include(r => r.Services)
                 .Include(r => r.Contracts));//No materializa la lista y le digo que me incluya los usuarios, en otras palabras busqueme los referees e inclullame lo usuarios
@@ -40,7 +51,7 @@ namespace Cafsa.Web.Controllers
                 return NotFound();
             }
 
-            var referee = await _datacontext.Referees
+            var referee = await _dataContext.Referees
                 .Include(r => r.User)   
                 .Include(r => r.Services)
                 .ThenInclude(s => s.ServiceImages)
@@ -62,20 +73,58 @@ namespace Cafsa.Web.Controllers
             return View();
         }
 
-        // POST: Referees/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
+        //Metodo que crea el referee      
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Category")] Referee referee)
+        public async Task<IActionResult> Create(AddUserViewModel model)
         {
             if (ModelState.IsValid)
             {
-                _datacontext.Add(referee);
-                await _datacontext.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var user = await CreateUserAsync(model);
+                if (user != null)
+                {
+                    var referee = new Referee
+                    {
+                        // le agrega al referee nuevo una lista de contratos para que al crearlo el campo no este vacio
+                        Contracts = new List<Contract>(),
+                        // le agrega al referee nuevo una lista de services para que al crearlo el campo no este vacio
+                        Services = new List<Service>(),
+                       
+                        User = user
+
+                    };
+                    //crea el referee en base de datos, guarda cambios y lo redirecciona al index y se puede loguear.
+                    _dataContext.Referees.Add(referee);
+                    await _dataContext.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                };
+                ModelState.AddModelError(string.Empty, "The user already exists in the corporation");
+            };
+            return View(model);
+        }
+
+        //metodo para cvrear el usuario y retornarlo
+        private async Task<User> CreateUserAsync (AddUserViewModel model)
+        {
+            var user = new User
+            {
+                Document = model.Document,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                Email = model.Username,           
+                Address = model.Address,
+                Phone = model.Phone,
+                UserName = model.Username
+            };
+            var result = await _userHelper.AddUserAsync(user, model.Password);
+            if (result.Succeeded)
+            {
+                user = await _userHelper.GetUserByEmailAsync(model.Username);
+                await _userHelper.AddUserToRoleAsync(user, "Referee");
+                return user;
             }
-            return View(referee);
+            return null;
         }
 
         // GET: Referees/Edit/5
@@ -86,7 +135,7 @@ namespace Cafsa.Web.Controllers
                 return NotFound();
             }
 
-            var referee = await _datacontext.Referees.FindAsync(id);
+            var referee = await _dataContext.Referees.FindAsync(id);
             if (referee == null)
             {
                 return NotFound();
@@ -110,8 +159,8 @@ namespace Cafsa.Web.Controllers
             {
                 try
                 {
-                    _datacontext.Update(referee);
-                    await _datacontext.SaveChangesAsync();
+                    _dataContext.Update(referee);
+                    await _dataContext.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -137,7 +186,7 @@ namespace Cafsa.Web.Controllers
                 return NotFound();
             }
 
-            var referee = await _datacontext.Referees
+            var referee = await _dataContext.Referees
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (referee == null)
             {
@@ -152,15 +201,15 @@ namespace Cafsa.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var referee = await _datacontext.Referees.FindAsync(id);
-            _datacontext.Referees.Remove(referee);
-            await _datacontext.SaveChangesAsync();
+            var referee = await _dataContext.Referees.FindAsync(id);
+            _dataContext.Referees.Remove(referee);
+            await _dataContext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool RefereeExists(int id)
         {
-            return _datacontext.Referees.Any(e => e.Id == id);
+            return _dataContext.Referees.Any(e => e.Id == id);
         }
     }
 }

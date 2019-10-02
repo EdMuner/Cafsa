@@ -4,14 +4,16 @@ using Cafsa.Web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Cafsa.Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20191002034325_agregateRefereeType")]
+    partial class agregateRefereeType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -132,8 +134,6 @@ namespace Cafsa.Web.Migrations
                         .IsRequired()
                         .HasMaxLength(50);
 
-                    b.Property<bool>("IsAvailable");
-
                     b.Property<string>("Neighborhood")
                         .IsRequired()
                         .HasMaxLength(50);
@@ -143,6 +143,8 @@ namespace Cafsa.Web.Migrations
                     b.Property<int?>("RefereeId");
 
                     b.Property<int?>("ServiceTypeId");
+
+                    b.Property<DateTime>("StartDate");
 
                     b.HasKey("Id");
 
@@ -406,7 +408,7 @@ namespace Cafsa.Web.Migrations
 
             modelBuilder.Entity("Cafsa.Web.Data.Entities.Service", b =>
                 {
-                    b.HasOne("Cafsa.Web.Data.Entities.Referee")
+                    b.HasOne("Cafsa.Web.Data.Entities.Referee", "Referee")
                         .WithMany("Services")
                         .HasForeignKey("RefereeId");
 

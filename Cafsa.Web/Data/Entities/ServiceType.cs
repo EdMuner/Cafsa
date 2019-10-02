@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Cafsa.Web.Data.Entities
 {
@@ -20,7 +17,7 @@ namespace Cafsa.Web.Data.Entities
 
         //Declaramos la propiedad nombre
         public string Name { get; set; }
-        
+
         public ICollection<Service> Services { get; set; }
     }
 }
