@@ -9,13 +9,15 @@ namespace Cafsa.Web.Helpers
     public class UserHelper : IUserHelper
     {
         private readonly UserManager<User> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly RoleManager<IdentityRole> _roleManager;     
         private readonly SignInManager<User> _signInManager;
+       
 
         public UserHelper(
             UserManager<User> userManager,
-            RoleManager<IdentityRole> roleManager,
-            SignInManager<User> signInManager)
+            RoleManager<IdentityRole> roleManager,       
+            SignInManager<User> signInManager
+            )
          
         {
             _userManager = userManager;
@@ -29,11 +31,14 @@ namespace Cafsa.Web.Helpers
             return await _userManager.CreateAsync(user, password);
         }
 
-       
+      
+
         public async Task AddUserToRoleAsync(User user, string roleName)
         {
             await _userManager.AddToRoleAsync(user, roleName);
         }
+
+    
 
         public async Task CheckRoleAsync(string roleName)
         {
@@ -53,6 +58,7 @@ namespace Cafsa.Web.Helpers
             return await _userManager.FindByEmailAsync(email);          
         }
 
+     
         public async Task<bool> IsUserInRoleAsync(User user, string roleName)
         {
             return await _userManager.IsInRoleAsync(user, roleName);
@@ -74,6 +80,8 @@ namespace Cafsa.Web.Helpers
         {
             await _signInManager.SignOutAsync();
         }
+
+        
     }
 }
 

@@ -25,8 +25,15 @@ namespace Cafsa.Web.Data.Entities
         [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]
         public decimal Price { get; set; }
 
-        [Display(Name = "Is Available?")]
-        public bool IsAvailable { get; set; }
+        [Display(Name = "Date")]
+        [Required(ErrorMessage = "The field {0} is mandatory.")]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+        public DateTime StartDate { get; set; }
+
+        [Display(Name = "Date")]
+        [Required(ErrorMessage = "The field {0} is mandatory.")]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+        public DateTime StartDateLocal => StartDate.ToLocalTime();
 
 
         public ServiceType ServiceType { get; set; } 

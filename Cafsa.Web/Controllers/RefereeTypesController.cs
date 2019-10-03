@@ -1,32 +1,34 @@
-﻿using Cafsa.Web.Data;
-using Cafsa.Web.Data.Entities;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using Cafsa.Web.Data;
+using Cafsa.Web.Data.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Cafsa.Web.Controllers
 {
     [Authorize(Roles = "Manager")]
-    public class ServiceTypesController : Controller
+    public class RefereeTypesController : Controller
     {
 
         private readonly DataContext _context;
 
-
-        public ServiceTypesController(DataContext context)
+        public RefereeTypesController(DataContext context)
         {
             _context = context;
         }
 
-        // GET: ServiceTypes
+        // GET: RefereeTypes
         public async Task<IActionResult> Index()
         {
-            return View(await _context.ServiceTypes.ToListAsync());
+            return View(await _context.RefereeTypes.ToListAsync());
         }
 
-        // GET: ServiceTypes/Details/5
+        // GET: RefereeTypes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,39 +36,39 @@ namespace Cafsa.Web.Controllers
                 return NotFound();
             }
 
-            var serviceType = await _context.ServiceTypes
-                .FirstOrDefaultAsync(s => s.Id == id);
-            if (serviceType == null)
+            var refereeType = await _context.RefereeTypes
+                .FirstOrDefaultAsync(rt => rt.Id == id);
+            if (refereeType == null)
             {
                 return NotFound();
             }
 
-            return View(serviceType);
+            return View(refereeType);
         }
 
-        // GET: ServiceTypes/Create
+        // GET: RefereeTypes/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: ServiceTypes/Create
+        // POST: RefereeTypes/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] ServiceType serviceType)
+        public async Task<IActionResult> Create([Bind("Id,Name")] RefereeType refereeType)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(serviceType);
+                _context.Add(refereeType);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(serviceType);
+            return View(refereeType);
         }
 
-        // GET: ServiceTypes/Edit/5
+        // GET: RefereeTypes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -74,22 +76,22 @@ namespace Cafsa.Web.Controllers
                 return NotFound();
             }
 
-            var serviceType = await _context.ServiceTypes.FindAsync(id);
-            if (serviceType == null)
+            var refereeType = await _context.RefereeTypes.FindAsync(id);
+            if (refereeType == null)
             {
                 return NotFound();
             }
-            return View(serviceType);
+            return View(refereeType);
         }
 
-        // POST: ServiceTypes/Edit/5
+        // POST: RefereeTypes/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] ServiceType serviceType)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] RefereeType refereeType)
         {
-            if (id != serviceType.Id)
+            if (id != refereeType.Id)
             {
                 return NotFound();
             }
@@ -98,12 +100,12 @@ namespace Cafsa.Web.Controllers
             {
                 try
                 {
-                    _context.Update(serviceType);
+                    _context.Update(refereeType);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ServiceTypeExists(serviceType.Id))
+                    if (!RefereeTypeExists(refereeType.Id))
                     {
                         return NotFound();
                     }
@@ -114,10 +116,10 @@ namespace Cafsa.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(serviceType);
+            return View(refereeType);
         }
 
-        // GET: ServiceTypes/Delete/5
+        // GET: RefereeTypes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -125,30 +127,30 @@ namespace Cafsa.Web.Controllers
                 return NotFound();
             }
 
-            var serviceType = await _context.ServiceTypes
+            var refereeType = await _context.RefereeTypes
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (serviceType == null)
+            if (refereeType == null)
             {
                 return NotFound();
             }
 
-            return View(serviceType);
+            return View(refereeType);
         }
 
-        // POST: ServiceTypes/Delete/5
+        // POST: RefereeTypes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var serviceType = await _context.ServiceTypes.FindAsync(id);
-            _context.ServiceTypes.Remove(serviceType);
+            var refereeType = await _context.RefereeTypes.FindAsync(id);
+            _context.RefereeTypes.Remove(refereeType);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ServiceTypeExists(int id)
+        private bool RefereeTypeExists(int id)
         {
-            return _context.ServiceTypes.Any(e => e.Id == id);
+            return _context.RefereeTypes.Any(e => e.Id == id);
         }
     }
 }
