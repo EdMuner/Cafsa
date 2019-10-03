@@ -91,23 +91,3 @@
 </div>
 
 <partial name="_DeleteDialog" />
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#MyTable').DataTable();
-            // Delete item
-            var item_to_delete;
-            $('.deleteItem').click((e) => {
-                item_to_delete = e.currentTarget.dataset.id;
-            });
-            $("#btnYesDelete").click(function () {
-                window.location.href = '/Referee/Delete/' + item_to_delete;
-            });
-        });
-    </script>
-}
-© 2019 GitHub, Inc.

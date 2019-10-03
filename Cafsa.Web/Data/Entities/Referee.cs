@@ -3,9 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Cafsa.Web.Data.Entities
 {
-    public class Referee
+    public class Referee : User
     {
-        public int Id { get; set; }
+       
 
         public User User { get; set; }
 

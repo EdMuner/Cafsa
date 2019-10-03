@@ -18,18 +18,20 @@ namespace Cafsa.Web.Controllers
     {
         private readonly DataContext _dataContext;
         private readonly IUserHelper _userHelper;
+        private readonly ICombosHelper _combosHelper;
 
 
 
         //Se le injecta el IUser helper para crear los User para crear los referees
         public RefereesController(
             DataContext datacontext,
-            IUserHelper userHelper
+            IUserHelper userHelper,
+            ICombosHelper combosHelper
           )
         {
             _dataContext = datacontext;
             _userHelper = userHelper;
-
+            _combosHelper = combosHelper;
         }
 
         // GET: Referees
@@ -89,10 +91,8 @@ namespace Cafsa.Web.Controllers
                         // le agrega al referee nuevo una lista de contratos para que al crearlo el campo no este vacio
                         Contracts = new List<Contract>(),
                         // le agrega al referee nuevo una lista de services para que al crearlo el campo no este vacio
-                        Services = new List<Service>(),
-
+                        Services = new List<Service>(),                   
                         User = user
-
                     };
                     //crea el referee en base de datos, guarda cambios y lo redirecciona al index y se puede loguear.
                     _dataContext.Referees.Add(referee);
@@ -212,5 +212,30 @@ namespace Cafsa.Web.Controllers
             return _dataContext.Referees.Any(e => e.Id == id);
         }
 
+
+        public async Task<IActionResult> AddReferee(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var referee = await _dataContext.Referees.FindAsync(id);
+            if (referee == null)
+            {
+                return NotFound();
+            }
+
+            var model = new RefereeViewModel
+            {
+           
+                RefereeTypes = _combosHelper.GetComboRefereeTypes()
+
+            };
+
+            return View(model);
+        }
+
+       
     }
 }
