@@ -89,8 +89,8 @@ namespace Cafsa.Web.Controllers
                         // le agrega al referee nuevo una lista de contratos para que al crearlo el campo no este vacio
                         Contracts = new List<Contract>(),
                         // le agrega al referee nuevo una lista de services para que al crearlo el campo no este vacio
-                        Services = new List<Service>(),
-
+                        Services = new List<Service>(),        
+                        
                         User = user
 
                     };
