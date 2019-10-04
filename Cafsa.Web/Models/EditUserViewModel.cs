@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Cafsa.Web.Models
 {
@@ -27,6 +29,11 @@ namespace Cafsa.Web.Models
         [Display(Name = "Phone")]
         [MaxLength(50, ErrorMessage = "The {0} field can not have more than {1} characters.")]
         public string Phone { get; set; }
+
+        [Display(Name = "Category")]
+        [MaxLength(50, ErrorMessage = "The {0} field can not have more than {1} characters.")]
+        public string Category { get; set; }
+
 
     }
 }

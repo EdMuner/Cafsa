@@ -27,54 +27,27 @@ namespace Cafsa.Web.Data
             await _context.Database.EnsureCreatedAsync();
             await CheckRoles();
 
-            var manager = await CheckUserAsync("71219843", "Edison", "Munera", "edisonmunera72@gmail.com", "314 836 28 49", "Calle 57 # 36-58", "Manager");
-            var client = await CheckUserAsync("43155023", "Aida", "Buitrago", "aidabuitrago@hotmail.com", "314 718 79 53", "Calle 57 # 36-49", "Referee");
-            var referee = await CheckUserAsync("15502341", "Alejandro", "Zapata", "alejozapata@gmail.com", "333 222 114 11", "Guarne parque", "client");
+            var manager = await CheckUserAsync("71219843", "Edison", "Munera", "edisonmunera72@gmail.com", "314 836 28 49", "Calle 57 # 36-58", "Primera", "Manager");
+            var client = await CheckUserAsync("43155023", "Aida", "Buitrago", "aidabuitrago@hotmail.com", "314 718 79 53", "Calle 57 # 36-49", "Segunda","Referee");
+            var referee = await CheckUserAsync("15502341", "Alejandro", "Zapata", "alejozapata@gmail.com", "333 222 114 11", "Guarne parque", "Oficial", "client");
 
             await CheckServiceTypesAsync();
-            await CheckRefereeTypesAsync();
-            //await CheckRefereesAsync(referee);
-            await CheckManagerAsync(manager);           
+            await CheckManagerAsync(manager);
+            await CheckRefereeAsync(referee);
             await CheckClientsAsync(client);
             await CheckServicesAsync();
             await CheckContractsAsync();
-        }
+      }
 
-        /*private async Task<User> CheckRefereesAsync(
-            string document,
-            string firstName,
-            string lastName,
-            string email,
-            string phone,
-            string address,
-            string refereeType)
+        private async Task CheckRefereeAsync(User user)
         {
-            var user = await _userHelper.GetUserByEmailAsync(email);
-            if (user == null)
+
+            if (!_context.Referees.Any())
             {
-                user = new User
-                {
-                    Document = document,
-                    FirstName = firstName,
-                    LastName = lastName,
-                    Email = email,
-                    UserName = email,
-                    Phone = phone,
-                    Address = address
-                };
-                await _userHelper.AddUserAsync(user, "123456");
-           
+                _context.Referees.Add(new Referee { User = user });
+                await _context.SaveChangesAsync();
             }
 
-        }*/
-
-       
-
-        private async Task CheckRefereeTypesAsync()
-        {
-            _context.RefereeTypes.Add(new RefereeType { Name = "Primera" });
-            _context.RefereeTypes.Add(new RefereeType { Name = "Segunda" });
-            await _context.SaveChangesAsync();
         }
 
         private async Task CheckContractsAsync()
@@ -91,7 +64,7 @@ namespace Cafsa.Web.Data
                     Referee = referee,
                     Address = "Franzea",
                     Price = 22000M,
-                    Service = service,                  
+                    Service = service,
                     Remarks = "Torneo Empresarial Fin de semana - Llegar 15 minutos antes." +
                    "Debes llevar las planillas e indicadores." +
                    "Juagador sin carnet no puede jugar."
@@ -117,6 +90,7 @@ namespace Cafsa.Web.Data
             string email,
             string phone,
             string address,
+            String category,
             string role)
         {
             var user = await _userHelper.GetUserByEmailAsync(email);
@@ -130,7 +104,8 @@ namespace Cafsa.Web.Data
                     Email = email,
                     UserName = email,
                     Phone = phone,
-                    Address = address
+                    Address = address,
+                    Category = category
                 };
 
                 await _userHelper.AddUserAsync(user, "123456");
@@ -138,6 +113,22 @@ namespace Cafsa.Web.Data
             }
 
             return user;
+        }
+
+        private async Task CheckRoles()
+        {
+            await _userHelper.CheckRoleAsync("Manager");
+            await _userHelper.CheckRoleAsync("Referee");
+            await _userHelper.CheckRoleAsync("Client");
+        }
+
+        private async Task CheckClientsAsync(User user)
+        {
+            if (!_context.Clients.Any())
+            {
+                _context.Clients.Add(new Client { User = user, ClientName = "Comfenalco" });
+                await _context.SaveChangesAsync();
+            }
         }
 
         private async Task CheckServicesAsync()
@@ -173,16 +164,6 @@ namespace Cafsa.Web.Data
             });
         }
 
-        private async Task CheckClientsAsync(User user)
-        {
-            if (!_context.Clients.Any())
-            {
-                _context.Clients.Add(new Client { User = user, ClientName = "Comfenalco" });
-                await _context.SaveChangesAsync();
-            }
-        }
-
-      
         private async Task CheckServiceTypesAsync()
         {
             if (!_context.ServiceTypes.Any())
@@ -194,13 +175,6 @@ namespace Cafsa.Web.Data
                 await _context.SaveChangesAsync();
             }
         }
-        private async Task CheckRoles()
-        {
-            await _userHelper.CheckRoleAsync("Manager");
-            await _userHelper.CheckRoleAsync("Referee");
-            await _userHelper.CheckRoleAsync("Client");
-        }
-
-
+       
     }
 }

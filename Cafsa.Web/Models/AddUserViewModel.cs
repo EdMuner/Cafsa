@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Cafsa.Web.Models
 {
@@ -9,17 +11,7 @@ namespace Cafsa.Web.Models
         [MaxLength(100, ErrorMessage = "The {0} field can not have more than {1} characters.")]
         [EmailAddress]
         public string Username { get; set; }
-
-        [Display(Name = "Document")]
-        [MaxLength(20, ErrorMessage = "The {0} field can not have more than {1} characters.")]
-        [Required(ErrorMessage = "The field {0} is mandatory.")]
-        public new string Document { get; set; }
-
-        [Display(Name = "Category")]
-        [MaxLength(50, ErrorMessage = "The {0} field can not have more than {1} characters.")]
-        [Required(ErrorMessage = "The field {0} is mandatory.")]
-        public string Category { get; set; }
-
+          
         [Display(Name = "Password")]
         [Required(ErrorMessage = "The field {0} is mandatory.")]
         [DataType(DataType.Password)]

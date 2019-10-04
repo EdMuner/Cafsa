@@ -18,17 +18,17 @@ namespace Cafsa.Web.Controllers
     {
         private readonly DataContext _dataContext;
         private readonly IUserHelper _userHelper;
-
-
+        private readonly ICombosHelper _combosHelper;
 
         //Se le injecta el IUser helper para crear los User para crear los referees
         public RefereesController(
             DataContext datacontext,
-            IUserHelper userHelper
-          )
+            IUserHelper userHelper,
+            ICombosHelper combosHelper)
         {
             _dataContext = datacontext;
             _userHelper = userHelper;
+            _combosHelper = combosHelper;
 
         }
 
@@ -78,25 +78,30 @@ namespace Cafsa.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(AddUserViewModel model)
-        {
+        {    
             if (ModelState.IsValid)
             {
                 var user = await CreateUserAsync(model);
+                
                 if (user != null)
                 {
-                    var referee = new Referee
+                    
+                   var referee = new Referee                
                     {
                         // le agrega al referee nuevo una lista de contratos para que al crearlo el campo no este vacio
                         Contracts = new List<Contract>(),
                         // le agrega al referee nuevo una lista de services para que al crearlo el campo no este vacio
-                        Services = new List<Service>(),        
-                        
+                        Services = new List<Service>(),  
+                   
                         User = user
 
-                    };
+                      };
+
                     //crea el referee en base de datos, guarda cambios y lo redirecciona al index y se puede loguear.
                     _dataContext.Referees.Add(referee);
+                   // RefereeType = _combosHelper.GetComboCategoryTypes();
                     await _dataContext.SaveChangesAsync();
+
                     return RedirectToAction("Index");
                 };
                 ModelState.AddModelError(string.Empty, "The user already exists in the corporation");
@@ -104,6 +109,7 @@ namespace Cafsa.Web.Controllers
             return View(model);
         }
 
+   
         //metodo para cvrear el usuario y retornarlo
         private async Task<User> CreateUserAsync(AddUserViewModel model)
         {
