@@ -35,6 +35,9 @@ namespace Cafsa.Web.Data.Entities
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public DateTime StartDateLocal => StartDate.ToLocalTime();
 
+        [Display(Name = "Remarks")]
+        public string Remarks { get; set; }
+
         public ServiceType ServiceType { get; set; }
 
         public Referee Referee { get; set; }
