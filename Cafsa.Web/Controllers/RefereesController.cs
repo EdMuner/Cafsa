@@ -18,18 +18,23 @@ namespace Cafsa.Web.Controllers
     {
         private readonly DataContext _dataContext;
         private readonly IUserHelper _userHelper;
+        private readonly ICombosHelper _combosHelper;
+        private readonly IConverterHelper _converterHelper;
 
 
 
         //Se le injecta el IUser helper para crear los User para crear los referees
         public RefereesController(
             DataContext datacontext,
-            IUserHelper userHelper
+            IUserHelper userHelper,
+            ICombosHelper combosHelper,
+            IConverterHelper converterHelper
           )
         {
             _dataContext = datacontext;
             _userHelper = userHelper;
-
+            _combosHelper = combosHelper;
+            _converterHelper = converterHelper;
         }
 
         // GET: Referees
@@ -232,5 +237,43 @@ namespace Cafsa.Web.Controllers
             return _dataContext.Referees.Any(e => e.Id == id);
         }
 
+        public async Task<IActionResult> AddService(int id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var referee = await _dataContext.Referees.FindAsync(id);
+            if (referee == null)
+            {
+                return NotFound();
+            }
+
+            var model = new ServiceViewModel
+            {
+                RefereeId = referee.Id,
+                ServiceTypes =  _combosHelper.GetComboServiceTypes()
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddService(ServiceViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                //creamos un nuevo metodo para transformar el modelo y se lo enviamos al ConverterHelper para que lo cambie.
+                var service = await _converterHelper.ToServiceAsync(model, true);
+                //Creamos el sevicio en la DB
+                _dataContext.Services.Add(service);
+                //utilizamos el metodo para guardar los cambios
+                await _dataContext.SaveChangesAsync();
+                return RedirectToAction($"Details/{model.RefereeId}");
+
+            }
+            return View(model);
+        }     
     }  
 }

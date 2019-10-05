@@ -118,9 +118,9 @@ namespace Cafsa.Web.Data
             var serviceType = _context.ServiceTypes.FirstOrDefault();
             if (!_context.Services.Any())
             {
-                addService("Poblado", "Calle 43 #23 32", 22000M, Referee, serviceType);
-                addService("Poblado", "Calle 43 #23 32", 22000M, Referee, serviceType);
-                addService("Poblado", "Calle 43 #23 32", 22000M, Referee, serviceType);
+                addService("Poblado", "Calle 43 #23 32", 22000M, Referee, serviceType, "Torneo pirata Fin de semana - Llegar 15 minutos antes.");               
+                addService("Poblado", "Calle 43 #23 32", 22000M, Referee, serviceType, "Torneo legal Fin de semana - Llegar 15 minutos antes.");
+                addService("Poblado", "Calle 43 #23 32", 22000M, Referee, serviceType, "Torneo alcaldia Fin de semana - Llegar 15 minutos antes.");
                 await _context.SaveChangesAsync();
 
             }
@@ -130,9 +130,10 @@ namespace Cafsa.Web.Data
 
             string neighborhood,
             string address,
-            decimal price,
+            decimal price,          
             Referee referee,
-            ServiceType serviceType)
+            ServiceType serviceType,
+            string remarks)
         {
             _context.Services.Add(new Service
             {
@@ -142,6 +143,7 @@ namespace Cafsa.Web.Data
                 Price = price,
                 Referee = referee,
                 ServiceType = serviceType,
+                Remarks = remarks
             });
         }
 
@@ -159,9 +161,10 @@ namespace Cafsa.Web.Data
         {
             if (!_context.ServiceTypes.Any())
             {
-                _context.ServiceTypes.Add(new ServiceType { Name = "Referee_1" });
-                _context.ServiceTypes.Add(new ServiceType { Name = "Referee_2" });
+                _context.ServiceTypes.Add(new ServiceType { Name = "One Referee" });
+                _context.ServiceTypes.Add(new ServiceType { Name = "Two Referee" });
                 _context.ServiceTypes.Add(new ServiceType { Name = "Anotador" });
+                _context.ServiceTypes.Add(new ServiceType { Name = "TimeKeeper" });
                 _context.ServiceTypes.Add(new ServiceType { Name = "Instructor" });
                 await _context.SaveChangesAsync();
             }
