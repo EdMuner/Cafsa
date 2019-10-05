@@ -89,8 +89,8 @@ namespace Cafsa.Web.Controllers
                         // le agrega al referee nuevo una lista de contratos para que al crearlo el campo no este vacio
                         Contracts = new List<Contract>(),
                         // le agrega al referee nuevo una lista de services para que al crearlo el campo no este vacio
-                        Services = new List<Service>(),
-
+                        Services = new List<Service>(),        
+                        
                         User = user
 
                     };
@@ -114,7 +114,7 @@ namespace Cafsa.Web.Controllers
                 LastName = model.LastName,
                 Email = model.Username,
                 Address = model.Address,
-                Phone = model.Phone,
+                PhoneNumber = model.phoneNumber,
                 UserName = model.Username
             };
             var result = await _userHelper.AddUserAsync(user, model.Password);

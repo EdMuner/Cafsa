@@ -24,9 +24,9 @@ namespace Cafsa.Web.Models
         [MaxLength(100, ErrorMessage = "The {0} field can not have more than {1} characters.")]
         public string Address { get; set; }
 
-        [Display(Name = "Phone")]
+        [Display(Name = "Phone Number")]
         [MaxLength(50, ErrorMessage = "The {0} field can not have more than {1} characters.")]
-        public string Phone { get; set; }
+        public string PhoneNumber { get; set; }
 
     }
 }

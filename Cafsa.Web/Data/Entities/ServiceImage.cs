@@ -19,7 +19,7 @@ namespace Cafsa.Web.Data.Entities
         // TODO: Change the path when publish
         public string ImageFullPath => String.IsNullOrEmpty(ImageUrl)
             ? null
-            : $"https://myleasingmunera.azurewebsites.net{ImageUrl.Substring(1)}";
+            : $"https://cafsa.azurewebsites.net{ImageUrl.Substring(1)}";
 
         public Service Service { get; set; }
 
