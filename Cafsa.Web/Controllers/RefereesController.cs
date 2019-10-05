@@ -114,7 +114,7 @@ namespace Cafsa.Web.Controllers
                 LastName = model.LastName,
                 Email = model.Username,
                 Address = model.Address,
-                PhoneNumber = model.phoneNumber,
+                PhoneNumber = model.PhoneNumber,
                 UserName = model.Username
             };
             var result = await _userHelper.AddUserAsync(user, model.Password);
