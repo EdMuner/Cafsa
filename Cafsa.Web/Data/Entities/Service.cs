@@ -35,14 +35,15 @@ namespace Cafsa.Web.Data.Entities
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public DateTime StartDateLocal => StartDate.ToLocalTime();
 
-
-        public ServiceType ServiceType { get; set; } 
+        public ServiceType ServiceType { get; set; }
 
         public Referee Referee { get; set; }
 
+        public ICollection<ServiceImage> ServiceImages { get; set; }
+
         public ICollection<Contract> Contracts { get; set; }
 
-        public ICollection<ServiceImage> ServiceImages { get; set; }
+       
 
     }
 }

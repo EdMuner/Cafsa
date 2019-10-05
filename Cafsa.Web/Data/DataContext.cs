@@ -29,7 +29,6 @@ namespace Cafsa.Web.Data
         public DbSet<ServiceImage> ServiceImages { get; set; }
 
         public DbSet<ServiceType> ServiceTypes { get; set; }
-
-        public DbSet<RefereeType> RefereeTypes { get; set; }
+     
     }
 }

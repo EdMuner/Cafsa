@@ -8,10 +8,7 @@ namespace Cafsa.Web.Data.Entities
         public int Id { get; set; }
 
         public User User { get; set; }
-
-       public RefereeType RefereeType { get; set; }
-
-
+     
         public ICollection<Service> Services { get; set; }
 
         public ICollection<Contract> Contracts { get; set; }
