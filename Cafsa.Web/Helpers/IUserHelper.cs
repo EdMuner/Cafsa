@@ -17,9 +17,13 @@ namespace Cafsa.Web.Helpers
 
         Task<bool> IsUserInRoleAsync(User user, string roleName);
 
-        Task<SignInResult> LoginAsync(LoginViewModel model);
+        Task<SignInResult> LoginAsync(LoginViewModel model); 
+
+        Task<IdentityResult> UpdateUserAsync(User user);
 
         Task LogoutAsync();
 
+        Task<bool> DeleteUserAsync(string email);
+       
     }
 }

@@ -74,7 +74,6 @@ namespace Cafsa.Web.Controllers
         }
 
 
-        //Metodo que crea el referee      
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(AddUserViewModel model)
@@ -86,38 +85,39 @@ namespace Cafsa.Web.Controllers
                 {
                     var referee = new Referee
                     {
-                        // le agrega al referee nuevo una lista de contratos para que al crearlo el campo no este vacio
                         Contracts = new List<Contract>(),
-                        // le agrega al referee nuevo una lista de services para que al crearlo el campo no este vacio
-                        Services = new List<Service>(),        
-                        
+                        Services = new List<Service>(),
                         User = user
 
                     };
-                    //crea el referee en base de datos, guarda cambios y lo redirecciona al index y se puede loguear.
+
                     _dataContext.Referees.Add(referee);
                     await _dataContext.SaveChangesAsync();
                     return RedirectToAction("Index");
-                };
-                ModelState.AddModelError(string.Empty, "The user already exists in the corporation");
-            };
+
+                }
+
+                ModelState.AddModelError(String.Empty, "User with this email already exist");
+            }
             return View(model);
         }
 
-        //metodo para cvrear el usuario y retornarlo
         private async Task<User> CreateUserAsync(AddUserViewModel model)
         {
             var user = new User
             {
-                Document = model.Document,
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                Email = model.Username,
                 Address = model.Address,
+                Document = model.Document,
+                Email = model.Username,
+                FirstName = model.FirstName,
+                Category = model.Category,
+                LastName = model.LastName,
                 PhoneNumber = model.PhoneNumber,
                 UserName = model.Username
             };
+
             var result = await _userHelper.AddUserAsync(user, model.Password);
+
             if (result.Succeeded)
             {
                 user = await _userHelper.GetUserByEmailAsync(model.Username);
@@ -125,7 +125,10 @@ namespace Cafsa.Web.Controllers
                 return user;
             }
             return null;
+
         }
+
+
 
         // GET: Referees/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -135,12 +138,27 @@ namespace Cafsa.Web.Controllers
                 return NotFound();
             }
 
-            var referee = await _dataContext.Referees.FindAsync(id);
-            if (referee == null)
+            var owner = await _dataContext.Referees
+                .Include(o => o.User)
+                .FirstOrDefaultAsync(o => o.Id == id.Value);
+            if (owner == null)
             {
                 return NotFound();
             }
-            return View(referee);
+
+            var view = new EditUserViewModel
+            {
+                Address = owner.User.Address,
+                Document = owner.User.Document,
+                FirstName = owner.User.FirstName,
+                Id = owner.Id,
+                LastName = owner.User.LastName,
+                Category = owner.User.Category,
+                PhoneNumber = owner.User.PhoneNumber
+
+            };
+
+            return View(view);
         }
 
         // POST: Referees/Edit/5
@@ -148,34 +166,25 @@ namespace Cafsa.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Category")] Referee referee)
+        public async Task<IActionResult> Edit(EditUserViewModel view)
         {
-            if (id != referee.Id)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _dataContext.Update(referee);
-                    await _dataContext.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!RefereeExists(referee.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                var referee = await _dataContext.Referees
+                      .Include(o => o.User)
+                      .FirstOrDefaultAsync(o => o.Id == view.Id);
+
+                referee.User.Document = view.Document;
+                referee.User.FirstName = view.FirstName;
+                referee.User.LastName = view.LastName;
+                referee.User.Category = view.Category;
+                referee.User.Address = view.Address;
+                referee.User.PhoneNumber = view.PhoneNumber;
+
+                await _userHelper.UpdateUserAsync(referee.User);
                 return RedirectToAction(nameof(Index));
             }
-            return View(referee);
+            return View(view);
         }
 
         // GET: Referees/Delete/5
@@ -187,13 +196,24 @@ namespace Cafsa.Web.Controllers
             }
 
             var referee = await _dataContext.Referees
+                .Include(o => o.User)
+                .Include(o => o.Services)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (referee == null)
             {
                 return NotFound();
             }
 
-            return View(referee);
+            if (referee.Services.Count != 0)
+            {
+                ModelState.AddModelError(string.Empty, "Owner can't be delete because it has properties.");
+                return RedirectToAction(nameof(Index));
+            }
+
+            _dataContext.Referees.Remove(referee);
+            await _dataContext.SaveChangesAsync();
+            await _userHelper.DeleteUserAsync(referee.User.Email);
+            return RedirectToAction(nameof(Index));
         }
 
         // POST: Referees/Delete/5
@@ -212,5 +232,5 @@ namespace Cafsa.Web.Controllers
             return _dataContext.Referees.Any(e => e.Id == id);
         }
 
-    }
+    }  
 }

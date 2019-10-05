@@ -54,3 +54,89 @@
     <a asp-action="Index" class="btn btn-success">Back to List</a>
 </div>
 
+@if (Model.Services.Count == 0)
+{
+    <h5>Not services added yet.</h5>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Services.FirstOrDefault().Neighborhood)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Services.FirstOrDefault().Address)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Services.FirstOrDefault().Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Services.FirstOrDefault().StartDateLocal)
+                </th>             
+                <th>
+                    Images
+                </th>
+                <th>
+                    Contracts
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Services)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Neighborhood)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Address)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartDateLocal)
+                    </td>                
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ServiceImages.Count)
+                    </td>                
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Contracts.Count)
+                    </td>
+
+                    <td>
+                        <a asp-action="EditService" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
+                        <a asp-action="DetailsService" asp-route-id="@item.Id" class="btn btn-info">Details</a>
+                        <button data-id="@item.Id" class="btn btn-danger deleteItem" data-toggle="modal" data-target="#deleteDialog">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<partial name="_DeleteDialog" />
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Delete item
+            var item_to_delete;
+
+            $('.deleteItem').click((e) => {
+                item_to_delete = e.currentTarget.dataset.id;
+            });
+
+            $("#btnYesDelete").click(function () {
+                window.location.href = '/Owners/DeleteProperty/' + item_to_delete;
+            });
+        });
+    </script>
+}
+
+

@@ -40,8 +40,11 @@ namespace Cafsa.Web.Data
 
         private async Task CheckRefereeAsync(User user)
         {
-            _context.Referees.Add(new Referee { User = user });
-            await _context.SaveChangesAsync();
+            if (!_context.Referees.Any())
+            {
+                _context.Referees.Add(new Referee { User = user });
+                await _context.SaveChangesAsync();
+            }
         }
 
         private async Task CheckContractsAsync()
