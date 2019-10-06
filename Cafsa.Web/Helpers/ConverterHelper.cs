@@ -11,10 +11,14 @@ namespace Cafsa.Web.Helpers
     public class ConverterHelper : IConverterHelper
     {
         private readonly DataContext _dataContext;
+        private readonly ICombosHelper _combosHelper;
 
-        public ConverterHelper(DataContext dataContext)
+        public ConverterHelper(
+            DataContext dataContext,
+            ICombosHelper combosHelper)
         {
             _dataContext = dataContext;
+            _combosHelper = combosHelper;
         }
 
         //metodo que recibe una ServiceViewModel y devuelve un Service
@@ -36,6 +40,27 @@ namespace Cafsa.Web.Helpers
                 Remarks = model.Remarks,
                 StartDate = model.StartDateLocal
 
+
+            };
+        }
+
+        public ServiceViewModel ToServiceViewModel(Service service)
+        {
+            return new ServiceViewModel
+            {
+                Address = service.Address,            
+                Contracts = service.Contracts,             
+                Id = service.Id,
+                Neighborhood = service.Neighborhood,
+                Referee = service.Referee,
+                Price = service.Price,
+                ServiceImages = service.ServiceImages,
+                ServiceType = service.ServiceType,
+                Remarks = service.Remarks,
+                StartDate = service.StartDateLocal,
+                RefereeId = service.Referee.Id,
+                ServiceTypeId = service.ServiceType.Id,
+                ServiceTypes = _combosHelper.GetComboServiceTypes()
 
             };
         }

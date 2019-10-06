@@ -143,23 +143,24 @@ namespace Cafsa.Web.Controllers
                 return NotFound();
             }
 
-            var owner = await _dataContext.Referees
+
+            var referee = await _dataContext.Referees
                 .Include(o => o.User)
                 .FirstOrDefaultAsync(o => o.Id == id.Value);
-            if (owner == null)
+            if (referee == null)
             {
                 return NotFound();
             }
 
             var view = new EditUserViewModel
             {
-                Address = owner.User.Address,
-                Document = owner.User.Document,
-                FirstName = owner.User.FirstName,
-                Id = owner.Id,
-                LastName = owner.User.LastName,
-                Category = owner.User.Category,
-                PhoneNumber = owner.User.PhoneNumber
+                Address = referee.User.Address,
+                Document = referee.User.Document,
+                FirstName = referee.User.FirstName,
+                Id = referee.Id,
+                LastName = referee.User.LastName,
+                Category = referee.User.Category,
+                PhoneNumber = referee.User.PhoneNumber
 
             };
 
@@ -237,7 +238,7 @@ namespace Cafsa.Web.Controllers
             return _dataContext.Referees.Any(e => e.Id == id);
         }
 
-        public async Task<IActionResult> AddService(int id)
+        public async Task<IActionResult> AddService(int? id)
         {
             if (id == null)
             {
@@ -274,6 +275,44 @@ namespace Cafsa.Web.Controllers
 
             }
             return View(model);
-        }     
-    }  
+        }
+
+        public async Task<IActionResult> EditService(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var service = await _dataContext.Services
+                .Include(p => p.Referee)
+                .Include(p => p.ServiceType)
+                .FirstOrDefaultAsync(p => p.Id == id);
+            if (service == null)
+            {
+                return NotFound();
+            }
+
+            var model = _converterHelper.ToServiceViewModel(service);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditService(ServiceViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var service = await _converterHelper.ToServiceAsync(model, false);
+                _dataContext.Services.Update(service);
+                await _dataContext.SaveChangesAsync();
+                return RedirectToAction($"Details/{model.RefereeId}");
+            }
+            return View(model);
+        }
+
+
+
+
+    }
 }
