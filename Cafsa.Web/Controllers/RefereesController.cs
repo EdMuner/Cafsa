@@ -20,6 +20,7 @@ namespace Cafsa.Web.Controllers
         private readonly IUserHelper _userHelper;
         private readonly ICombosHelper _combosHelper;
         private readonly IConverterHelper _converterHelper;
+        private readonly IImageHelper _imageHelper;
 
 
 
@@ -28,13 +29,15 @@ namespace Cafsa.Web.Controllers
             DataContext datacontext,
             IUserHelper userHelper,
             ICombosHelper combosHelper,
-            IConverterHelper converterHelper
+            IConverterHelper converterHelper,
+            IImageHelper imageHelper
           )
         {
             _dataContext = datacontext;
             _userHelper = userHelper;
             _combosHelper = combosHelper;
             _converterHelper = converterHelper;
+            _imageHelper = imageHelper;
         }
 
         // GET: Referees
@@ -311,7 +314,78 @@ namespace Cafsa.Web.Controllers
             return View(model);
         }
 
+        public async Task<IActionResult> DetailsService(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            var property = await _dataContext.Services
+                .Include(o => o.Referee)
+                .ThenInclude(o => o.User)
+                .Include(o => o.Contracts)
+                .ThenInclude(c => c.Client)
+                .ThenInclude(l => l.User)
+                .Include(o => o.ServiceType)
+                .Include(p => p.ServiceImages)
+                .FirstOrDefaultAsync(s => s.Id == id);
+            if (property == null)
+            {
+                return NotFound();
+            }
+
+            return View(property);
+        }
+
+        //aqui se recibe el Id de la propiedad que se le va a agregar la image
+        public async Task<IActionResult> AddImage(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var service = await _dataContext.Services.FindAsync(id.Value);
+            if (service == null)
+            {
+                return NotFound();
+            }
+
+            var model = new ServiceImageViewModel
+            {
+                Id = service.Id
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddImage(ServiceImageViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var path = string.Empty;
+
+                //se valida lo que envio IFormFile
+                if (model.ImageFile != null)
+                {
+                    path = await _imageHelper.UploadImageAsync(model.ImageFile);
+                }
+
+                var serviceImage = new ServiceImage
+                {
+                    ImageUrl = path,
+                    Service = await _dataContext.Services.FindAsync(model.Id)
+                };
+
+                _dataContext.ServiceImages.Add(serviceImage);
+                await _dataContext.SaveChangesAsync();
+                return RedirectToAction($"{nameof(DetailsService)}/{model.Id}");
+            }
+
+            return View(model);
+        }
 
 
     }
