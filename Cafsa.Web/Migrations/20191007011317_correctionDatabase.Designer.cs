@@ -4,14 +4,16 @@ using Cafsa.Web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Cafsa.Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20191007011317_correctionDatabase")]
+    partial class correctionDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,6 +50,10 @@ namespace Cafsa.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
                     b.Property<int?>("ClientId");
 
                     b.Property<bool>("IsActive");
@@ -56,11 +62,15 @@ namespace Cafsa.Web.Migrations
 
                     b.Property<string>("Remarks");
 
+                    b.Property<int?>("ServiceId");
+
                     b.Property<DateTime>("StartDate");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ClientId");
+
+                    b.HasIndex("ServiceId");
 
                     b.ToTable("Contracts");
                 });
@@ -345,7 +355,7 @@ namespace Cafsa.Web.Migrations
 
             modelBuilder.Entity("Cafsa.Web.Data.Entities.Client", b =>
                 {
-                    b.HasOne("Cafsa.Web.Data.Entities.Referee")
+                    b.HasOne("Cafsa.Web.Data.Entities.Referee", "Referee")
                         .WithMany("Clients")
                         .HasForeignKey("RefereeId");
 
@@ -359,6 +369,10 @@ namespace Cafsa.Web.Migrations
                     b.HasOne("Cafsa.Web.Data.Entities.Client", "Client")
                         .WithMany("Contracts")
                         .HasForeignKey("ClientId");
+
+                    b.HasOne("Cafsa.Web.Data.Entities.Service", "Service")
+                        .WithMany()
+                        .HasForeignKey("ServiceId");
                 });
 
             modelBuilder.Entity("Cafsa.Web.Data.Entities.Manager", b =>

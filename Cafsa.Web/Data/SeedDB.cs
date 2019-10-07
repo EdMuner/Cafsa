@@ -10,6 +10,7 @@ namespace Cafsa.Web.Data
     {
         private readonly DataContext _context;
         private readonly IUserHelper _userHelper;
+       
 
         public SeedDb(
             DataContext context,
@@ -27,8 +28,8 @@ namespace Cafsa.Web.Data
             await CheckRoles();
 
             var manager = await CheckUserAsync("71219843", "Edison", "Munera", "edisonmunera72@gmail.com", "314 836 28 49", "Calle 57 # 36-58", "Primera", "Manager");
-            var client = await CheckUserAsync("43155023", "Aida", "Buitrago", "aidabuitrago@hotmail.com", "314 718 79 53", "Calle 57 # 36-49", "Segunda", "Referee");
-            var referee = await CheckUserAsync("15502341", "Alejandro", "Zapata", "alejozapata@gmail.com", "333 222 114 11", "Guarne parque", "Oficial", "client");
+            var client = await CheckUserAsync("43155023", "Comfenalco", "Guayabal", "aidabuitrago@hotmail.com", "314 718 79 53", "Calle 57 # 36-49", "Segunda", "Client");
+            var referee = await CheckUserAsync("15502341", "Alejandro", "Zapata", "alejozapata@gmail.com", "333 222 114 11", "Guarne parque", "Oficial", "Referee");
 
             await CheckServiceTypesAsync();
             await CheckManagerAsync(manager);
@@ -49,19 +50,15 @@ namespace Cafsa.Web.Data
 
         private async Task CheckContractsAsync()
         {
-            var referee = _context.Referees.FirstOrDefault();
-            var client = _context.Clients.FirstOrDefault();
-            var service = _context.Services.FirstOrDefault();
+          
+            var client = _context.Clients.FirstOrDefault();         
             if (!_context.Contracts.Any())
             {
                 _context.Contracts.Add(new Contract
                 {
                     StartDate = DateTime.Today,
-                    Client = client,
-                    Referee = referee,
-                    Address = "Franzea",
-                    Price = 22000M,
-                    Service = service,
+                    Client = client,                                     
+                    Price = 22000M,                  
                     Remarks = "Torneo Empresarial Fin de semana - Llegar 15 minutos antes." +
                    "Debes llevar las planillas e indicadores." +
                    "Juagador sin carnet no puede jugar."
@@ -114,24 +111,25 @@ namespace Cafsa.Web.Data
 
         private async Task CheckServicesAsync()
         {
-            var Referee = _context.Referees.FirstOrDefault();
+            var referee = _context.Referees.FirstOrDefault();
             var serviceType = _context.ServiceTypes.FirstOrDefault();
+            var client = _context.Clients.FirstOrDefault();
             if (!_context.Services.Any())
             {
-                addService("Poblado", "Calle 43 #23 32", 22000M, Referee, serviceType, "Torneo pirata Fin de semana - Llegar 15 minutos antes.");               
-                addService("Poblado", "Calle 43 #23 32", 22000M, Referee, serviceType, "Torneo legal Fin de semana - Llegar 15 minutos antes.");
-                addService("Poblado", "Calle 43 #23 32", 22000M, Referee, serviceType, "Torneo alcaldia Fin de semana - Llegar 15 minutos antes.");
+                addService("Poblado", "Calle 43 #25 22", 22000M, referee, client, serviceType, "Torneo pirata Fin de semana - Llegar 15 minutos antes.");               
+                addService("Poblado", "Calle 23 #27 82", 22000M, referee, client, serviceType, "Torneo legal Fin de semana - Llegar 15 minutos antes.");
+                addService("Poblado", "Calle 13 #29 2", 22000M, referee, client, serviceType, "Torneo alcaldia Fin de semana - Llegar 15 minutos antes.");
                 await _context.SaveChangesAsync();
 
             }
         }
 
         private void addService(
-
             string neighborhood,
             string address,
             decimal price,          
             Referee referee,
+            Client client,
             ServiceType serviceType,
             string remarks)
         {
@@ -142,6 +140,7 @@ namespace Cafsa.Web.Data
                 Address = address,
                 Price = price,
                 Referee = referee,
+                Client = client,
                 ServiceType = serviceType,
                 Remarks = remarks
             });
@@ -151,7 +150,8 @@ namespace Cafsa.Web.Data
         {
             if (!_context.Clients.Any())
             {
-                _context.Clients.Add(new Client { User = user });
+                _context.Clients.Add(new Client { User = user });    
+                
                 await _context.SaveChangesAsync();
             }
         }

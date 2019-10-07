@@ -56,6 +56,12 @@
             <hr />
             <dl class="dl-horizontal">
                 <dt>
+                    @Html.DisplayNameFor(model => model.Client)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Client)
+                </dd>
+                <dt>
                     @Html.DisplayNameFor(model => model.Neighborhood)
                 </dt>
                 <dd>
@@ -78,12 +84,6 @@
                 </dt>
                 <dd>
                     @Html.DisplayFor(model => model.StartDateLocal)
-                </dd>              
-                <dt>
-                    Contracts
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Contracts.Count)
                 </dd>
             </dl>
         </div>
@@ -134,99 +134,6 @@
             }
         </div>
     </div>
-    <div class="col-md-9">
-        <div>
-            <h4>Contracts</h4>
-            @if (Model.Contracts.Count == 0)
-            {
-                <h5>Not contracts added yet.</h5>
-            }
-            else
-            {
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>
-                                Client
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Contracts.FirstOrDefault().Remarks)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Contracts.FirstOrDefault().Price)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Contracts.FirstOrDefault().StartDate)
-                            </th>                     
-                            <th>
-                                @Html.DisplayNameFor(model => model.Contracts.FirstOrDefault().IsActive)
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model.Contracts)
-                        {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Client.User.FullNameWithDocument)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Remarks)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Price)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.StartDateLocal)
-                                </td>                             
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.IsActive)
-                                </td>
-                                <td>
-                                    <a asp-action="EditContract" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
-                                    <a asp-action="DetailsContract" asp-route-id="@item.Id" class="btn btn-info">Details</a>
-                                    <button data-id="@item.Id" class="btn btn-danger deleteContract" data-toggle="modal" data-target="#deleteDialog">Delete</button>
-
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-
-            }
-        </div>
-    </div>
+    
 </div>
 
-
-<partial name="_DeleteDialog" />
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-
-    <script type="text/javascript">
-    	$(document).ready(function () {
-        	// Delete item
-        	var item_to_delete;
-        	var action_to_delete;
-
-        	$('.deleteImage').click((e) => {
-            	item_to_delete = e.currentTarget.dataset.id;
-            	action_to_delete = 1;
-        	});
-
-        	$('.deleteContract').click((e) => {
-            	item_to_delete = e.currentTarget.dataset.id;
-            	action_to_delete = 2;
-        	});
-
-        	$("#btnYesDelete").click(function () {
-            	if (action_to_delete == 1) {
-                	window.location.href = '/Owners/DeleteImage/' + item_to_delete;
-            	} else {
-                	window.location.href = '/Owners/DeleteContract/' + item_to_delete;
-            	}
-        	});
-    	});
-    </script>
-}

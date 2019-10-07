@@ -13,6 +13,19 @@
         <form asp-action="AddService">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="RefereeId" />
+            <input type="hidden" asp-for="ClientId" />
+
+            <div class="form-group">
+                <label asp-for="ServiceTypeId" class="control-label"></label>
+                <select asp-for="ServiceTypeId" asp-items="Model.ServiceTypes" class="form-control"></select>
+                <span asp-validation-for="ServiceTypeId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ClientId" class="control-label"></label>
+                <select asp-for="ClientId" asp-items="Model.Clients" class="form-control"></select>
+                <span asp-validation-for="ClientId" class="text-danger"></span>
+            </div>
 
             <div class="form-group">
                 <label asp-for="Neighborhood" class="control-label"></label>
@@ -39,12 +52,6 @@
             </div>
 
             <div class="form-group">
-                <label asp-for="ServiceTypeId" class="control-label"></label>
-                <select asp-for="ServiceTypeId" asp-items="Model.ServiceTypes" class="form-control"></select> 
-                <span asp-validation-for="ServiceTypeId" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
                 <label asp-for="Remarks" class="control-label"></label>
                 <textarea asp-for="Remarks" class="form-control"></textarea>
                 <span asp-validation-for="Remarks" class="text-danger"></span>
@@ -54,7 +61,6 @@
                 <input type="submit" value="Create" class="btn btn-primary" />
                 <a asp-action="Details" asp-route-id="@Model.RefereeId" class="btn btn-success">Back to Referee</a>
             </div>
-
         </form>
     </div>
 </div>

@@ -42,9 +42,11 @@ namespace Cafsa.Web.Data.Entities
 
         public Referee Referee { get; set; }
 
+        public Client Client { get; set; }
+
         public ICollection<ServiceImage> ServiceImages { get; set; }
 
-        public ICollection<Contract> Contracts { get; set; }
+      
 
        
 

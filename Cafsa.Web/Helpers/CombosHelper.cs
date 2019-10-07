@@ -16,6 +16,26 @@ namespace Cafsa.Web.Helpers
             _dataContext = dataContext;
         }
 
+        public IEnumerable<SelectListItem> GetComboClients()
+        {
+            //list campo text y value
+            var list = _dataContext.Clients.Select(cl => new SelectListItem
+            {
+                 Text = cl.User.FullNameWithDocument,
+                //se comvierte a String con interpolacion
+                Value = $"{cl.Id}"
+            })
+                .OrderBy(cl => cl.Text)
+                .ToList();
+
+            list.Insert(0, new SelectListItem
+            {
+                Text = "Select a Client..."
+            });
+
+            return list;
+        }
+
         //Metodo para crear el combo de service type
         public IEnumerable<SelectListItem> GetComboServiceTypes()
         {

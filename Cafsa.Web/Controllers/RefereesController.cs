@@ -47,8 +47,7 @@ namespace Cafsa.Web.Controllers
             //No hay que materializar l alista con el Tolist()
             return View(_dataContext.Referees
                 .Include(r => r.User)
-                .Include(r => r.Services)
-                .Include(r => r.Contracts));//No materializa la lista y le digo que me incluya los usuarios, en otras palabras busqueme los referees e inclullame lo usuarios
+                .Include(r => r.Services));
         }
 
         // GET: Referees/Details/5
@@ -62,10 +61,7 @@ namespace Cafsa.Web.Controllers
             var referee = await _dataContext.Referees
                 .Include(r => r.User)
                 .Include(r => r.Services)
-                .ThenInclude(s => s.ServiceImages)
-                .Include(r => r.Contracts)
-                .ThenInclude(c => c.Client)
-                .ThenInclude(r => r.User)
+                .ThenInclude(s => s.ServiceImages)                  
                 .FirstOrDefaultAsync(r => r.Id == id);
             if (referee == null)
             {
@@ -92,8 +88,7 @@ namespace Cafsa.Web.Controllers
                 if (user != null)
                 {
                     var referee = new Referee
-                    {
-                        Contracts = new List<Contract>(),
+                    {                     
                         Services = new List<Service>(),
                         User = user
 
@@ -257,7 +252,9 @@ namespace Cafsa.Web.Controllers
             var model = new ServiceViewModel
             {
                 RefereeId = referee.Id,
-                ServiceTypes =  _combosHelper.GetComboServiceTypes()
+                ServiceTypes =  _combosHelper.GetComboServiceTypes(),
+                Clients = _combosHelper.GetComboClients()
+                
             };
 
             return View(model);
@@ -277,6 +274,7 @@ namespace Cafsa.Web.Controllers
                 return RedirectToAction($"Details/{model.RefereeId}");
 
             }
+            model.Clients = _combosHelper.GetComboClients();
             return View(model);
         }
 
@@ -289,6 +287,7 @@ namespace Cafsa.Web.Controllers
 
             var service = await _dataContext.Services
                 .Include(p => p.Referee)
+                .Include(c => c.Client)
                 .Include(p => p.ServiceType)
                 .FirstOrDefaultAsync(p => p.Id == id);
             if (service == null)
@@ -321,21 +320,20 @@ namespace Cafsa.Web.Controllers
                 return NotFound();
             }
 
-            var property = await _dataContext.Services
+            var service = await _dataContext.Services
                 .Include(o => o.Referee)
-                .ThenInclude(o => o.User)
-                .Include(o => o.Contracts)
-                .ThenInclude(c => c.Client)
-                .ThenInclude(l => l.User)
+                .ThenInclude(o => o.User) 
+                .Include(o => o.Client)
+                .ThenInclude(o => o.Contracts)
                 .Include(o => o.ServiceType)
                 .Include(p => p.ServiceImages)
                 .FirstOrDefaultAsync(s => s.Id == id);
-            if (property == null)
+            if (service == null)
             {
                 return NotFound();
             }
 
-            return View(property);
+            return View(service);
         }
 
         //aqui se recibe el Id de la propiedad que se le va a agregar la image
@@ -386,6 +384,8 @@ namespace Cafsa.Web.Controllers
 
             return View(model);
         }
+
+       
 
 
     }
