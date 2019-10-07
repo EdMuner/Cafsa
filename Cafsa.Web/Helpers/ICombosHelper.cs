@@ -6,5 +6,7 @@ namespace Cafsa.Web.Helpers
     public interface ICombosHelper
     {
         IEnumerable<SelectListItem> GetComboServiceTypes();
+
+        IEnumerable<SelectListItem> GetComboClients();
     }
 }

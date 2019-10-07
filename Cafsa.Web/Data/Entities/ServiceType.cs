@@ -22,6 +22,7 @@ namespace Cafsa.Web.Data.Entities
         public string Name { get; set; }
         
         public ICollection<Service> Services { get; set; }
+
     }
 }
 

@@ -78,10 +78,6 @@ else
                 <th>
                     Images
                 </th>
-                <th>
-                    Contracts
-                </th>
-
             </tr>
         </thead>
         <tbody>
@@ -103,10 +99,6 @@ else
                     <td>
                         @Html.DisplayFor(modelItem => item.ServiceImages.Count)
                     </td>                
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Contracts.Count)
-                    </td>
-
                     <td>
                         <a asp-action="EditService" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
                         <a asp-action="DetailsService" asp-route-id="@item.Id" class="btn btn-info">Details</a>

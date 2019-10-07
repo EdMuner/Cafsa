@@ -11,7 +11,7 @@ namespace Cafsa.Web.Data.Entities
      
         public ICollection<Service> Services { get; set; }
 
-        public ICollection<Contract> Contracts { get; set; }
+        public ICollection<Client> Clients { get; set; }
      
 
     }

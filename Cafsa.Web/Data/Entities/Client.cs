@@ -10,7 +10,9 @@ namespace Cafsa.Web.Data.Entities
         public User User { get; set; }
 
         public ICollection<Contract> Contracts { get; set; }
-       
+
+        public ICollection<Service> Services { get; set; }
+
     }
 }
 
