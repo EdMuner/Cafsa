@@ -1,10 +1,10 @@
-﻿@model Cafsa.Web.Data.Entities.Service
+﻿@model Cafsa.Web.Data.Entities.Activity
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h2>Service</h2>
+<h2>Activity</h2>
 <div class="row">
     <div class="col-md-6">
         <div>
@@ -56,12 +56,6 @@
             <hr />
             <dl class="dl-horizontal">
                 <dt>
-                    @Html.DisplayNameFor(model => model.Client)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Client)
-                </dd>
-                <dt>
                     @Html.DisplayNameFor(model => model.Neighborhood)
                 </dt>
                 <dd>
@@ -80,10 +74,10 @@
                     @Html.DisplayFor(model => model.Price)
                 </dd>
                 <dt>
-                    @Html.DisplayNameFor(model => model.StartDateLocal)
+                    Services
                 </dt>
                 <dd>
-                    @Html.DisplayFor(model => model.StartDateLocal)
+                    @Html.DisplayFor(model => model.Services.Count)
                 </dd>
             </dl>
         </div>
@@ -99,7 +93,7 @@
     <div class="col-md-3">
         <div>
             <h4>Images</h4>
-            @if (Model.ServiceImages.Count == 0)
+            @if (Model.ActivityImages.Count == 0)
             {
                 <h5>Not images added yet.</h5>
             }
@@ -109,13 +103,13 @@
                     <thead>
                         <tr>
                             <th>
-                                @Html.DisplayNameFor(model => model.ServiceImages.FirstOrDefault().ImageUrl)
+                                @Html.DisplayNameFor(model => model.ActivityImages.FirstOrDefault().ImageUrl)
                             </th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model.ServiceImages)
+                        @foreach (var item in Model.ActivityImages)
                         {
                             <tr>
                                 <td>

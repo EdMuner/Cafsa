@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cafsa.Web.Data.Entities
 {
-    public class ServiceImage
+    public class ActivityImage
     {
         public int Id { get; set; }
 
@@ -21,7 +21,7 @@ namespace Cafsa.Web.Data.Entities
             ? null
             : $"https://cafsa.azurewebsites.net{ImageUrl.Substring(1)}";
 
-        public Service Service { get; set; }
+        public Activity Activity { get; set; }
 
     }
 }

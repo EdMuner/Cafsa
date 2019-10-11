@@ -1,4 +1,4 @@
-﻿@model Cafsa.Web.Models.ServiceViewModel
+﻿@model Cafsa.Web.Models.ActivityViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -6,20 +6,19 @@
 
 <h2>Create</h2>
 
-<h4>Service</h4>
+<h4>Activity</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="AddService">
+        <form asp-action="AddActivity">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="RefereeId" />
-            <input type="hidden" asp-for="ActivityId" />
 
-            <partial name="_Service" />
+            <partial name="_Activity" />
 
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
-                <a asp-action="DetailsActivity" asp-route-id="@Model.ActivityId" class="btn btn-success">Back to Property</a>
+                <a asp-action="Details" asp-route-id="@Model.RefereeId" class="btn btn-success">Back to Referee</a>
             </div>
         </form>
     </div>

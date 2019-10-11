@@ -35,15 +35,10 @@ namespace Cafsa.Web.Data.Entities
 
         public string FullNameWithDocument => $"{FirstName} {LastName} - {Document}";
 
-
-
         public static implicit operator User(Task<User> v)
         {
             throw new NotImplementedException();
         }
-
-
-
 
     }
 }

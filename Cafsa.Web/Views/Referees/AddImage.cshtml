@@ -1,4 +1,4 @@
-﻿@model Cafsa.Web.Models.ServiceImageViewModel
+﻿@model Cafsa.Web.Models.ActivityImageViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -6,7 +6,7 @@
 
 <h2>Add Image</h2>
 
-<h4>Service</h4>
+<h4>Activity</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -22,7 +22,7 @@
 
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
-                <a asp-action="DetailsService" asp-route-id="@Model.Id" class="btn btn-success">Back to Service</a>
+                <a asp-action="DetailsProperty" asp-route-id="@Model.Id" class="btn btn-success">Back to Property</a>
             </div>
         </form>
     </div>

@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 namespace Cafsa.Web.Controllers
 {
     [Authorize(Roles = "Manager")]
-    public class ServiceTypesController : Controller
+    public class ActivityTypesController : Controller
     {
 
         private readonly DataContext _context;
 
 
-        public ServiceTypesController(DataContext context)
+        public ActivityTypesController(DataContext context)
         {
             _context = context;
         }
@@ -23,7 +23,7 @@ namespace Cafsa.Web.Controllers
         // GET: ServiceTypes
         public async Task<IActionResult> Index()
         {
-            return View(await _context.ServiceTypes.ToListAsync());
+            return View(await _context.ActivityTypes.ToListAsync());
         }
 
         // GET: ServiceTypes/Details/5
@@ -34,14 +34,14 @@ namespace Cafsa.Web.Controllers
                 return NotFound();
             }
 
-            var serviceType = await _context.ServiceTypes
+            var activityType = await _context.ActivityTypes
                 .FirstOrDefaultAsync(s => s.Id == id);
-            if (serviceType == null)
+            if (activityType == null)
             {
                 return NotFound();
             }
 
-            return View(serviceType);
+            return View(activityType);
         }
 
         // GET: ServiceTypes/Create
@@ -55,15 +55,15 @@ namespace Cafsa.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] ServiceType serviceType)
+        public async Task<IActionResult> Create([Bind("Id,Name")] ActivityType activityType)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(serviceType);
+                _context.Add(activityType);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(serviceType);
+            return View(activityType);
         }
 
         // GET: ServiceTypes/Edit/5
@@ -74,12 +74,12 @@ namespace Cafsa.Web.Controllers
                 return NotFound();
             }
 
-            var serviceType = await _context.ServiceTypes.FindAsync(id);
-            if (serviceType == null)
+            var activityType = await _context.ActivityTypes.FindAsync(id);
+            if (activityType == null)
             {
                 return NotFound();
             }
-            return View(serviceType);
+            return View(activityType);
         }
 
         // POST: ServiceTypes/Edit/5
@@ -87,9 +87,9 @@ namespace Cafsa.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] ServiceType serviceType)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] ActivityType activityType)
         {
-            if (id != serviceType.Id)
+            if (id != activityType.Id)
             {
                 return NotFound();
             }
@@ -98,12 +98,12 @@ namespace Cafsa.Web.Controllers
             {
                 try
                 {
-                    _context.Update(serviceType);
+                    _context.Update(activityType);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ServiceTypeExists(serviceType.Id))
+                    if (!ServiceTypeExists(activityType.Id))
                     {
                         return NotFound();
                     }
@@ -114,7 +114,7 @@ namespace Cafsa.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(serviceType);
+            return View(activityType);
         }
 
         // GET: ServiceTypes/Delete/5
@@ -125,14 +125,14 @@ namespace Cafsa.Web.Controllers
                 return NotFound();
             }
 
-            var serviceType = await _context.ServiceTypes
+            var activityType = await _context.ActivityTypes
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (serviceType == null)
+            if (activityType == null)
             {
                 return NotFound();
             }
 
-            return View(serviceType);
+            return View(activityType);
         }
 
         // POST: ServiceTypes/Delete/5
@@ -140,15 +140,15 @@ namespace Cafsa.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var serviceType = await _context.ServiceTypes.FindAsync(id);
-            _context.ServiceTypes.Remove(serviceType);
+            var activityType = await _context.ActivityTypes.FindAsync(id);
+            _context.ActivityTypes.Remove(activityType);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ServiceTypeExists(int id)
         {
-            return _context.ServiceTypes.Any(e => e.Id == id);
+            return _context.ActivityTypes.Any(e => e.Id == id);
         }
     }
 }

@@ -50,13 +50,13 @@
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
-    <a asp-action="AddService" asp-route-id="@Model.Id" class="btn btn-primary">Add Service</a>
+    <a asp-action="AddActivity" asp-route-id="@Model.Id" class="btn btn-primary">Add Activity</a>
     <a asp-action="Index" class="btn btn-success">Back to List</a>
 </div>
 
-@if (Model.Services.Count == 0)
+@if (Model.Activities.Count == 0)
 {
-    <h5>Not services added yet.</h5>
+    <h5>Not Activities added yet.</h5>
 }
 else
 {
@@ -64,47 +64,53 @@ else
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Services.FirstOrDefault().Neighborhood)
+                    @Html.DisplayNameFor(model => model.Activities.FirstOrDefault().Neighborhood)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Services.FirstOrDefault().Address)
+                    @Html.DisplayNameFor(model => model.Activities.FirstOrDefault().Address)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Services.FirstOrDefault().Price)
+                    @Html.DisplayNameFor(model => model.Activities.FirstOrDefault().Price)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Services.FirstOrDefault().StartDateLocal)
-                </th>             
+                    Services
+                </th>
+                <th>
+                    Activity Type
+                </th>
                 <th>
                     Images
                 </th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.Services)
+            @foreach (var item in Model.Activities)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Neighborhood)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Address)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Price)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.StartDateLocal)
-                    </td>                
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ServiceImages.Count)
-                    </td>                
-                    <td>
-                        <a asp-action="EditService" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
-                        <a asp-action="DetailsService" asp-route-id="@item.Id" class="btn btn-info">Details</a>
-                        <button data-id="@item.Id" class="btn btn-danger deleteItem" data-toggle="modal" data-target="#deleteDialog">Delete</button>
-                    </td>
-                </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Neighborhood)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Services.Count)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ActivityType.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ActivityImages.Count)
+                </td>
+                <td>
+                    <a asp-action="EditActivity" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
+                    <a asp-action="DetailsActivity" asp-route-id="@item.Id" class="btn btn-info">Details</a>
+                    <button data-id="@item.Id" class="btn btn-danger deleteItem" data-toggle="modal" data-target="#deleteDialog">Delete</button>
+                </td>
+            </tr>
             }
         </tbody>
     </table>
