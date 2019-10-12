@@ -59,9 +59,7 @@ namespace Cafsa.Web.Helpers
                 ActivityTypeId = activity.ActivityType.Id,
                 ActivityTypes = _combosHelper.GetComboActivityTypes(),
             };
-        }
-
-     
+        }   
       
     }
 }

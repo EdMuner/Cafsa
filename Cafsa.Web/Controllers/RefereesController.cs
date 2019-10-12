@@ -48,6 +48,7 @@ namespace Cafsa.Web.Controllers
             return View(_dataContext.Referees
                 .Include(r => r.User)
                 .Include(r => r.Activities)
+                .ThenInclude(r => r.ActivityType)
                 .Include(r => r.Services));
         }
 
@@ -61,7 +62,9 @@ namespace Cafsa.Web.Controllers
 
             var referee = await _dataContext.Referees
                 .Include(r => r.User)
-                .Include(o => o.Activities )                               
+                .Include(o => o.Activities ) 
+                .ThenInclude(o => o.ActivityType)
+                .Include(o => o.Activities)
                 .ThenInclude(a => a.ActivityImages)       
                 .Include(r => r.Services)
                 .ThenInclude(c => c.Client)
@@ -80,7 +83,6 @@ namespace Cafsa.Web.Controllers
         {
             return View();
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -133,10 +135,7 @@ namespace Cafsa.Web.Controllers
                 return user;
             }
             return null;
-
         }
-
-
 
         // GET: Referees/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -145,7 +144,6 @@ namespace Cafsa.Web.Controllers
             {
                 return NotFound();
             }
-
 
             var referee = await _dataContext.Referees
                 .Include(o => o.User)
@@ -256,8 +254,7 @@ namespace Cafsa.Web.Controllers
             {
                 RefereeId = referee.Id,
                 ActivityTypes =  _combosHelper.GetComboActivityTypes()
-             
-                
+   
             };
 
             return View(model);
@@ -280,9 +277,6 @@ namespace Cafsa.Web.Controllers
             model.ActivityTypes = _combosHelper.GetComboActivityTypes();
             return View(model);
         }
-
-
-
 
         public async Task<IActionResult> EditActivity(int? id)
         {
@@ -391,6 +385,11 @@ namespace Cafsa.Web.Controllers
 
             return View(model);
         }
+
+       
+
+
+
 
 
 

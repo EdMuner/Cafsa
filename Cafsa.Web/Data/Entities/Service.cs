@@ -31,7 +31,6 @@ namespace Cafsa.Web.Data.Entities
 
         public Client Client { get; set; }
 
-
         public Activity Activity { get; set; }
     }
 }
