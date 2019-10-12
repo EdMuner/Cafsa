@@ -386,8 +386,47 @@ namespace Cafsa.Web.Controllers
             return View(model);
         }
 
-       
+        public async Task<IActionResult> AddService(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            var activity = await _dataContext.Activities
+                .Include(p => p.Referee)
+                .FirstOrDefaultAsync(p => p.Id == id.Value);
+            if (activity == null)
+            {
+                return NotFound();
+            }
+
+            var model = new ServiceViewModel
+            {
+                RefereeId = activity.Referee.Id,
+                ActivityId = activity.Id,
+                Clients = _combosHelper.GetComboClients(),
+                Price = activity.Price,
+                StartDate = DateTime.Today,              
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddService(ServiceViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var service = await _converterHelper.ToServiceAsync(model, true);
+                _dataContext.Services.Add(service);
+                await _dataContext.SaveChangesAsync();
+                return RedirectToAction($"{nameof(DetailsActivity)}/{model.ActivityId}");
+            }
+
+            model.Clients = _combosHelper.GetComboClients();
+            return View(model);
+        }
 
 
 

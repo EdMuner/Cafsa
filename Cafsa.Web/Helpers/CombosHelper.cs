@@ -41,12 +41,12 @@ namespace Cafsa.Web.Helpers
 
         public IEnumerable<SelectListItem> GetComboClients()
         {
-            var list = _dataContext.Clients.Select(l => new SelectListItem
+            var list = _dataContext.Clients.Select(c => new SelectListItem
             {
-                Text = l.User.FullNameWithDocument,
-                Value = $"{l.Id}"
+                Text = c.User.FullNameWithDocument,
+                Value = $"{c.Id}"
             })
-              .OrderBy(l => l.Text)
+              .OrderBy(c => c.Text)
               .ToList();
             list.Insert(0, new SelectListItem
             {
