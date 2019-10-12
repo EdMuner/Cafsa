@@ -47,6 +47,8 @@ namespace Cafsa.Web.Controllers
             //No hay que materializar l alista con el Tolist()
             return View(_dataContext.Referees
                 .Include(r => r.User)
+                .Include(r => r.Activities)
+                .ThenInclude(r => r.ActivityType)
                 .Include(r => r.Services));
         }
 
@@ -60,8 +62,13 @@ namespace Cafsa.Web.Controllers
 
             var referee = await _dataContext.Referees
                 .Include(r => r.User)
+                .Include(o => o.Activities ) 
+                .ThenInclude(o => o.ActivityType)
+                .Include(o => o.Activities)
+                .ThenInclude(a => a.ActivityImages)       
                 .Include(r => r.Services)
-                .ThenInclude(s => s.ServiceImages)                  
+                .ThenInclude(c => c.Client)
+                .ThenInclude(c => c.User)
                 .FirstOrDefaultAsync(r => r.Id == id);
             if (referee == null)
             {
@@ -77,7 +84,6 @@ namespace Cafsa.Web.Controllers
             return View();
         }
 
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(AddUserViewModel model)
@@ -90,6 +96,7 @@ namespace Cafsa.Web.Controllers
                     var referee = new Referee
                     {                     
                         Services = new List<Service>(),
+                        Activities = new List<Activity>(),
                         User = user
 
                     };
@@ -128,10 +135,7 @@ namespace Cafsa.Web.Controllers
                 return user;
             }
             return null;
-
         }
-
-
 
         // GET: Referees/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -140,7 +144,6 @@ namespace Cafsa.Web.Controllers
             {
                 return NotFound();
             }
-
 
             var referee = await _dataContext.Referees
                 .Include(o => o.User)
@@ -166,8 +169,6 @@ namespace Cafsa.Web.Controllers
         }
 
         // POST: Referees/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(EditUserViewModel view)
@@ -200,17 +201,17 @@ namespace Cafsa.Web.Controllers
             }
 
             var referee = await _dataContext.Referees
-                .Include(o => o.User)
-                .Include(o => o.Services)
+                .Include(r => r.User)
+                .Include(r => r.Activities)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (referee == null)
             {
                 return NotFound();
             }
 
-            if (referee.Services.Count != 0)
+            if (referee.Activities.Count != 0)
             {
-                ModelState.AddModelError(string.Empty, "Owner can't be delete because it has properties.");
+                ModelState.AddModelError(string.Empty, "Referee can't be delete because it has activities.");
                 return RedirectToAction(nameof(Index));
             }
 
@@ -236,7 +237,7 @@ namespace Cafsa.Web.Controllers
             return _dataContext.Referees.Any(e => e.Id == id);
         }
 
-        public async Task<IActionResult> AddService(int? id)
+        public async Task<IActionResult> AddActivity(int? id)
         {
             if (id == null)
             {
@@ -249,91 +250,91 @@ namespace Cafsa.Web.Controllers
                 return NotFound();
             }
 
-            var model = new ServiceViewModel
+            var model = new ActivityViewModel
             {
                 RefereeId = referee.Id,
-                ServiceTypes =  _combosHelper.GetComboServiceTypes(),
-                Clients = _combosHelper.GetComboClients()
-                
+                ActivityTypes =  _combosHelper.GetComboActivityTypes()
+   
             };
 
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddService(ServiceViewModel model)
+        public async Task<IActionResult> AddActivity(ActivityViewModel model)
         {
             if (ModelState.IsValid)
             {
                 //creamos un nuevo metodo para transformar el modelo y se lo enviamos al ConverterHelper para que lo cambie.
-                var service = await _converterHelper.ToServiceAsync(model, true);
+                var activity = await _converterHelper.ToActivityAsync(model, true);
                 //Creamos el sevicio en la DB
-                _dataContext.Services.Add(service);
+                _dataContext.Activities.Add(activity);
                 //utilizamos el metodo para guardar los cambios
                 await _dataContext.SaveChangesAsync();
                 return RedirectToAction($"Details/{model.RefereeId}");
 
             }
-            model.Clients = _combosHelper.GetComboClients();
+            model.ActivityTypes = _combosHelper.GetComboActivityTypes();
             return View(model);
         }
 
-        public async Task<IActionResult> EditService(int? id)
+        public async Task<IActionResult> EditActivity(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var service = await _dataContext.Services
-                .Include(p => p.Referee)
-                .Include(c => c.Client)
-                .Include(p => p.ServiceType)
+            var activity = await _dataContext.Activities
+                .Include(r => r.Referee)           
+                .Include(r => r.ActivityType)
                 .FirstOrDefaultAsync(p => p.Id == id);
-            if (service == null)
+            if (activity == null)
             {
                 return NotFound();
             }
 
-            var model = _converterHelper.ToServiceViewModel(service);
+            var model = _converterHelper.ToActivityViewModel(activity);
 
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditService(ServiceViewModel model)
+        [HttpPost]
+        public async Task<IActionResult> EditActivity(ActivityViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var service = await _converterHelper.ToServiceAsync(model, false);
-                _dataContext.Services.Update(service);
+                var activity = await _converterHelper.ToActivityAsync(model, false);
+                _dataContext.Activities.Update(activity);
                 await _dataContext.SaveChangesAsync();
                 return RedirectToAction($"Details/{model.RefereeId}");
             }
             return View(model);
         }
 
-        public async Task<IActionResult> DetailsService(int? id)
+        public async Task<IActionResult> DetailsActivity(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var service = await _dataContext.Services
-                .Include(o => o.Referee)
-                .ThenInclude(o => o.User) 
-                .Include(o => o.Client)
-                .ThenInclude(o => o.Contracts)
-                .Include(o => o.ServiceType)
-                .Include(p => p.ServiceImages)
+            var activity = await _dataContext.Activities
+                .Include(r => r.Referee)
+                .ThenInclude(r => r.User)              
+                .Include(r => r.Services)
+                .ThenInclude(c => c.Client)
+                .ThenInclude(c => c.User)
+                .Include(r => r.ActivityType)
+                .Include(a => a.ActivityImages)
                 .FirstOrDefaultAsync(s => s.Id == id);
-            if (service == null)
+            if (activity == null)
             {
                 return NotFound();
             }
 
-            return View(service);
+            return View(activity);
         }
 
         //aqui se recibe el Id de la propiedad que se le va a agregar la image
@@ -344,22 +345,22 @@ namespace Cafsa.Web.Controllers
                 return NotFound();
             }
 
-            var service = await _dataContext.Services.FindAsync(id.Value);
-            if (service == null)
+            var activity = await _dataContext.Activities.FindAsync(id.Value);
+            if (activity == null)
             {
                 return NotFound();
             }
 
-            var model = new ServiceImageViewModel
+            var model = new ActivityImageViewModel
             {
-                Id = service.Id
+                Id = activity.Id
             };
 
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddImage(ServiceImageViewModel model)
+        public async Task<IActionResult> AddImage(ActivityImageViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -371,21 +372,28 @@ namespace Cafsa.Web.Controllers
                     path = await _imageHelper.UploadImageAsync(model.ImageFile);
                 }
 
-                var serviceImage = new ServiceImage
+                var activityImage = new ActivityImage
                 {
                     ImageUrl = path,
-                    Service = await _dataContext.Services.FindAsync(model.Id)
+                    Activity = await _dataContext.Activities.FindAsync(model.Id)
                 };
 
-                _dataContext.ServiceImages.Add(serviceImage);
+                _dataContext.ActivityImages.Add(activityImage);
                 await _dataContext.SaveChangesAsync();
-                return RedirectToAction($"{nameof(DetailsService)}/{model.Id}");
+                return RedirectToAction($"{nameof(DetailsActivity)}/{model.Id}");
             }
 
             return View(model);
         }
 
        
+
+
+
+
+
+
+
 
 
     }

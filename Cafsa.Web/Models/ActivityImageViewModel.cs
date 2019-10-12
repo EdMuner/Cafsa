@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Cafsa.Web.Models
 {
-    public class ServiceImageViewModel : ServiceImage
+    public class ActivityImageViewModel : ActivityImage
     {
         [Display(Name = "Image")]
         public IFormFile ImageFile { get; set; }

@@ -22,45 +22,44 @@ namespace Cafsa.Web.Helpers
         }
 
         //metodo que recibe una ServiceViewModel y devuelve un Service
-        public async Task<Service> ToServiceAsync(ServiceViewModel model, bool isNew)
+        public async Task<Activity> ToActivityAsync(ActivityViewModel model, bool isNew)
         {
-            return new Service
+            return new Activity
             {
                 //Igualacion de propiedades
                 Address = model.Address,
                 //Si el servicio es nuevo se marca como 0, y si no que le ponemos el Id del modelo
+                Services = isNew ? new List<Service>() : model.Services,
                 Id = isNew ? 0 : model.Id,
+                IsAvailable = model.IsAvailable,
                 Neighborhood = model.Neighborhood,
                 Referee = await _dataContext.Referees.FindAsync(model.RefereeId),
                 Price = model.Price,
-                ServiceImages = isNew ? new List<ServiceImage>() : model.ServiceImages,
-                ServiceType = await _dataContext.ServiceTypes.FindAsync(model.ServiceTypeId),
-                Client = await _dataContext.Clients.FindAsync(model.ClientId),
+                ActivityImages = isNew ? new List<ActivityImage>() : model.ActivityImages,
+                ActivityType = await _dataContext.ActivityTypes.FindAsync(model.ActivityTypeId),
                 Remarks = model.Remarks,
-                StartDate = model.StartDateLocal
-
-
             };
         }
 
-        public ServiceViewModel ToServiceViewModel(Service service)
+        public ActivityViewModel ToActivityViewModel(Activity activity)
         {
-            return new ServiceViewModel
+            return new ActivityViewModel
             {
-                Address = service.Address,                                    
-                Id = service.Id,
-                Neighborhood = service.Neighborhood,
-                Referee = service.Referee,
-                Price = service.Price,
-                ServiceImages = service.ServiceImages,
-                ServiceType = service.ServiceType,
-                Remarks = service.Remarks,
-                StartDate = service.StartDateLocal,
-                RefereeId = service.Referee.Id,
-                ServiceTypeId = service.ServiceType.Id,
-                ServiceTypes = _combosHelper.GetComboServiceTypes(),
-                Clients = _combosHelper.GetComboClients(),
+                Address = activity.Address,
+                Services = activity.Services,
+                Id = activity.Id,
+                IsAvailable = activity.IsAvailable,
+                Neighborhood = activity.Neighborhood,
+                Referee = activity.Referee,
+                Price = activity.Price,
+                ActivityImages = activity.ActivityImages,
+                ActivityType = activity.ActivityType,
+                Remarks = activity.Remarks,
+                RefereeId = activity.Referee.Id,
+                ActivityTypeId = activity.ActivityType.Id,
+                ActivityTypes = _combosHelper.GetComboActivityTypes(),
             };
-        }
+        }   
+      
     }
 }

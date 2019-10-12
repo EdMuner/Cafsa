@@ -16,27 +16,26 @@
                 @Html.DisplayNameFor(model => model.User.Document)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.User.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.User.LastName)
+               Nombre Completo
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.User.Category)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.User.Email)
+                @Html.DisplayNameFor(model => model.User.PhoneNumber)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.User.Address)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.User.PhoneNumber)
+                @Html.DisplayNameFor(model => model.User.Email)
             </th>
-
+            <th>
+                Activities
+            </th>
             <th>
                 Services
-            </th>     
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -47,26 +46,26 @@
                 @Html.DisplayFor(modelItem => item.User.Document)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.User.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.LastName)
+                @Html.DisplayFor(modelItem => item.User.FullName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.User.Category)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.User.Email)
+                @Html.DisplayFor(modelItem => item.User.PhoneNumber)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.User.Address)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.User.PhoneNumber)
+                @Html.DisplayFor(modelItem => item.User.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Activities.Count)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Services.Count)
-            </td>        
+            </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
                 <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Details</a>
@@ -76,3 +75,26 @@
         }
     </tbody>
 </table>
+
+
+<partial name="_DeleteDialog" />
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script type="text/javascript">
+    	$(document).ready(function () {
+        	// Delete item
+        	var item_to_delete;
+
+        	$('.deleteItem').click((e) => {
+            	item_to_delete = e.currentTarget.dataset.id;
+        	});
+
+        	$("#btnYesDelete").click(function () {
+            	window.location.href = '/Owners/Delete/' + item_to_delete;
+        	});
+    	});
+    </script>
+}
