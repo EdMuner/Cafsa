@@ -75,5 +75,25 @@ namespace Cafsa.Web.Helpers
                 StartDate = model.StartDate.ToUniversalTime(),
             };
         }
+
+        public ServiceViewModel ToServiceViewModel(Service service)
+        {
+            return new ServiceViewModel
+            {              
+                Id = service.Id,
+                IsActive = service.IsActive,
+                Client = service.Client,
+                Referee = service.Referee,
+                Price = service.Price,
+                Activity = service.Activity,
+                Remarks = service.Remarks,
+                StartDate = service.StartDateLocal,
+                ClientId = service.Client.Id,
+                Clients = _combosHelper.GetComboClients(),
+                RefereeId = service.Referee.Id,
+                ActivityId = service.Activity.Id
+            };
+        }
+
     }
 }

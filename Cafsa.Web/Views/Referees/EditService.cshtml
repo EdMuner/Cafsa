@@ -1,0 +1,27 @@
+﻿@model Cafsa.Web.Models.ServiceViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>Service</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditService">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="RefereeId" />
+            <input type="hidden" asp-for="ActivityId" />
+
+            <partial name="_Service" />
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <a asp-action="DetailsActivity" asp-route-id="@Model.ActivityId" class="btn btn-success">Back to Activity</a>
+            </div>
+        </form>
+    </div>
+</div>

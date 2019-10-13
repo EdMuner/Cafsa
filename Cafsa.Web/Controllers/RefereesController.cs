@@ -62,10 +62,10 @@ namespace Cafsa.Web.Controllers
 
             var referee = await _dataContext.Referees
                 .Include(r => r.User)
-                .Include(o => o.Activities ) 
+                .Include(o => o.Activities)
                 .ThenInclude(o => o.ActivityType)
                 .Include(o => o.Activities)
-                .ThenInclude(a => a.ActivityImages)       
+                .ThenInclude(a => a.ActivityImages)
                 .Include(r => r.Services)
                 .ThenInclude(c => c.Client)
                 .ThenInclude(c => c.User)
@@ -94,7 +94,7 @@ namespace Cafsa.Web.Controllers
                 if (user != null)
                 {
                     var referee = new Referee
-                    {                     
+                    {
                         Services = new List<Service>(),
                         Activities = new List<Activity>(),
                         User = user
@@ -253,8 +253,8 @@ namespace Cafsa.Web.Controllers
             var model = new ActivityViewModel
             {
                 RefereeId = referee.Id,
-                ActivityTypes =  _combosHelper.GetComboActivityTypes()
-   
+                ActivityTypes = _combosHelper.GetComboActivityTypes()
+
             };
 
             return View(model);
@@ -286,7 +286,7 @@ namespace Cafsa.Web.Controllers
             }
 
             var activity = await _dataContext.Activities
-                .Include(r => r.Referee)           
+                .Include(r => r.Referee)
                 .Include(r => r.ActivityType)
                 .FirstOrDefaultAsync(p => p.Id == id);
             if (activity == null)
@@ -322,7 +322,7 @@ namespace Cafsa.Web.Controllers
 
             var activity = await _dataContext.Activities
                 .Include(r => r.Referee)
-                .ThenInclude(r => r.User)              
+                .ThenInclude(r => r.User)
                 .Include(r => r.Services)
                 .ThenInclude(c => c.Client)
                 .ThenInclude(c => c.User)
@@ -407,7 +407,7 @@ namespace Cafsa.Web.Controllers
                 ActivityId = activity.Id,
                 Clients = _combosHelper.GetComboClients(),
                 Price = activity.Price,
-                StartDate = DateTime.Today,              
+                StartDate = DateTime.Today,
             };
 
             return View(model);
@@ -428,12 +428,79 @@ namespace Cafsa.Web.Controllers
             return View(model);
         }
 
+        public async Task<IActionResult> EditService(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            var service = await _dataContext.Services
+                .Include(p => p.Referee)
+                .Include(p => p.Client)
+                .Include(p => p.Activity)              
+                
+                .FirstOrDefaultAsync(p => p.Id == id.Value);
+            if (service == null)
+            {
+                return NotFound();
+            }
 
+            return View(_converterHelper.ToServiceViewModel(service));
+        }
 
+        [HttpPost]
+        public async Task<IActionResult> EditService(ServiceViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var service = await _converterHelper.ToServiceAsync(model, false);
+                _dataContext.Services.Update(service);
+                await _dataContext.SaveChangesAsync();
+                return RedirectToAction($"{nameof(DetailsActivity)}/{model.ActivityId}");
+            }
 
+            return View(model);
+        }
 
+        public async Task<IActionResult> DeleteImage(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            var activityImage = await _dataContext.ActivityImages
+                .Include(pi => pi.Activity)
+                .FirstOrDefaultAsync(pi => pi.Id == id.Value);
+            if (activityImage == null)
+            {
+                return NotFound();
+            }
 
+            _dataContext.ActivityImages.Remove(activityImage);
+            await _dataContext.SaveChangesAsync();
+            return RedirectToAction($"{nameof(DetailsActivity)}/{activityImage.Activity.Id}");
+        }
+
+        public async Task<IActionResult> DeleteService(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var service = await _dataContext.Services
+                .Include(c => c.Activity)
+                .FirstOrDefaultAsync(c => c.Id == id.Value);
+            if (service == null)
+            {
+                return NotFound();
+            }
+
+            _dataContext.Services.Remove(service);
+            await _dataContext.SaveChangesAsync();
+            return RedirectToAction($"{nameof(DetailsActivity)}/{service.Activity.Id}");
+        }
     }
 }
