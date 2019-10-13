@@ -493,5 +493,34 @@ namespace Cafsa.Web.Controllers
             await _dataContext.SaveChangesAsync();
             return RedirectToAction($"{nameof(DetailsActivity)}/{service.Activity.Id}");
         }
+
+        public async Task<IActionResult> DeleteActivity(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var activity = await _dataContext.Activities
+                .Include(p => p.Referee)
+                .Include(p => p.ActivityImages)
+                .Include(p => p.Services)
+                .FirstOrDefaultAsync(pi => pi.Id == id.Value);
+            if (activity == null)
+            {
+                return NotFound();
+            }
+            if (activity.Services.Count != 0)
+            {
+                ModelState.AddModelError(string.Empty, "The Activity can't be deleted because it has Services.");
+                return RedirectToAction($"{nameof(Details)}/{activity.Referee.Id}");
+            }
+
+            _dataContext.ActivityImages.RemoveRange(activity.ActivityImages);      
+            _dataContext.Activities.Remove(activity);
+            await _dataContext.SaveChangesAsync();
+            return RedirectToAction($"{nameof(Details)}/{activity.Referee.Id}");
+        }
+
     }
 }
