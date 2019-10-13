@@ -523,5 +523,37 @@ namespace Cafsa.Web.Controllers
             return RedirectToAction($"{nameof(Details)}/{activity.Referee.Id}");
         }
 
+        // se recibe el id del servicio
+        public async Task<IActionResult> DetailsService(int? id)
+        {
+            //validamos si viene null y salimos
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            //consultamos en la DB los servicios con ese id
+            //se crea el objeto service con toda la información del servicio.
+            var service = await _dataContext.Services
+                //incluimos el Referee y el user del referee
+                .Include(c => c.Referee)
+                .ThenInclude(o => o.User)
+                //ncluimos el client y el user del client
+                .Include(c => c.Client)
+                .ThenInclude(o => o.User)
+                //incluimos la activity y el activityType
+                .Include(c => c.Activity)
+                .ThenInclude(p => p.ActivityType)
+                .FirstOrDefaultAsync(pi => pi.Id == id.Value);
+            if (service == null)
+            {
+                return NotFound();
+
+            }
+            //retornamos a la vista el servicio con toda la información que incluimos.
+            return View(service);
+        }
+
+
     }
 }
