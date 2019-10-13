@@ -12,8 +12,10 @@ namespace Cafsa.Web.Helpers
         // ya hay que hacer lo contrario recibir una actividad y convertirla a una viewModel para poderla editar.
         ActivityViewModel ToActivityViewModel(Activity activity);
 
-       
+
+        Task<Service> ToServiceAsync(ServiceViewModel model, bool isNew);
 
 
+        ServiceViewModel ToServiceViewModel(Service service);
     }
 }

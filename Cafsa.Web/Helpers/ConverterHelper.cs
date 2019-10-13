@@ -59,7 +59,41 @@ namespace Cafsa.Web.Helpers
                 ActivityTypeId = activity.ActivityType.Id,
                 ActivityTypes = _combosHelper.GetComboActivityTypes(),
             };
-        }   
-      
+        }
+
+        public async Task<Service> ToServiceAsync(ServiceViewModel model, bool isNew)
+        {
+            return new Service
+            {             
+                Id = isNew ? 0 : model.Id,
+                IsActive = model.IsActive,
+                Client = await _dataContext.Clients.FindAsync(model.ClientId),
+                Referee = await _dataContext.Referees.FindAsync(model.RefereeId),
+                Price = model.Price,
+                Activity = await _dataContext.Activities.FindAsync(model.ActivityId),
+                Remarks = model.Remarks,
+                StartDate = model.StartDate.ToUniversalTime(),
+            };
+        }
+
+        public ServiceViewModel ToServiceViewModel(Service service)
+        {
+            return new ServiceViewModel
+            {              
+                Id = service.Id,
+                IsActive = service.IsActive,
+                Client = service.Client,
+                Referee = service.Referee,
+                Price = service.Price,
+                Activity = service.Activity,
+                Remarks = service.Remarks,
+                StartDate = service.StartDateLocal,
+                ClientId = service.Client.Id,
+                Clients = _combosHelper.GetComboClients(),
+                RefereeId = service.Referee.Id,
+                ActivityId = service.Activity.Id
+            };
+        }
+
     }
 }
