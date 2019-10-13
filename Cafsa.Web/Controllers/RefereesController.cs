@@ -265,6 +265,7 @@ namespace Cafsa.Web.Controllers
                 return RedirectToAction($"Details/{model.RefereeId}");
 
             }
+            //carga nuevamente el combo para nuevamente escoger un tipo de actividad
             model.ActivityTypes = _combosHelper.GetComboActivityTypes();
             return View(model);
         }

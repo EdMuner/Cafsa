@@ -126,25 +126,24 @@ namespace Cafsa.Web.Controllers
             }
 
             var activityType = await _context.ActivityTypes
+                .Include(at => at.Activities)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (activityType == null)
             {
                 return NotFound();
             }
 
-            return View(activityType);
-        }
+            if (activityType.Activities.Count > 0)
+            {
+                // TODO: message
+                return RedirectToAction(nameof(Index));
+            }
 
-        // POST: ServiceTypes/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var activityType = await _context.ActivityTypes.FindAsync(id);
             _context.ActivityTypes.Remove(activityType);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
 
         private bool ServiceTypeExists(int id)
         {
