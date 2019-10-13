@@ -14,4 +14,8 @@
     <Folder Include="wwwroot\images\Services\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Cafsa.Common\Cafsa.Common.csproj" />
+  </ItemGroup>
+
 </Project>
