@@ -4,8 +4,13 @@
              xmlns:prism="clr-namespace:Prism.DryIoc;assembly=Prism.DryIoc.Forms"
              x:Class="Cafsa.Prism.App">
 	<Application.Resources>
+        <ResourceDictionary>
 
-		<!-- Application resource dictionary -->
+            <!-- Parameters -->
+            <x:String x:Key="UrlAPI">https://cafsa.azurewebsites.net/</x:String>
 
-	</Application.Resources>
+        </ResourceDictionary>
+
+    </Application.Resources>
+    
 </prism:PrismApplication>

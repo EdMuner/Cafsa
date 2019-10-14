@@ -4,6 +4,7 @@ using Cafsa.Prism.ViewModels;
 using Cafsa.Prism.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Cafsa.Common.Services;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Cafsa.Prism
@@ -28,6 +29,8 @@ namespace Cafsa.Prism
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            //Injeccion de servicio, al llamar la inetrfaz de IApiservice el llama una implementacion del Apiservice
+            containerRegistry.Register<IApiService, ApiService>();
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
         }
