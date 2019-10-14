@@ -17,7 +17,6 @@ namespace Cafsa.Web.Controllers
         private readonly IUserHelper _userHelper;
         private readonly IConfiguration _configuration;
 
-
         public AccountController(
             IUserHelper userHelper,
             IConfiguration configuration)
