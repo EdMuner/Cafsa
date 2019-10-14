@@ -65,7 +65,6 @@ namespace Cafsa.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-
         [HttpPost]
         public async Task<IActionResult> CreateToken([FromBody] LoginViewModel model)
         {
@@ -75,15 +74,15 @@ namespace Cafsa.Web.Controllers
                 if (user != null)
                 {
                     var result = await _userHelper.ValidatePasswordAsync(
-                       user,
-                       model.Password);
+                        user,
+                        model.Password);
 
                     if (result.Succeeded)
                     {
                         var claims = new[]
                         {
-                    new Claim(JwtRegisteredClaimNames.Sub, user.Email),
-                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                            new Claim(JwtRegisteredClaimNames.Sub, user.Email),
+                            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                 };
 
                         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Tokens:Key"]));
@@ -92,7 +91,7 @@ namespace Cafsa.Web.Controllers
                             _configuration["Tokens:Issuer"],
                             _configuration["Tokens:Audience"],
                             claims,
-                            expires: DateTime.UtcNow.AddMonths(36),
+                            expires: DateTime.UtcNow.AddMonths(6),
                             signingCredentials: credentials);
                         var results = new
                         {

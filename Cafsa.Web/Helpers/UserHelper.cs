@@ -103,7 +103,6 @@ namespace Cafsa.Web.Helpers
             user,
             password,
             false);
-
         }
     }
 }

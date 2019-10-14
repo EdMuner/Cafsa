@@ -5,12 +5,14 @@ using Microsoft.EntityFrameworkCore;
 using Cafsa.Common.Models;
 using Cafsa.Web.Data;
 using Cafsa.Web.Data.Entities;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Cafsa.Web.Controllers.API
 {
     [Route("api/[controller]")]
     [ApiController]
-   
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class RefereesController : ControllerBase
     {
         private readonly DataContext _dataContext;
