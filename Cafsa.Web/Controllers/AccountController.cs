@@ -1,10 +1,11 @@
-﻿using Cafsa.Web.Helpers;
+using Cafsa.Web.Helpers;
 using Cafsa.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,41 +17,51 @@ namespace Cafsa.Web.Controllers
         private readonly IUserHelper _userHelper;
         private readonly IConfiguration _configuration;
 
+
         public AccountController(
             IUserHelper userHelper,
-             IConfiguration configuration)
+            IConfiguration configuration)
+
         {
             _userHelper = userHelper;
             _configuration = configuration;
+
         }
 
-        [HttpGet]
         public IActionResult Login()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             return View();
         }
-
 
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
-            // se loguea con user t password
             if (ModelState.IsValid)
             {
                 var result = await _userHelper.LoginAsync(model);
                 if (result.Succeeded)
+
                 {
+                    if (Request.Query.Keys.Contains("ReturnUrl"))
+                    {
+                        return Redirect(Request.Query["ReturnUrl"].First());
+                    }
+
                     return RedirectToAction("Index", "Home");
                 }
-                ModelState.AddModelError(string.Empty, "User or password incorrect.");
             }
+
+            ModelState.AddModelError(string.Empty, "Failed to login.");
             return View(model);
         }
 
-        [HttpGet]      
         public async Task<IActionResult> Logout()
         {
-            // se desloguea y retorna al home
             await _userHelper.LogoutAsync();
             return RedirectToAction("Index", "Home");
         }
@@ -73,7 +84,9 @@ namespace Cafsa.Web.Controllers
                         {
                             new Claim(JwtRegisteredClaimNames.Sub, user.Email),
                             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-                        };
+
+                };
+
 
                         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Tokens:Key"]));
                         var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -81,7 +94,9 @@ namespace Cafsa.Web.Controllers
                             _configuration["Tokens:Issuer"],
                             _configuration["Tokens:Audience"],
                             claims,
-                            expires: DateTime.UtcNow.AddMonths(36),
+
+                            expires: DateTime.UtcNow.AddMonths(6),
+
                             signingCredentials: credentials);
                         var results = new
                         {

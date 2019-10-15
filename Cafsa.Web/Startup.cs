@@ -70,9 +70,6 @@ namespace Cafsa.Web
                };
            });
 
-
-
-
             //inyectamos el seedDb para que al ejecutar el proyecto el automaticamente cree la database
             services.AddTransient<SeedDb>();
             // inyectamos el User Helper por codigo mantenible y pora reutilizar la clase en el momento que se cambie de proveedor como oracle.
