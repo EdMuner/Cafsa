@@ -28,7 +28,10 @@ namespace Cafsa.Prism.ViewModels
             _apiService = apiService;
             Title = "Login";
             IsEnabled = true;
-        
+
+            //TODO: delete this lines
+            Email = "edisonmunera72@gmail.com";
+            Password = "123456";
 
         }
 
@@ -99,6 +102,7 @@ namespace Cafsa.Prism.ViewModels
     	        return;
 	        }
 
+            var token = response.Result;
             await App.Current.MainPage.DisplayAlert("ok", "una chimba!!!", "Accept");
         }
     }
