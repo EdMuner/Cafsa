@@ -5,7 +5,7 @@ namespace Cafsa.Common.Services
 {
     public interface IApiService
     {
-        Task<Response<RefereeResponse>> GetRefereeByEmail(
+        Task<Response<RefereeResponse>> GetRefereeByEmailAsync(
             string urlBase, 
             string servicePrefix, 
             string controller, 
@@ -18,5 +18,7 @@ namespace Cafsa.Common.Services
             string servicePrefix, 
             string controller, 
             TokenRequest request);
+
+        Task<bool> CheckConnectionAsync(string url);
     }
 }
