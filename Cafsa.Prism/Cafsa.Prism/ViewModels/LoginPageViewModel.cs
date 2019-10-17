@@ -8,11 +8,14 @@ namespace Cafsa.Prism.ViewModels
     //Aqui es el codigo del front de LoginPage, estan ligadas.
     public class LoginPageViewModel : ViewModelBase
     {
+
+
         //Orden Atributos Privados
         //Contructor
         //Propiedades
         //Metodos publicos
         //Metodos Privados
+        private readonly INavigationService _navigationservice;
         public readonly IApiService _apiService;
         private string _password;
         private bool _isRunning;
@@ -25,19 +28,19 @@ namespace Cafsa.Prism.ViewModels
             IApiService apiService) : base(navigationservice)
         {
             //titulo de la pantalla inicial de la app
+            _navigationservice = navigationservice;
             _apiService = apiService;
             Title = "Login";
             IsEnabled = true;
-
             //TODO: delete this lines
-            Email = "edisonmunera72@gmail.com";
+            Email = "edisonmunera@gmail.com";
             Password = "123456";
 
         }
 
         //cuando le den tab en el command el ejecuta el metodo login
         //  operador -----       aqui pregunta si es null ?? 
-        public DelegateCommand LoginCommand => _loginCommand ?? (_loginCommand = new DelegateCommand(Login));
+        public DelegateCommand LoginCommand => _loginCommand ?? (_loginCommand = new DelegateCommand(LoginAsync));
 
         public string Email { get; set; }
 
@@ -59,7 +62,7 @@ namespace Cafsa.Prism.ViewModels
             set => SetProperty(ref _isEnabled, value);
         }
 
-        private async void Login()
+        private async void LoginAsync()
         {
             //si no digitaron nada en el campo email
             if (string.IsNullOrEmpty(Email))
@@ -77,33 +80,65 @@ namespace Cafsa.Prism.ViewModels
             IsRunning = true;
             IsEnabled = false;
 
+           //Se carga la url del diccionario de recursos
+            var url = App.Current.Resources["UrlAPI"].ToString();
+            //Se valida si hay coneccion a internet
+            var connection = await _apiService.CheckConnectionAsync(url);
+
+            if (!connection)
+            {
+                IsEnabled = true;
+                IsRunning = false;
+                await App.Current.MainPage.DisplayAlert("Error", "Check the internet connection.", "Accept");
+                return;
+            }
+
             var request = new TokenRequest
             {
                 Password = Password,
                 Username = Email
 
             };
-
-            var url = App.Current.Resources["UrlAPI"].ToString();
+         
             var response = await _apiService.GetTokenAsync(url, "Account", "/CreateToken", request);
-
-
-
-            IsRunning = false;
-            IsEnabled = true;
-
 
             if (!response.IsSuccess)
 	        {
-    	        IsEnabled = true;
-    	        IsRunning = false;
-    	        await App.Current.MainPage.DisplayAlert("Error", "User or password incorrect.", "Accept");
+                IsRunning = false;
+                IsEnabled = true;
+                await App.Current.MainPage.DisplayAlert("Error", "User or password incorrect.", "Accept");
     	        Password = string.Empty;
     	        return;
 	        }
 
             var token = response.Result;
-            await App.Current.MainPage.DisplayAlert("ok", "una chimba!!!", "Accept");
+            //se consulta las activities del referee
+            var response2 = await _apiService.GetRefereeByEmailAsync(
+                url,
+                "api",
+                "/Referees/GetRefereeByEmail",
+                "bearer",
+                token.Token,
+                Email);
+
+            if (!response2.IsSuccess)
+            {
+                IsRunning = false;
+                IsEnabled = true;
+                await App.Current.MainPage.DisplayAlert("Error", "Problem with user data, call Edison Munera", "Accept");           
+                return;
+            }
+
+            var referee = response2.Result;
+            var parameters = new NavigationParameters
+            {
+                { "referee", referee }
+            };
+
+            //Se navega a la pagina activities
+            await _navigationservice.NavigateAsync("ActivitiesPage", parameters);
+            IsRunning = false;
+            IsEnabled = true;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Cafsa.Common.Models;
 using Newtonsoft.Json;
+using Plugin.Connectivity;
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -56,7 +57,7 @@ namespace Cafsa.Common.Services
             }
         }
 
-        public async Task<Response<RefereeResponse>> GetRefereeByEmail(
+        public async Task<Response<RefereeResponse>> GetRefereeByEmailAsync(
             string urlBase,
             string servicePrefix,
             string controller,
@@ -103,6 +104,15 @@ namespace Cafsa.Common.Services
                     Message = ex.Message
                 };
             }
+        }
+        public async Task<bool> CheckConnectionAsync(string url)
+        {
+            if (!CrossConnectivity.Current.IsConnected)
+            {
+                return false;
+            }
+
+            return await CrossConnectivity.Current.IsRemoteReachable(url);
         }
     }
 }
