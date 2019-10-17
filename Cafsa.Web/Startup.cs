@@ -59,18 +59,16 @@ namespace Cafsa.Web
             });
 
             services.AddAuthentication()
-            .AddCookie()
-            .AddJwtBearer(cfg =>
-            {
-                cfg.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidIssuer = Configuration["Tokens:Issuer"],
-                    ValidAudience = Configuration["Tokens:Audience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Tokens:Key"]))
-                };
-            });
-
-
+           .AddCookie()
+           .AddJwtBearer(cfg =>
+           {
+               cfg.TokenValidationParameters = new TokenValidationParameters
+               {
+                   ValidIssuer = Configuration["Tokens:Issuer"],
+                   ValidAudience = Configuration["Tokens:Audience"],
+                   IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Tokens:Key"]))
+               };
+           });
 
             //inyectamos el seedDb para que al ejecutar el proyecto el automaticamente cree la database
             services.AddTransient<SeedDb>();

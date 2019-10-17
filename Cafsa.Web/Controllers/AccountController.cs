@@ -1,4 +1,4 @@
-﻿using Cafsa.Web.Helpers;
+using Cafsa.Web.Helpers;
 using Cafsa.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -16,6 +16,7 @@ namespace Cafsa.Web.Controllers
     {
         private readonly IUserHelper _userHelper;
         private readonly IConfiguration _configuration;
+
 
         public AccountController(
             IUserHelper userHelper,
@@ -83,7 +84,9 @@ namespace Cafsa.Web.Controllers
                         {
                             new Claim(JwtRegisteredClaimNames.Sub, user.Email),
                             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+
                 };
+
 
                         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Tokens:Key"]));
                         var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -91,7 +94,9 @@ namespace Cafsa.Web.Controllers
                             _configuration["Tokens:Issuer"],
                             _configuration["Tokens:Audience"],
                             claims,
+
                             expires: DateTime.UtcNow.AddMonths(6),
+
                             signingCredentials: credentials);
                         var results = new
                         {
@@ -103,6 +108,7 @@ namespace Cafsa.Web.Controllers
                     }
                 }
             }
+
             return BadRequest();
         }
     }
