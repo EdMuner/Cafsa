@@ -11,7 +11,7 @@ namespace Cafsa.Common.Services
     public class ApiService : IApiService
     {
 
-        public async Task<Response> GetTokenAsync(
+        public async Task<Response<TokenResponse>> GetTokenAsync(
             string urlBase,
             string servicePrefix,
             string controller,
@@ -32,7 +32,7 @@ namespace Cafsa.Common.Services
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    return new Response
+                    return new Response<TokenResponse>
                     {
                         IsSuccess = false,
                         Message = result,
@@ -40,7 +40,7 @@ namespace Cafsa.Common.Services
                 }
 
                 var token = JsonConvert.DeserializeObject<TokenResponse>(result);
-                return new Response
+                return new Response <TokenResponse>
                 {
                     IsSuccess = true,
                     Result = token
@@ -48,7 +48,7 @@ namespace Cafsa.Common.Services
             }
             catch (Exception ex)
             {
-                return new Response
+                return new Response<TokenResponse>
                 {
                     IsSuccess = false,
                     Message = ex.Message
@@ -56,7 +56,7 @@ namespace Cafsa.Common.Services
             }
         }
 
-        public async Task<Response> GetRefereeByEmail(
+        public async Task<Response<RefereeResponse>> GetRefereeByEmail(
             string urlBase,
             string servicePrefix,
             string controller,
@@ -81,7 +81,7 @@ namespace Cafsa.Common.Services
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    return new Response
+                    return new Response<RefereeResponse>
                     {
                         IsSuccess = false,
                         Message = result,
@@ -89,7 +89,7 @@ namespace Cafsa.Common.Services
                 }
 
                 var referee = JsonConvert.DeserializeObject<RefereeResponse>(result);
-                return new Response
+                return new Response <RefereeResponse>
                 {
                     IsSuccess = true,
                     Result = referee
@@ -97,7 +97,7 @@ namespace Cafsa.Common.Services
             }
             catch (Exception ex)
             {
-                return new Response
+                return new Response<RefereeResponse>
                 {
                     IsSuccess = false,
                     Message = ex.Message

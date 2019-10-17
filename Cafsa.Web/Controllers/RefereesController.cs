@@ -285,9 +285,8 @@ namespace Cafsa.Web.Controllers
             {
                 return NotFound();
             }
-
+            
             var model = _converterHelper.ToActivityViewModel(activity);
-
             return View(model);
         }
 
@@ -402,6 +401,7 @@ namespace Cafsa.Web.Controllers
                 StartDate = DateTime.Today,
             };
 
+            model.Clients = _combosHelper.GetComboClients();
             return View(model);
         }
 
