@@ -33,7 +33,7 @@ namespace Cafsa.Prism.ViewModels
             Title = "Login";
             IsEnabled = true;
             //TODO: delete this lines
-            Email = "edisonmunera@gmail.com";
+            Email = "alejozapata@gmail.com";
             Password = "123456";
 
         }
