@@ -20,7 +20,12 @@
                         <Frame
                             CornerRadius="10"
                             Margin="0,0,0,5">
-                            <StackLayout>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SelectActivityCommand}"/>
+
+
+                            </Frame.GestureRecognizers>
+                                <StackLayout>
                                 <ffimageloading:CachedImage                             
                                         Source="{Binding FirstImage}"
                                         LoadingPlaceholder= "LoaderImage"
