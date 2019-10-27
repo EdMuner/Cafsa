@@ -1,0 +1,228 @@
+﻿@model Cafsa.Web.Data.Entities.Activity
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Activity</h2>
+<div class="row">
+    <div class="col-md-6">
+        <div>
+            <h4>Referee</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Referee.User.Document)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Referee.User.Document)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Referee.User.FirstName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Referee.User.FirstName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Referee.User.LastName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Referee.User.LastName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Referee.User.Category)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Referee.User.Category)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Referee.User.Email)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Referee.User.Email)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Referee.User.PhoneNumber)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Referee.User.PhoneNumber)
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div>
+            <h4>Activity Details</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Neighborhood)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Neighborhood)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Address)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Address)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Price)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Price)
+                </dd>
+                <dt>
+                    Services
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Services.Count)
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>
+<div>
+    <a asp-action="EditActivity" asp-route-id="@Model.Id" class="btn btn-warning">Edit Activity</a>
+    <a asp-action="AddImage" asp-route-id="@Model.Id" class="btn btn-primary">Add Image</a>
+    <a asp-action="AddService" asp-route-id="@Model.Id" class="btn btn-default">Add Service</a>
+    <a asp-action="Details" asp-route-id="@Model.Referee.Id" class="btn btn-success">Back to Details Referee</a>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <div>
+            <h4></h4>
+            @if (Model.ActivityImages.Count == 0)
+            {
+                <h5>Not images added yet.</h5>
+            }
+            else
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ActivityImages.FirstOrDefault().ImageUrl)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.ActivityImages)
+                        {
+                            <tr>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(item.ImageUrl))
+                                    {
+                                        <img src="@Url.Content(item.ImageUrl)" alt="Image" style="width:200px;height:200px;max-width: 100%; height: auto;" />
+                                    }
+                                </td>
+                                <td>
+                                    <button data-id="@item.Id" class="btn btn-danger deleteImage" data-toggle="modal" data-target="#deleteDialog">Delete</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div>
+            <h4></h4>
+            @if (Model.Services.Count == 0)
+            {
+                <h5>Not services added yet.</h5>
+            }
+            else
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Client
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Services.FirstOrDefault().StartDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Services.FirstOrDefault().Price)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Services.FirstOrDefault().IsActive)
+                            <th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Services.FirstOrDefault().Remarks)
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Services)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Client.User.FullName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StartDateLocal)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Price)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IsActive)
+                                </td>
+                                <th> </th>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Remarks)
+                                </td>
+                                <td> </td>
+                                <td>
+                                    <a asp-action="EditService" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
+                                    <a asp-action="DetailsService" asp-route-id="@item.Id" class="btn btn-info">Details</a>
+                                    <button data-id="@item.Id" class="btn btn-danger deleteService" data-toggle="modal" data-target="#deleteDialog">Delete</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            }
+        </div>
+    </div>
+</div>
+
+<partial name="_DeleteDialog" />
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Delete item
+            var item_to_delete;
+            var action_to_delete;
+
+            $('.deleteImage').click((e) => {
+                item_to_delete = e.currentTarget.dataset.id;
+                action_to_delete = 1;
+            });
+
+            $('.deleteService').click((e) => {
+                item_to_delete = e.currentTarget.dataset.id;
+                action_to_delete = 2;
+            });
+
+            $("#btnYesDelete").click(function () {
+                if (action_to_delete == 1) {
+                    window.location.href = '/Referees/DeleteImage/' + item_to_delete;
+                } else {
+                    window.location.href = '/Referees/DeleteService/' + item_to_delete;
+                }
+            });
+        });
+    </script>
+}
+
