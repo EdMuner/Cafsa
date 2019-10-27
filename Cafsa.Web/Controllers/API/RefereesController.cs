@@ -69,9 +69,7 @@ namespace Cafsa.Web.Controllers.API
                 FirstName = referee.User.FirstName,
                 LastName = referee.User.LastName,
                 Address = referee.User.Address,
-                Document = referee.User.Document,            
-                Email = referee.User.Email,
-                PhoneNumber = referee.User.PhoneNumber,
+                Document = referee.User.Document,                          
                 Activities = referee.Activities?.Select(p => new ActivityResponse
                 {
                     Address = p.Address,
