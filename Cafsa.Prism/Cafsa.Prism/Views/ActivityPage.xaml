@@ -1,9 +1,100 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" 
              xmlns:prism="http://prismlibrary.com"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="Cafsa.Prism.Views.ActivityPage"
              Title="{Binding Title}">
-  
+
+    <ScrollView>
+        <StackLayout
+        Padding="10">
+            <ffimageloading:CachedImage                             
+            Source="{Binding Activity.FirstImage}"
+            LoadingPlaceholder= "LoaderImage"
+            ErrorPlaceholder= "ErrorImage"
+            CacheDuration= "50"
+            RetryCount= "3"
+            RetryDelay= "600"              
+            DownsampleToViewSize = "true"
+            WidthRequest="300"/>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Label
+                Grid.Row="0"
+                Grid.Column="0"
+                FontAttributes="Bold"
+                Text="Neighborhood"/>
+                <Label
+                Grid.Row="0"
+                Grid.Column="1"
+                Text="{Binding Activity.Neighborhood}"/>
+                <Label
+                Grid.Row="1"
+                Grid.Column="0"
+                FontAttributes="Bold"
+                Text="Adress"/>
+                <Label
+                Grid.Row="1"
+                Grid.Column="1"
+                Text="{Binding Activity.Address}"/>
+                <Label
+                Grid.Row="2"
+                Grid.Column="0"
+                FontAttributes="Bold"
+                Text="Price"/>
+                <Label
+                Grid.Row="2"
+                Grid.Column="1"
+                Text="{Binding Activity.Price, StringFormat='{0:C2}'}"/>
+                <Label
+                Grid.Row="3"
+                Grid.Column="0"
+                FontAttributes="Bold"
+                Text="Type"/>
+                <Label
+                Grid.Row="3"
+                Grid.Column="1"
+                Text="{Binding Activity.ActivityType}"/>
+                <Label
+                Grid.Row="4"
+                Grid.Column="0"
+                FontAttributes="Bold"
+                Text="Remarks"/>
+                <Label
+                Grid.Row="4"
+                Grid.Column="1"
+                Text="{Binding Activity.Remarks}"/>
+                <Label
+                Grid.Row="5"
+                Grid.Column="0"
+                FontAttributes="Bold"
+                Text="Is Available"
+                VerticalOptions="Center"/>
+                <CheckBox
+                Grid.Row="5"
+                Grid.Column="1"
+                HorizontalOptions="Start"
+                IsEnabled="False"
+                IsChecked="{Binding Activity.IsAvailable}"/>
+            </Grid>
+        </StackLayout>
+    </ScrollView>
 </ContentPage>

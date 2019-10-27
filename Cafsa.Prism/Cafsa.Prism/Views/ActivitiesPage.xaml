@@ -18,12 +18,10 @@
                 <DataTemplate>
                     <ViewCell>
                         <Frame
-                            CornerRadius="10"
-                            Margin="0,0,0,5">
+                            CornerRadius="12"
+                            Margin="0.4,0.4,0.4,7">
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding SelectActivityCommand}"/>
-
-
                             </Frame.GestureRecognizers>
                                 <StackLayout>
                                 <ffimageloading:CachedImage                             
@@ -34,7 +32,7 @@
                                         RetryCount= "3"
                                         RetryDelay= "600"
                                         DownsampleToViewSize = "true"
-                                        WidthRequest="200"/>
+                                        WidthRequest="100"/>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>

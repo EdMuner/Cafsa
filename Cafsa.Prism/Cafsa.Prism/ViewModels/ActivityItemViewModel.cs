@@ -19,7 +19,7 @@ namespace Cafsa.Prism.ViewModels
 
         private async void SelectActivity()
         {
-            //Se crea un objto de navegación y se lenvia las actividades del referee especifico
+            //Se crea un objeto de navegación y se lenvia las actividades del referee especifico
             var parameters = new NavigationParameters
             {
                 {"activity", this }
