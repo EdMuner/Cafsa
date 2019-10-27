@@ -1,4 +1,6 @@
-﻿using Cafsa.Common.Models;
+﻿using Cafsa.Common.Helpers;
+using Cafsa.Common.Models;
+using Newtonsoft.Json;
 using Prism.Commands;
 using Prism.Navigation;
 
@@ -19,7 +21,8 @@ namespace Cafsa.Prism.ViewModels
 
         private async void SelectActivity()
         {
-            //Se crea un objto de navegación y se lenvia las actividades del referee especifico
+            //Se crea un objeto de navegación y se lenvia las actividades del referee especifico
+            Settings.ActivityImages = JsonConvert.SerializeObject(ActivityImages);
             var parameters = new NavigationParameters
             {
                 {"activity", this }

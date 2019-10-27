@@ -17,6 +17,7 @@ namespace Cafsa.Prism
 
         protected override async void OnInitialized()
         {
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTYzMDM0QDMxMzcyZTMzMmUzME5QSmJhTjkyM2krVXRKT0lGYVdmdC9RbGhJMEhRcXM1ZUlMTGwyaWV1RGc9");
             InitializeComponent();
 
             await NavigationService.NavigateAsync("NavigationPage/LoginPage");
