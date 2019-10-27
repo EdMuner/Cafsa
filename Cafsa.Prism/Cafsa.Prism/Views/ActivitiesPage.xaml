@@ -11,6 +11,7 @@
     <StackLayout
         Padding= "10">
         <ListView
+            BackgroundColor="Transparent"
             HasUnevenRows="True"
             ItemsSource="{Binding Activities}"
             SeparatorVisibility="None">
@@ -19,22 +20,23 @@
                     <ViewCell>
                         <Frame
                             CornerRadius="12"
-                            Margin="0.4,0.4,0.4,7">
+                            Margin="0.4,0.4,0.4,9">
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding SelectActivityCommand}"/>
                             </Frame.GestureRecognizers>
                                 <StackLayout>
-                                <ffimageloading:CachedImage                             
-                                        Source="{Binding FirstImage}"
-                                        LoadingPlaceholder= "LoaderImage"
-                                        ErrorPlaceholder= "ErrorImage"
+                                <ffimageloading:CachedImage
+                                        Aspect="AspectFit"
                                         CacheDuration= "50"
-                                        RetryCount= "3"
-                                        RetryDelay= "600"
                                         DownsampleToViewSize = "true"
-                                        WidthRequest="100"/>
+                                        ErrorPlaceholder= "ErrorImage"
+                                        HeightRequest="200"
+                                        LoadingPlaceholder= "LoaderImage"
+                                        RetryCount= "3"
+                                        RetryDelay= "600"                              
+                                        Source="{Binding FirstImage}"/>
                                 <Grid>
-                                    <Grid.ColumnDefinitions>
+                                    <Grid.ColumnDefinitions>     
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>

@@ -10,16 +10,16 @@
     <ScrollView>
         <StackLayout
         Padding="10">
-            <ffimageloading:CachedImage                             
-            Source="{Binding Activity.FirstImage}"
-            LoadingPlaceholder= "LoaderImage"
-            ErrorPlaceholder= "ErrorImage"
-            CacheDuration= "50"
-            RetryCount= "3"
-            RetryDelay= "600"              
-            DownsampleToViewSize = "true"
-            WidthRequest="300"/>
-
+            <ffimageloading:CachedImage  
+                Aspect="AspectFit"
+                CacheDuration= "50"
+                DownsampleToViewSize = "true"
+                ErrorPlaceholder= "ErrorImage"
+                HeightRequest="200"         
+                LoadingPlaceholder= "LoaderImage"
+                RetryCount= "3"
+                RetryDelay= "600"   
+                Source="{Binding Activity.FirstImage}"/>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
