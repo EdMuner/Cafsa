@@ -25,7 +25,7 @@ namespace Cafsa.Prism.ViewModels
                 {"activity", this }
             };
 
-            await _navigationService.NavigateAsync("ActivityPage", parameters);
+            await _navigationService.NavigateAsync("ServicesPage", parameters);
 
         }
     }
