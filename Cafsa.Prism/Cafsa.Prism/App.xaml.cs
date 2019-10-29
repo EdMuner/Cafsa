@@ -33,6 +33,7 @@ namespace Cafsa.Prism
             containerRegistry.RegisterForNavigation<ActivityPage, ActivityPageViewModel>();
             containerRegistry.RegisterForNavigation<ServicesPage, ServicesPageViewModel>();
             containerRegistry.RegisterForNavigation<ServicePage, ServicePageViewModel>();
+            containerRegistry.RegisterForNavigation<ActivityTabbedPage, ActivityTabbedPageViewModel>();
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Cafsa.Common.Models;
+﻿using Cafsa.Common.Helpers;
+using Cafsa.Common.Models;
+using Newtonsoft.Json;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
@@ -16,7 +18,8 @@ namespace Cafsa.Prism.ViewModels
         public ActivityPageViewModel(
             INavigationService navigationService) : base(navigationService)
         {
-            Title = "Activity";
+            Title = "Details";
+          
         }
         //este metodo sirve para que cuando yo navegue capturar la actividad y la bindamos para traer todos los campos referentes
         public ActivityResponse Activity
@@ -31,18 +34,11 @@ namespace Cafsa.Prism.ViewModels
             set => SetProperty(ref _imageCollection, value);
         }
 
-
         public override void OnNavigatedTo(INavigationParameters parameters)
-
         {
             base.OnNavigatedTo(parameters);
-            if (parameters.ContainsKey("activity"))
-            {
-                Activity = parameters.GetValue<ActivityResponse>("activity");
-                Title = $"Activity: { Activity.Neighborhood}";
-                LoadImages();
-
-            }
+            Activity = JsonConvert.DeserializeObject<ActivityResponse>(Settings.Activity);
+            LoadImages();
         }
 
         private void LoadImages()

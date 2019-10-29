@@ -1,4 +1,6 @@
-﻿using Cafsa.Common.Models;
+﻿using Cafsa.Common.Helpers;
+using Cafsa.Common.Models;
+using Newtonsoft.Json;
 using Prism.Navigation;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -15,6 +17,8 @@ namespace Cafsa.Prism.ViewModels
         {
             _navigationService = navigationService;
             Title = "Services";
+            Activity = JsonConvert.DeserializeObject<ActivityResponse>(Settings.Activity);
+            LoadContracts();
         }
 
         public ObservableCollection<ServiceItemViewmodel> Services
@@ -26,19 +30,6 @@ namespace Cafsa.Prism.ViewModels
         {
             get => _activity;
             set => SetProperty(ref _activity, value);
-        }
-
-
-        public override void OnNavigatedTo(INavigationParameters parameters)
-        {
-            base.OnNavigatedTo(parameters);
-
-            if (parameters.ContainsKey("activity"))
-            {
-                _activity = parameters.GetValue<ActivityResponse>("activity");
-                LoadContracts();
-
-            }
         }
 
         private void LoadContracts()
