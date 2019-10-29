@@ -4,6 +4,7 @@
              xmlns:prism="http://prismlibrary.com"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="Cafsa.Prism.Views.ServicesPage"
+              IconImageSource="ic_action_list_alt"
              Title="{Binding Title}">
     <StackLayout
      Padding="10">
@@ -25,8 +26,7 @@
                 FontAttributes="Bold"
                 Text="Client"/>
         </Grid>
-        <ListView
-          
+        <ListView       
             ItemsSource="{Binding Services}">
             <ListView.ItemTemplate>
                 <DataTemplate>
