@@ -81,7 +81,8 @@ namespace Cafsa.Web.Controllers
         // GET: Referees/Create
         public IActionResult Create()
         {
-            return View();
+            var view = new AddUserViewModel { RoleId = 2 };
+            return View(view);          
         }
 
         [HttpPost]
@@ -119,8 +120,7 @@ namespace Cafsa.Web.Controllers
                 Address = model.Address,
                 Document = model.Document,
                 Email = model.Username,
-                FirstName = model.FirstName,
-                Category = model.Category,
+                FirstName = model.FirstName,          
                 LastName = model.LastName,
                 PhoneNumber = model.PhoneNumber,
                 UserName = model.Username
@@ -160,7 +160,6 @@ namespace Cafsa.Web.Controllers
                 FirstName = referee.User.FirstName,
                 Id = referee.Id,
                 LastName = referee.User.LastName,
-                Category = referee.User.Category,
                 PhoneNumber = referee.User.PhoneNumber
 
             };
@@ -182,7 +181,6 @@ namespace Cafsa.Web.Controllers
                 referee.User.Document = model.Document;
                 referee.User.FirstName = model.FirstName;
                 referee.User.LastName = model.LastName;
-                referee.User.Category = model.Category;
                 referee.User.Address = model.Address;
                 referee.User.PhoneNumber = model.PhoneNumber;
 

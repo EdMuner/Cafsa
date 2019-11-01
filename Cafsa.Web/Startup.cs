@@ -33,8 +33,14 @@ namespace Cafsa.Web
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-            
-            
+
+            //metodo para implementar la image de consulta not found
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Account/NotAuthorized";
+                options.AccessDeniedPath = "/Account/NotAuthorized";
+            });
+
             //Configura el comportamiento de la configuración de los usuarios.
 
             services.AddIdentity<User, IdentityRole>(cfg =>
@@ -95,6 +101,7 @@ namespace Cafsa.Web
                 app.UseHsts();
             }
 
+            app.UseStatusCodePagesWithReExecute("/error/{0}");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseAuthentication();

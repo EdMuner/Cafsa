@@ -1,9 +1,12 @@
+using Cafsa.Web.Data;
+using Cafsa.Web.Data.Entities;
 using Cafsa.Web.Helpers;
 using Cafsa.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -14,18 +17,23 @@ namespace Cafsa.Web.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly DataContext _dataContext;
         private readonly IUserHelper _userHelper;
         private readonly IConfiguration _configuration;
-
+        private readonly ICombosHelper _combosHelper;
 
         public AccountController(
+            DataContext dataContext,
             IUserHelper userHelper,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            ICombosHelper combosHelper
+            )
 
         {
+            _dataContext = dataContext;
             _userHelper = userHelper;
             _configuration = configuration;
-
+            _combosHelper = combosHelper;
         }
 
         public IActionResult Login()
@@ -84,10 +92,7 @@ namespace Cafsa.Web.Controllers
                         {
                             new Claim(JwtRegisteredClaimNames.Sub, user.Email),
                             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-
                 };
-
-
                         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Tokens:Key"]));
                         var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
                         var token = new JwtSecurityToken(
@@ -111,5 +116,80 @@ namespace Cafsa.Web.Controllers
 
             return BadRequest();
         }
+        public IActionResult NotAuthorized()
+        {
+            return View();
+        }
+        public IActionResult Register()
+        {
+            var model = new AddUserViewModel
+            {
+                Roles = _combosHelper.GetComboRoles()
+            };
+
+            return View(model);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(AddUserViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var role = "Referee";
+                if (model.RoleId == 1)
+                {
+                    role = "Client";
+                }
+
+                var user = await _userHelper.AddUser(model, role);
+                if (user == null)
+                {
+                    ModelState.AddModelError(string.Empty, "This email is already used.");
+                    return View(model);
+                }
+
+                if (model.RoleId == 1)
+                {
+                    var client = new Client
+                    {
+                        Services = new List<Service>(),
+                        User = user
+                    };
+
+                    _dataContext.Clients.Add(client);              
+                }
+                else
+                {
+                    var referee = new Referee
+                    {
+                        Services = new List<Service>(),
+                        Activities = new List<Activity>(),
+                        User = user
+                    };
+
+                    _dataContext.Referees.Add(referee);
+                }
+
+                await _dataContext.SaveChangesAsync();
+                var loginViewModel = new LoginViewModel
+                {
+                    Password = model.Password,
+                    RememberMe = false,
+                    Username = model.Username
+                };
+
+                var result2 = await _userHelper.LoginAsync(loginViewModel);
+
+                if (result2.Succeeded)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            model.Roles = _combosHelper.GetComboRoles();
+            return View(model);
+        }
+
     }
 }

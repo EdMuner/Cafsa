@@ -27,17 +27,14 @@ namespace Cafsa.Prism.ViewModels
         {
 
         }
-
         public virtual void OnNavigatedFrom(INavigationParameters parameters)
         {
 
         }
-
         public virtual void OnNavigatedTo(INavigationParameters parameters)
         {
 
         }
-
         public virtual void Destroy()
         {
 

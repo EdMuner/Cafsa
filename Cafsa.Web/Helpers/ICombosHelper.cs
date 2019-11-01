@@ -8,5 +8,8 @@ namespace Cafsa.Web.Helpers
         IEnumerable<SelectListItem> GetComboActivityTypes();
 
         IEnumerable<SelectListItem> GetComboClients();
+
+        IEnumerable<SelectListItem> GetComboRoles();
+
     }
 }

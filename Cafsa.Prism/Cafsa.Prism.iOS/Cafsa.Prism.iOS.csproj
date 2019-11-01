@@ -232,7 +232,7 @@
     <BundleResource Include="Resources\drawable\ic_action_list_alt.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\drawable\cafsa.jpg" />
+    <BundleResource Include="Resources\drawable\cafsaMod.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
