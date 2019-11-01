@@ -5878,7 +5878,7 @@ namespace Cafsa.Prism.Droid
 			public const int avd_show_password = 2131165305;
 			
 			// aapt resource value: 0x7F07007A
-			public const int cafsa = 2131165306;
+			public const int cafsaMod = 2131165306;
 			
 			// aapt resource value: 0x7F07007B
 			public const int design_bottom_navigation_item_background = 2131165307;

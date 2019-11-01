@@ -15,7 +15,7 @@
                      Padding="10">
                 <Image
                     Margin="22"
-                    Source="cafsa"
+                    Source="cafsaMod"
                     WidthRequest="225"/>
                 <Label
                     Text="Email"/>
