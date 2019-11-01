@@ -64,8 +64,7 @@ namespace Cafsa.Web.Controllers.API
             var response = new RefereeResponse
          
             {
-                Id = referee.Id,
-                Category = referee.User.Category,
+                Id = referee.Id,            
                 FirstName = referee.User.FirstName,
                 LastName = referee.User.LastName,
                 Address = referee.User.Address,
@@ -111,7 +110,6 @@ namespace Cafsa.Web.Controllers.API
                 Email = client.User.Email,
                 FirstName = client.User.FirstName,
                 LastName = client.User.LastName,
-                Category = client.User.Category,
                 PhoneNumber = client.User.PhoneNumber
             };
         }
