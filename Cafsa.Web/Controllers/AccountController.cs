@@ -187,9 +187,37 @@ namespace Cafsa.Web.Controllers
                     token = myToken
                 }, protocol: HttpContext.Request.Scheme);
 
-                _mailHelper.SendMail(model.Username, "Cafsa Email confirmation", $"<h1>Email Confirmation</h1>" +
-                    $"To allow the user, " +
-                    $"plase click in this link:</br></br><a href = \"{tokenLink}\">Confirm Email</a>");
+                _mailHelper.SendMail(model.Username, "Cafsa Email confirmation",
+                     $"<table style = 'max-width: 600px; padding: 10px; margin:0 auto; border-collapse: collapse;'>" +
+                     $"  <tr>" +
+                     $"    <td style = 'background-color: #34495e; text-align: center; padding: 0'>" +
+                     $"  </td>" +
+                     $"  </tr>" +
+                     $"  <tr>" +
+                     $"  <td style = 'padding: 0'>" +
+                     $"  </td>" +
+                     $"</tr>" +
+                     $"<tr>" +
+                     $" <td style = 'background-color: #ecf0f1'>" +
+                     $"      <div style = 'color: #34495e; margin: 4% 10% 2%; text-align: justify;font-family: sans-serif'>" +
+                     $"            <h1 style = 'color: #e67e22; margin: 0 0 7px' > Bienvenido </h1>" +
+                     $"                    <p style = 'margin: 2px; font-size: 15px'>" +
+                     $"                     La Corporacion arbitral de Futbol de Salon le da una cordial bienvenida," +
+                     $"                     Formamos Arbitros en capacidad de juzgar eventos locales nacionales e internacionales .....<br>" +
+                     $"                      Entre los servicios tenemos:</p>" +
+                     $"      <ul style = 'font-size: 15px;  margin: 10px 0'>" +
+                     $"       <li> Arbitros.</li>" +
+                     $"        <li> Anotadores.</li>" +
+                     $"        <li> Cronometristas.</li>" +
+                     $"        <li> Instructores.</li>" +
+                     $"        <li> Coordinadores.</li>" +
+                     $"      </ul>" +
+                     $"  <div style = 'width: 100%;margin:20px 0; display: inline-block;text-align: center'>" +
+                     $"  </div>" +
+                     $"  <div style = 'width: 100%; text-align: center'>" +
+                     $"    <a style ='text-decoration: none; border-radius: 5px; padding: 11px 23px; color: white; background-color: #3498db' href = \"{tokenLink}\">Confirm Email</a>" +
+                     $"</tr>" +
+                     $"</table>");
                 ViewBag.Message = "The instructions to allow your user has been sent to email.";
                 return View(model);
 
