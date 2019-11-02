@@ -25,31 +25,6 @@ namespace Cafsa.Web.Helpers
             _signInManager = signInManager;
         }
 
-        public async Task<User> AddUser(AddUserViewModel view, string role)
-        {
-            var user = new User
-            {
-                Address = view.Address,
-                Document = view.Document,
-                Email = view.Username,
-                FirstName = view.FirstName,
-                LastName = view.LastName,
-                PhoneNumber = view.PhoneNumber,
-                UserName = view.Username
-            };
-
-            var result = await AddUserAsync(user, view.Password);
-            if (result != IdentityResult.Success)
-            {
-                return null;
-            }
-
-            var newUser = await GetUserByEmailAsync(view.Username);
-            await AddUserToRoleAsync(newUser, role);
-            return newUser;
-        }
-
-
         public async Task<IdentityResult> AddUserAsync(User user, string password)
         {
             return await _userManager.CreateAsync(user, password);
@@ -128,6 +103,51 @@ namespace Cafsa.Web.Helpers
             password,
             false);
         }
+        public async Task<User> AddUser(AddUserViewModel view, string role)
+        {
+            var user = new User
+            {
+                Address = view.Address,
+                Document = view.Document,
+                Email = view.Username,
+                FirstName = view.FirstName,
+                LastName = view.LastName,
+                PhoneNumber = view.PhoneNumber,
+                UserName = view.Username
+            };
+
+            var result = await AddUserAsync(user, view.Password);
+            if (result != IdentityResult.Success)
+            {
+                return null;
+            }
+
+            var newUser = await GetUserByEmailAsync(view.Username);
+            await AddUserToRoleAsync(newUser, role);
+            return newUser;
+        }
+
+        public async Task<IdentityResult> ChangePasswordAsync(User user, string oldPassword, string newPassword)
+        {
+            return await _userManager.ChangePasswordAsync(user, oldPassword, newPassword);
+
+        }
+
+        public async Task<IdentityResult> ConfirmEmailAsync(User user, string token)
+        {
+            return await _userManager.ConfirmEmailAsync(user, token);
+        }
+
+        public async Task<string> GenerateEmailConfirmationTokenAsync(User user)
+        {
+            return await _userManager.GenerateEmailConfirmationTokenAsync(user);
+        }
+
+        public async Task<User> GetUserByIdAsync(string userId)
+        {
+            return await _userManager.FindByIdAsync(userId);
+        }
+
     }
 }
 
