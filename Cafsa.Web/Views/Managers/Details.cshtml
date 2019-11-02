@@ -1,11 +1,10 @@
-﻿@model Cafsa.Web.Data.Entities.Client
+﻿@model Cafsa.Web.Data.Entities.Manager
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
-<h2>Client</h2>
+<h2>Manager</h2>
 
 <div>
     <h4>Details</h4>
@@ -40,12 +39,6 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.User.PhoneNumber)
-        </dd>
-        <dt>
-            Services
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Services.Count)
         </dd>
     </dl>
 </div>
