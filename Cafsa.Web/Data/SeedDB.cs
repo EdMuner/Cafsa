@@ -24,9 +24,9 @@ namespace Cafsa.Web.Data
             await _context.Database.EnsureCreatedAsync();
             await CheckRoles();
 
-            var manager = await CheckUserAsync("71219843", "Edison", "Munera", "edisonmunera72@gmail.com", "314 836 28 49", "Calle 57 # 36-58", "Primera", "Manager");
-            var client = await CheckUserAsync("43155023", "Comfenalco", "Guayabal", "comfenalco@gmail.com", "314 718 79 53", "Calle 57 # 36-49", "Segunda", "Client");
-            var referee = await CheckUserAsync("15502341", "Alejandro", "Zapata", "alejozapata@gmail.com", "333 222 114 11", "Parque Boston Calle 36", "Oficial", "Referee");
+            var manager = await CheckUserAsync("71219843", "Edison", "Munera", "edisonmunera72@gmail.com", "314 836 28 49", "Calle 57 # 36-58", "Manager");
+            var client = await CheckUserAsync("43155023", "Comfenalco", "Guayabal", "comfenalco@gmail.com", "314 718 79 53", "Calle 57 # 36-49", "Client");
+            var referee = await CheckUserAsync("15502341", "Alejandro", "Zapata", "alejozapata@gmail.com", "333 222 114 11", "Parque Boston Calle 36", "Referee");
 
             await CheckActivityTypesAsync();
             await CheckManagerAsync(manager);
@@ -88,7 +88,6 @@ namespace Cafsa.Web.Data
             string email,
             string phone,
             string address,
-            string category,
             string role)
         {
             var user = await _userHelper.GetUserByEmailAsync(email);
@@ -103,11 +102,14 @@ namespace Cafsa.Web.Data
                     UserName = email,
                     PhoneNumber = phone,
                     Address = address,
-                    Category = category
                 };
 
                 await _userHelper.AddUserAsync(user, "123456");
                 await _userHelper.AddUserToRoleAsync(user, role);
+
+                var token = await _userHelper.GenerateEmailConfirmationTokenAsync(user);
+                await _userHelper.ConfirmEmailAsync(user, token);
+
             }
 
             return user;
@@ -129,7 +131,6 @@ namespace Cafsa.Web.Data
                 await _context.SaveChangesAsync();
             }
         }
-
 
         private async Task CheckActivitiesAsync()
         {
@@ -175,8 +176,5 @@ namespace Cafsa.Web.Data
                 await _context.SaveChangesAsync();
             }
         }
-     
-
-
     }
 }

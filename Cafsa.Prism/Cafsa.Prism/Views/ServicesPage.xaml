@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="Cafsa.Prism.Views.ServicesPage"
+              IconImageSource="ic_action_list_alt"
+             Title="{Binding Title}">
+    <StackLayout
+     Padding="10">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="10"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label
+                Grid.Column="0"
+                FontAttributes="Bold"
+                Text="Star Date"/>
+            <Label
+                Grid.Column="1"
+                FontAttributes="Bold"
+                Text="Client"/>
+        </Grid>
+        <ListView       
+            ItemsSource="{Binding Services}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SelectServiceCommand}"/>
+                            </Grid.GestureRecognizers>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Label
+                                Grid.Column="0"
+                                 Text="{Binding StartDateLocal, StringFormat='{0:yyyy/MM/dd HH:mm}'}"
+                                VerticalOptions="Center"/>
+                            <Label
+                                Grid.Column="1"
+                                Text="{Binding Client.FirstName}"
+                                VerticalOptions="Center"/>
+                            <Label
+                                Grid.Column="2"
+                                Text="{Binding Client.LastName}"
+                                VerticalOptions="Center"/>
+                            <Image
+                                Grid.Column="3"
+                                Source="ic_more_vert"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>

@@ -21,6 +21,7 @@ namespace Cafsa.Web.Controllers
         private readonly ICombosHelper _combosHelper;
         private readonly IConverterHelper _converterHelper;
         private readonly IImageHelper _imageHelper;
+        private readonly IMailHelper _mailHelper;
 
 
 
@@ -30,7 +31,8 @@ namespace Cafsa.Web.Controllers
             IUserHelper userHelper,
             ICombosHelper combosHelper,
             IConverterHelper converterHelper,
-            IImageHelper imageHelper
+            IImageHelper imageHelper,
+            IMailHelper mailHelper
           )
         {
             _dataContext = datacontext;
@@ -38,6 +40,7 @@ namespace Cafsa.Web.Controllers
             _combosHelper = combosHelper;
             _converterHelper = converterHelper;
             _imageHelper = imageHelper;
+            _mailHelper = mailHelper;
         }
 
         // GET: Referees
@@ -81,7 +84,8 @@ namespace Cafsa.Web.Controllers
         // GET: Referees/Create
         public IActionResult Create()
         {
-            return View();
+            var view = new AddUserViewModel { RoleId = 2 };
+            return View(view);          
         }
 
         [HttpPost]
@@ -103,6 +107,47 @@ namespace Cafsa.Web.Controllers
 
                     _dataContext.Referees.Add(referee);
                     await _dataContext.SaveChangesAsync();
+                    
+                    //Confirmación por correo del user create
+                    var myToken = await _userHelper.GenerateEmailConfirmationTokenAsync(user);
+                    var tokenLink = Url.Action("ConfirmEmail", "Account", new
+                    {
+                        userid = user.Id,
+                        token = myToken
+                    }, protocol: HttpContext.Request.Scheme);
+
+                    _mailHelper.SendMail(model.Username, "Cafsa Email confirmation",
+                     $"<table style = 'max-width: 600px; padding: 10px; margin:0 auto; border-collapse: collapse;'>" +
+                     $"  <tr>" +
+                     $"    <td style = 'background-color: #34495e; text-align: center; padding: 0'>" +
+                     $"  </td>" +
+                     $"  </tr>" +
+                     $"  <tr>" +
+                     $"  <td style = 'padding: 0'>" +
+                     $"  </td>" +
+                     $"</tr>" +
+                     $"<tr>" +
+                     $" <td style = 'background-color: #ecf0f1'>" +
+                     $"      <div style = 'color: #34495e; margin: 4% 10% 2%; text-align: justify;font-family: sans-serif'>" +
+                     $"            <h1 style = 'color: #e67e22; margin: 0 0 7px' > Bienvenido </h1>" +
+                     $"                    <p style = 'margin: 2px; font-size: 15px'>" +
+                     $"                     La Corporacion arbitral de Futbol de Salon le da una cordial bienvenida," +
+                     $"                     Formamos Arbitros en capacidad de juzgar eventos locales nacionales e internacionales .....<br>" +
+                     $"                      Entre los servicios tenemos:</p>" +
+                     $"      <ul style = 'font-size: 15px;  margin: 10px 0'>" +
+                     $"       <li> Arbitros de Primera.</li>" +
+                     $"        <li> Arbitros de Segunda Categoria.</li>" +
+                     $"        <li> Anotadores.</li>" +
+                     $"        <li> Cronometristas.</li>" +
+                     $"        <li> Instructores.</li>" +
+                     $"      </ul>" +
+                     $"  <div style = 'width: 100%;margin:20px 0; display: inline-block;text-align: center'>" +
+                     $"  </div>" +
+                     $"  <div style = 'width: 100%; text-align: center'>" +
+                     $"    <a style ='text-decoration: none; border-radius: 5px; padding: 11px 23px; color: white; background-color: #3498db' href = \"{tokenLink}\">Confirm Email</a>" +
+                     $"</tr>" +
+                     $"</table>");
+
                     return RedirectToAction("Index");
 
                 }
@@ -119,8 +164,7 @@ namespace Cafsa.Web.Controllers
                 Address = model.Address,
                 Document = model.Document,
                 Email = model.Username,
-                FirstName = model.FirstName,
-                Category = model.Category,
+                FirstName = model.FirstName,          
                 LastName = model.LastName,
                 PhoneNumber = model.PhoneNumber,
                 UserName = model.Username
@@ -160,7 +204,6 @@ namespace Cafsa.Web.Controllers
                 FirstName = referee.User.FirstName,
                 Id = referee.Id,
                 LastName = referee.User.LastName,
-                Category = referee.User.Category,
                 PhoneNumber = referee.User.PhoneNumber
 
             };
@@ -182,7 +225,6 @@ namespace Cafsa.Web.Controllers
                 referee.User.Document = model.Document;
                 referee.User.FirstName = model.FirstName;
                 referee.User.LastName = model.LastName;
-                referee.User.Category = model.Category;
                 referee.User.Address = model.Address;
                 referee.User.PhoneNumber = model.PhoneNumber;
 

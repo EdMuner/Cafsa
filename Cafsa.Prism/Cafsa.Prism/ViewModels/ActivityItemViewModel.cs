@@ -21,14 +21,8 @@ namespace Cafsa.Prism.ViewModels
 
         private async void SelectActivity()
         {
-            //Se crea un objeto de navegación y se lenvia las actividades del referee especifico
-            Settings.ActivityImages = JsonConvert.SerializeObject(ActivityImages);
-            var parameters = new NavigationParameters
-            {
-                {"activity", this }
-            };
-
-            await _navigationService.NavigateAsync("ActivityPage", parameters);
+            Settings.Activity =JsonConvert.SerializeObject(this);
+            await _navigationService.NavigateAsync("ActivityTabbedPage");
 
         }
     }

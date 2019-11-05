@@ -27,10 +27,6 @@ namespace Cafsa.Web.Data.Entities
         [MaxLength(100, ErrorMessage = "The {0} field can not have more than {1} characters.")]
         public string Address { get; set; }
 
-        [Display(Name = "Category")]
-        [MaxLength(100, ErrorMessage = "The {0} field can not have more than {1} characters.")]
-        public string Category { get; set; }
-
         public string FullName => $"{FirstName} {LastName}";
 
         public string FullNameWithDocument => $"{FirstName} {LastName} - {Document}";

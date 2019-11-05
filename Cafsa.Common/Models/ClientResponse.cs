@@ -22,5 +22,7 @@ namespace Cafsa.Common.Models
 
         public string Email { get; set; }
 
+        public string FullName => $"{FirstName} {LastName}";
+
     }
 }
