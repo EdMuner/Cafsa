@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Cafsa.Web.Data.Entities
 {
@@ -34,9 +32,14 @@ namespace Cafsa.Web.Data.Entities
 
         public Referee Referee { get; set; }
 
-       public ICollection<ActivityImage> ActivityImages { get; set; }
+        public ICollection<ActivityImage> ActivityImages { get; set; }
 
         public ICollection<Service> Services { get; set; }
-      
+
+        public string FirstImage => ActivityImages == null || ActivityImages.Count == 0
+              ? "https://cafsa.azurewebsites.net/images/Services/noImage.png"
+              : ActivityImages.FirstOrDefault().ImageUrl;
+
+
     }
 }
