@@ -1,11 +1,139 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Cafsa.Common.Models;
+using Cafsa.Web.Data;
+using Cafsa.Web.Data.Entities;
+using Cafsa.Web.Helpers;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Cafsa.Web.Controllers.API
 {
-    public class AccountController
+    [Route("api/[Controller]")]
+    public class AccountController : ControllerBase
     {
+        private readonly DataContext _dataContext;
+        private readonly IUserHelper _userHelper;
+        private readonly IMailHelper _mailHelper;
+
+        public AccountController(
+            DataContext dataContext,
+            IUserHelper userHelper,
+            IMailHelper mailHelper)
+        {
+            _dataContext = dataContext;
+            _userHelper = userHelper;
+            _mailHelper = mailHelper;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> PostUser([FromBody] UserRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new Response<object>
+                {
+                    IsSuccess = false,
+                    Message = "Bad request"
+                });
+            }
+
+            var user = await _userHelper.GetUserByEmailAsync(request.Email);
+            if (user != null)
+            {
+                return BadRequest(new Response<object>
+                {
+                    IsSuccess = false,
+                    Message = "This email is already registered."
+                });
+            }
+
+            user = new User
+            {
+                Address = request.Address,
+                Document = request.Document,
+                Email = request.Email,
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                PhoneNumber = request.Phone,
+                UserName = request.Email
+            };
+
+            var result = await _userHelper.AddUserAsync(user, request.Password);
+            if (result != IdentityResult.Success)
+            {
+                return BadRequest(result.Errors.FirstOrDefault().Description);
+            }
+
+            var userNew = await _userHelper.GetUserByEmailAsync(request.Email);
+
+            if (request.RoleId == 1)
+            {
+                await _userHelper.AddUserToRoleAsync(userNew, "Referee");
+                _dataContext.Referees.Add(new Referee { User = userNew });
+            }
+            else
+            {
+                await _userHelper.AddUserToRoleAsync(userNew, "Client");
+                _dataContext.Clients.Add(new Client { User = userNew });
+            }
+
+            await _dataContext.SaveChangesAsync();
+
+            var myToken = await _userHelper.GenerateEmailConfirmationTokenAsync(user);
+            var tokenLink = Url.Action("ConfirmEmail", "Account", new
+            {
+                userid = user.Id,
+                token = myToken
+            }, protocol: HttpContext.Request.Scheme);
+
+            _mailHelper.SendMail(request.Email, "Email confirmation", $"<h1>Email Confirmation</h1>" +
+                $"To allow the user, " +
+                $"please click on this link:</br></br><a href = \"{tokenLink}\">Confirm Email</a>");
+
+            return Ok(new Response<object>
+            {
+                IsSuccess = true,
+                Message = "A Confirmation email was sent. Please confirm your account and log into the App."
+            });
+        }
+
+        [HttpPost]
+        [Route("RecoverPassword")]
+        public async Task<IActionResult> RecoverPassword([FromBody] EmailRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new Response<object>
+                {
+                    IsSuccess = false,
+                    Message = "Bad request"
+                });
+            }
+
+            var user = await _userHelper.GetUserByEmailAsync(request.Email);
+            if (user == null)
+            {
+                return BadRequest(new Response<object>
+                {
+                    IsSuccess = false,
+                    Message = "This email is not assigned to any user."
+                });
+            }
+
+            var myToken = await _userHelper.GeneratePasswordResetTokenAsync(user);
+            var link = Url.Action("ResetPassword", "Account", new { token = myToken }, protocol: HttpContext.Request.Scheme);
+            _mailHelper.SendMail(request.Email, "Password Reset", $"<h1>Recover Password</h1>" +
+                $"To reset the password click in this link:</br></br>" +
+                $"<a href = \"{link}\">Reset Password</a>");
+
+            return Ok(new Response<object>
+            {
+                IsSuccess = true,
+                Message = "An email with instructions to change the password was sent."
+            });
+        }
+
     }
+
 }

@@ -20,6 +20,7 @@ namespace Cafsa.Common.Models
         public string Address { get; set; }
 
         [Required]
+        [EmailAddress]
         public string Email { get; set; }
 
         [Required]
