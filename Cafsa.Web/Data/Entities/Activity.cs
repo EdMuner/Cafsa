@@ -6,6 +6,8 @@ namespace Cafsa.Web.Data.Entities
 {
     public class Activity
     {
+        internal static readonly string Current;
+
         public int Id { get; set; }
 
         [Display(Name = "Neighborhood")]
