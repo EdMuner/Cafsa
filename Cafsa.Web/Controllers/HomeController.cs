@@ -248,7 +248,7 @@ namespace Cafsa.Web.Controllers
 
                     path = Path.Combine(
                         Directory.GetCurrentDirectory(),
-                        "wwwroot\\images\\Services",
+                        "wwwroot\\images\\Activities",
                         file);
 
                     using (var stream = new FileStream(path, FileMode.Create))
@@ -256,7 +256,7 @@ namespace Cafsa.Web.Controllers
                         await model.ImageFile.CopyToAsync(stream);
                     }
 
-                    path = $"~/images/Services/{file}";
+                    path = $"~/images/Activities/{file}";
                 }
 
                 var activityImage = new ActivityImage
