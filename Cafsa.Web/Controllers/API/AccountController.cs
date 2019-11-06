@@ -2,6 +2,8 @@
 using Cafsa.Web.Data;
 using Cafsa.Web.Data.Entities;
 using Cafsa.Web.Helpers;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
@@ -133,6 +135,80 @@ namespace Cafsa.Web.Controllers.API
                 Message = "An email with instructions to change the password was sent."
             });
         }
+
+        [HttpPut]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<IActionResult> PutUser([FromBody] UserRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var userEntity = await _userHelper.GetUserByEmailAsync(request.Email);
+            if (userEntity == null)
+            {
+                return BadRequest("User not found.");
+            }
+
+            userEntity.FirstName = request.FirstName;
+            userEntity.LastName = request.LastName;
+            userEntity.Address = request.Address;
+            userEntity.PhoneNumber = request.Phone;
+            userEntity.Document = request.Document;
+
+            var respose = await _userHelper.UpdateUserAsync(userEntity);
+            if (!respose.Succeeded)
+            {
+                return BadRequest(respose.Errors.FirstOrDefault().Description);
+            }
+
+            var updatedUser = await _userHelper.GetUserByEmailAsync(request.Email);
+            return Ok(updatedUser);
+        }
+
+        [HttpPost]
+        [Route("ChangePassword")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new Response<object>
+                {
+                    IsSuccess = false,
+                    Message = "Bad request"
+                });
+            }
+
+            var user = await _userHelper.GetUserByEmailAsync(request.Email);
+            if (user == null)
+            {
+                return BadRequest(new Response<object>
+                {
+                    IsSuccess = false,
+                    Message = "This email is not assigned to any user."
+                });
+            }
+
+            var result = await _userHelper.ChangePasswordAsync(user, request.OldPassword, request.NewPassword);
+            if (!result.Succeeded)
+            {
+                return BadRequest(new Response<object>
+                {
+                    IsSuccess = false,
+                    Message = result.Errors.FirstOrDefault().Description
+                });
+            }
+
+            return Ok(new Response<object>
+            {
+                IsSuccess = true,
+                Message = "The password was changed successfully!"
+            });
+        }
+
+
 
     }
 
