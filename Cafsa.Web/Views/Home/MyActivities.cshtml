@@ -1,0 +1,165 @@
+﻿@model Cafsa.Web.Data.Entities.Referee
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+<h2>Referee</h2>
+
+<div>
+    <h4>Details</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Document)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.Document)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.FirstName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.FirstName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.LastName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.LastName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.Email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.PhoneNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.PhoneNumber)
+        </dd>
+        <dt>
+            Activities
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Activities.Count)
+        </dd>
+        <dt>
+            Services
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Services.Count)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="AddActivity" asp-route-id="@Model.Id" class="btn btn-primary">Add Activity</a>
+    <a asp-action="Index" class="btn btn-success">Back to Home</a>
+</div>
+<hr />
+@if (Model.Activities.Count == 0)
+{
+    <h5>Not activities added yet.</h5>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Activities</h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-hover table-responsive table-striped" id="MyTable">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Activities.FirstOrDefault().ActivityType.Name)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Activities.FirstOrDefault().Neighborhood)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Activities.FirstOrDefault().Address)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Activities.FirstOrDefault().Price)
+                                </th>     
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Activities.FirstOrDefault().IsAvailable)
+                                </th>
+                                <th>
+                                    Images
+                                </th>
+                                <th>
+                                    Services
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Activities)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ActivityType.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Neighborhood)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Address)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Price)
+                                    </td>                
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.IsAvailable)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ActivityImages.Count)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Services.Count)
+                                    </td>
+                                    <td>
+                                        <a asp-action="EditActivity" class="btn btn-default" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i> </a>
+                                        <a asp-action="DetailsActivityReferee" class="btn btn-default" asp-route-id="@item.Id"><i class="glyphicon glyphicon-list"> </i> </a>
+                                        <button data-id="@item.Id" class="btn btn-danger deleteItem" data-toggle="modal" data-target="#deleteDialog"><i class="glyphicon glyphicon-trash"></i></button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<partial name="_DeleteDialog" />
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+    <script type="text/javascript">
+    	$(document).ready(function () {
+        	$('#MyTable').DataTable();
+
+        	// Delete item
+        	var item_to_delete;
+
+        	$('.deleteItem').click((e) => {
+            	item_to_delete = e.currentTarget.dataset.id;
+        	});
+
+        	$("#btnYesDelete").click(function () {
+            	window.location.href = '/Home/DeleteActivity/' + item_to_delete;
+        	});
+    	});
+    </script>
+}
