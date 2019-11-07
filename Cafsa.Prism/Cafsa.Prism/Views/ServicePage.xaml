@@ -29,7 +29,7 @@
                         Grid.Row="0"
                         Grid.Column="0"             
                         FontAttributes="Bold"
-                        Text="Client"/>
+                        Text="Customer"/>
                 <Label
                         Grid.Row="0"               
                         Grid.Column="1"

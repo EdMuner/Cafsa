@@ -24,7 +24,7 @@
             <Label
                 Grid.Column="1"
                 FontAttributes="Bold"
-                Text="Client"/>
+                Text="Customer"/>
         </Grid>
         <ListView       
             ItemsSource="{Binding Services}">

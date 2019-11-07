@@ -7,9 +7,9 @@
 
     <MasterDetailPage.Master>
         <ContentPage Title="Menu">
-            <StackLayout Padding="20">
+            <StackLayout Padding="10">
                 <Image
-                    HeightRequest="120"
+                    HeightRequest="140"
                     Source="cafsaMod"/>
                 <ListView
                     BackgroundColor="Transparent"
@@ -29,7 +29,7 @@
                                     </Grid.ColumnDefinitions>
                                     <Image
                                         Grid.Column="0"
-                                        HeightRequest="50"
+                                        HeightRequest="60"
                                         Source="{Binding Icon}"
                                         WidthRequest="50"/>
                                     <Label
