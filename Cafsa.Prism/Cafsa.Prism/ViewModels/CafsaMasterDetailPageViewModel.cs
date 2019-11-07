@@ -27,35 +27,35 @@ namespace Cafsa.Prism.ViewModels
             {
                 new Menu
                 {
-                    Icon = "ic_action_home",
+                    Icon = "ic_home",
                     PageName = "ActivitiesPage",
                     Title = "Activities"
                 },
 
                 new Menu
                 {
-                    Icon = "ic_action_list_alt",
+                    Icon = "ic_list_alt",
                     PageName = "ServicesPage",
                     Title = "Services"
                 },
 
                 new Menu
                 {
-                    Icon = "ic_action_person",
+                    Icon = "ic_person",
                     PageName = "ModifyUserPage",
                     Title = "Modify User"
                 },
 
                 new Menu
                 {
-                    Icon = "ic_action_map",
+                    Icon = "ic_map",
                     PageName = "MapPage",
                     Title = "Map"
                 },
 
                 new Menu
                 {
-                    Icon = "ic_action_exit_to_app",
+                    Icon = "ic_exit_to_app",
                     PageName = "LoginPage",
                     Title = "Logout"
                 }

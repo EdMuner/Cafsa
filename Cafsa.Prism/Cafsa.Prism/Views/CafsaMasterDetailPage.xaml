@@ -9,7 +9,7 @@
         <ContentPage Title="Menu">
             <StackLayout Padding="20">
                 <Image
-                    HeightRequest="150"
+                    HeightRequest="120"
                     Source="cafsaMod"/>
                 <ListView
                     BackgroundColor="Transparent"
@@ -36,13 +36,13 @@
                                         Grid.Column="1"
                                         FontAttributes="Bold"
                                         VerticalOptions="Center"
+                                        TextColor="DarkGreen"
                                         Text="{Binding Title}"/>
                                 </Grid>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <Button Text="ViewA" Command="{Binding NavigateCommand}" CommandParameter="ViewA" />
             </StackLayout>
         </ContentPage>
     </MasterDetailPage.Master>
