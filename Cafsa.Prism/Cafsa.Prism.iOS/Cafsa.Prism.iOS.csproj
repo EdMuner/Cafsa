@@ -220,19 +220,22 @@
     <BundleResource Include="Resources\drawable\ic_more_vert.png" />
   </ItemGroup>
   <ItemGroup>
+    <BundleResource Include="Resources\drawable\cafsaMod.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\drawable\ic_exit_to_app.png" />
+  </ItemGroup>
+  <ItemGroup>
     <BundleResource Include="Resources\drawable\ic_home.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\drawable\ic_list_alt.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\drawable\ic_action_home.png" />
+    <BundleResource Include="Resources\drawable\ic_map.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\drawable\ic_action_list_alt.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\drawable\cafsaMod.png" />
+    <BundleResource Include="Resources\drawable\ic_person.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

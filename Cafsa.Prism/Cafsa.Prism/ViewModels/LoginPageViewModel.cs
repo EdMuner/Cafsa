@@ -1,5 +1,7 @@
-﻿using Cafsa.Common.Models;
+﻿using Cafsa.Common.Helpers;
+using Cafsa.Common.Models;
 using Cafsa.Common.Services;
+using Newtonsoft.Json;
 using Prism.Commands;
 using Prism.Navigation;
 
@@ -130,13 +132,12 @@ namespace Cafsa.Prism.ViewModels
             }
 
             var referee = response2.Result;
-            var parameters = new NavigationParameters
-            {
-                { "referee", referee }
-            };
+            Settings.Referee = JsonConvert.SerializeObject(referee);
+            Settings.Token = JsonConvert.SerializeObject(token);
+
 
             //Se navega a la pagina activities
-            await _navigationservice.NavigateAsync("ActivitiesPage", parameters);
+            await _navigationservice.NavigateAsync("ActivitiesPage");
             IsRunning = false;
             IsEnabled = true;
         }

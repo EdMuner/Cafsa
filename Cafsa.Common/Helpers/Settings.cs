@@ -7,19 +7,34 @@ namespace Cafsa.Common.Helpers
     {
         private const string _activityImages = "ActivityImages";
         private const string _activity = "Activity";
-        private static readonly string _settingsDefault = string.Empty;
+        private const string _token = "token";
+        private const string _referee = "referee";
+
+        private static readonly string _stringDefault = string.Empty;
 
         private static ISettings AppSettings => CrossSettings.Current;
 
         public static string ActivityImages
         {
-            get => AppSettings.GetValueOrDefault(_activityImages, _settingsDefault);
+            get => AppSettings.GetValueOrDefault(_activityImages, _stringDefault);
             set => AppSettings.AddOrUpdateValue(_activityImages, value);
         }
         public static string Activity
         {
-            get => AppSettings.GetValueOrDefault(_activity, _settingsDefault);
+            get => AppSettings.GetValueOrDefault(_activity, _stringDefault);
             set => AppSettings.AddOrUpdateValue(_activity, value);
         }
+        public static string Token
+        {
+            get => AppSettings.GetValueOrDefault(_token, _stringDefault);
+            set => AppSettings.AddOrUpdateValue(_token, value);
+        }
+
+        public static string Referee
+        {
+            get => AppSettings.GetValueOrDefault(_referee, _stringDefault);
+            set => AppSettings.AddOrUpdateValue(_referee, value);
+        }
+
     }
 }
