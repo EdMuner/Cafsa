@@ -4,7 +4,8 @@
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="Cafsa.Prism.Views.ServicesPage"
-              IconImageSource="ic_action_list_alt"
+             IconImageSource="ic_action_list_alt"
+             BackgroundColor="{StaticResource colorBackgroud}"
              Title="{Binding Title}">
     <StackLayout
      Padding="10">
