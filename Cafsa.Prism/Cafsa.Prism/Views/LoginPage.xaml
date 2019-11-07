@@ -16,7 +16,7 @@
                 <Image
                     Margin="22"
                     Source="cafsaMod"
-                    WidthRequest="180"/>
+                    WidthRequest="200"/>
                 <Label
                     Text="Email"/>
                 <Entry
