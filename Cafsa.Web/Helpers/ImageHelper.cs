@@ -15,7 +15,7 @@ namespace Cafsa.Web.Helpers
             var path = Path.Combine(
                 Directory.GetCurrentDirectory(),
                 //aqui se guarda la imagen
-                "wwwroot\\images\\Services",
+                "wwwroot\\images\\Activities",
                 file);
 
             using (var stream = new FileStream(path, FileMode.Create))
@@ -23,7 +23,7 @@ namespace Cafsa.Web.Helpers
                 await imageFile.CopyToAsync(stream);
             }
 
-            return $"~/images/Services/{file}";
+            return $"~/images/Activities/{file}";
         }
     }
 }

@@ -39,7 +39,7 @@ namespace Cafsa.Web.Data.Entities
         public ICollection<Service> Services { get; set; }
 
         public string FirstImage => ActivityImages == null || ActivityImages.Count == 0
-              ? "https://cafsa.azurewebsites.net/images/Services/noImage.png"
+              ? "https://cafsa.azurewebsites.net/images/Activities/noImage.png"
               : ActivityImages.FirstOrDefault().ImageUrl;
 
 

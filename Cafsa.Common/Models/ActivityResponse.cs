@@ -25,7 +25,7 @@ namespace Cafsa.Common.Models
         public ICollection<ServiceResponse> Services { get; set; }
 
         public string FirstImage => ActivityImages == null || ActivityImages.Count == 0
-                ? "https://cafsa.azurewebsites.net/images/Services/noImage.png"
+                ? "https://cafsa.azurewebsites.net/images/Activities/noImage.png"
                 : ActivityImages.FirstOrDefault().ImageUrl;
 
     }

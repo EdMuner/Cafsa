@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Cafsa.Common.Models
+﻿namespace Cafsa.Common.Models
 {
     public class ClientResponse
     {
