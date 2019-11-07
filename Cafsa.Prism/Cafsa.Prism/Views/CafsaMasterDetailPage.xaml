@@ -3,14 +3,15 @@
                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                   xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
                   prism:ViewModelLocator.AutowireViewModel="True"
-                  x:Class="Cafsa.Prism.Views.CafsaMasterDetailPage">
+                  x:Class="Cafsa.Prism.Views.CafsaMasterDetailPage"
+                  BackgroundColor="{StaticResource colorBackgroud}">
 
     <MasterDetailPage.Master>
         <ContentPage Title="Menu">
             <StackLayout Padding="10">
                 <Image
                     HeightRequest="140"
-                    Source="cafsaMod"/>
+                    Source="logo"/>
                 <ListView
                     BackgroundColor="Transparent"
                     ItemsSource="{Binding Menus}"

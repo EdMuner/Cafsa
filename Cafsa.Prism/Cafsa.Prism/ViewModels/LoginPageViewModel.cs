@@ -34,6 +34,7 @@ namespace Cafsa.Prism.ViewModels
             _apiService = apiService;
             Title = "Login";
             IsEnabled = true;
+            IsRemember = true;
             //TODO: delete this lines
             Email = "edi@yopmail.com";
             Password = "123456";
@@ -45,6 +46,8 @@ namespace Cafsa.Prism.ViewModels
         public DelegateCommand LoginCommand => _loginCommand ?? (_loginCommand = new DelegateCommand(LoginAsync));
 
         public string Email { get; set; }
+
+        public bool IsRemember { get; set; }
 
         //Se implementa para que cuando se cambie la propiedad password desde la viewmodel, nos va a reflejar la view
         public string Password

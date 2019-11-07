@@ -5,6 +5,7 @@
              xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"    
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="Cafsa.Prism.Views.LoginPage"
+             BackgroundColor="White"
              Title="{Binding Title}">
 
     <ScrollView>
@@ -15,7 +16,7 @@
                      Padding="10">
                 <Image
                     Margin="22"
-                    Source="cafsaMod"
+                    Source="logo"
                     WidthRequest="200"/>
                 <Label
                     Text="Email"/>
@@ -29,15 +30,37 @@
                     IsPassword="True"
                     Placeholder="Enter your password..."
                     Text="{Binding Password}"/>
-                <Button
-                    BackgroundColor="DarkGreen"
-                    CornerRadius="23"
-                    Command="{Binding LoginCommand}"
-                    HeightRequest="46"
-                    IsEnabled="{Binding IsEnabled}"
-                    Text="Login"
-                    TextColor="White"
-                    VerticalOptions="EndAndExpand"/>
+                <StackLayout
+	                HorizontalOptions="Center"
+	                Orientation="Horizontal">   
+                    <Label
+                	Text="Rememberme in this device"
+    	            VerticalOptions="Center"/>
+                    <CheckBox
+    	            IsChecked="{Binding IsRemember}"/>
+                </StackLayout>
+                <Label
+	                HorizontalOptions="Center"
+	                FontAttributes="Bold"
+	                Text="Forgot your password?"
+	                TextColor="{StaticResource colorPrimary}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ForgotPasswordCommand}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+                <StackLayout
+                    Orientation="Horizontal"
+                    VerticalOptions="EndAndExpand">
+                    <Button
+                        Command="{Binding LoginCommand}"
+                        IsEnabled="{Binding IsEnabled}"
+                        Text="Login"/>
+                    <Button
+                        Command="{Binding RegisterCommand}"
+                        IsEnabled="{Binding IsEnabled}"
+                        Style="{StaticResource secondaryButton}"
+                        Text="Register"/>
+                </StackLayout>
             </StackLayout>
             <busyindicator:SfBusyIndicator  
                 AnimationType="Globe"
@@ -45,7 +68,7 @@
                 AbsoluteLayout.LayoutFlags="All"
                 BackgroundColor="Transparent"
                 HorizontalOptions="Center"
-                TextColor="DarkGreen"
+                TextColor="{StaticResource colorPrimary}"
                 IsVisible="{Binding IsRunning}"
                 Title=""
                 VerticalOptions="Center"

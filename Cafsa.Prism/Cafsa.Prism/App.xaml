@@ -9,6 +9,34 @@
             <!-- Parameters -->
             <x:String x:Key="UrlAPI">https://cafsa.azurewebsites.net/</x:String>
 
+            <!-- Colors -->
+            <Color x:Key="colorBackgroud">#D9D9D9</Color>
+            <Color x:Key="colorPrimary">#1C5528</Color>
+            <Color x:Key="colorSecondary">#0476D9</Color>
+            <Color x:Key="colorDanger">#0A00FF</Color>
+            <Color x:Key="colorAccent">#588C23</Color>
+            <Color x:Key="colorFont">#43735C</Color>
+            <Color x:Key="colorFontInverse">#D9D9D9</Color>
+
+            <!-- Styles -->
+            <Style TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource colorPrimary}" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="TextColor" Value="{StaticResource colorFontInverse}" />
+            </Style>
+
+            <Style x:Key="secondaryButton" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource colorSecondary}" />
+            </Style>
+
+            <Style x:Key="dangerButton" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource colorDanger}" />
+            </Style>
+
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource colorFont}" />
+            </Style>
+
         </ResourceDictionary>
     </Application.Resources>
 </prism:PrismApplication>
