@@ -1,5 +1,7 @@
-﻿using Cafsa.Common.Models;
+﻿using Cafsa.Common.Helpers;
+using Cafsa.Common.Models;
 using Cafsa.Common.Services;
+using Newtonsoft.Json;
 using Prism.Commands;
 using Prism.Navigation;
 
@@ -15,7 +17,7 @@ namespace Cafsa.Prism.ViewModels
         //Propiedades
         //Metodos publicos
         //Metodos Privados
-        private readonly INavigationService _navigationservice;
+        private readonly INavigationService _navigationService;
         public readonly IApiService _apiService;
         private string _password;
         private bool _isRunning;
@@ -24,16 +26,16 @@ namespace Cafsa.Prism.ViewModels
 
 
         public LoginPageViewModel(
-            INavigationService navigationservice,
-            IApiService apiService) : base(navigationservice)
+            INavigationService navigationService,
+            IApiService apiService) : base(navigationService)
         {
             //titulo de la pantalla inicial de la app
-            _navigationservice = navigationservice;
+            _navigationService = navigationService;
             _apiService = apiService;
             Title = "Login";
             IsEnabled = true;
             //TODO: delete this lines
-            Email = "alejozapata@gmail.com";
+            Email = "edi@yopmail.com";
             Password = "123456";
 
         }
@@ -130,13 +132,13 @@ namespace Cafsa.Prism.ViewModels
             }
 
             var referee = response2.Result;
-            var parameters = new NavigationParameters
-            {
-                { "referee", referee }
-            };
+            Settings.Referee = JsonConvert.SerializeObject(referee);
+            Settings.Token = JsonConvert.SerializeObject(token);
+
 
             //Se navega a la pagina activities
-            await _navigationservice.NavigateAsync("ActivitiesPage", parameters);
+            await _navigationService.NavigateAsync("/CafsaMasterDetailPage/NavigationPage/ActivitiesPage");
+
             IsRunning = false;
             IsEnabled = true;
         }
