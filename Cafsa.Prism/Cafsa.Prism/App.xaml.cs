@@ -5,6 +5,10 @@ using Cafsa.Prism.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Cafsa.Common.Services;
+using Newtonsoft.Json;
+using Cafsa.Common.Models;
+using Cafsa.Common.Helpers;
+using System;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Cafsa.Prism
@@ -20,7 +24,16 @@ namespace Cafsa.Prism
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTYzMDM0QDMxMzcyZTMzMmUzME5QSmJhTjkyM2krVXRKT0lGYVdmdC9RbGhJMEhRcXM1ZUlMTGwyaWV1RGc9");
             InitializeComponent();
 
-            await NavigationService.NavigateAsync("NavigationPage/LoginPage");
+            var token = JsonConvert.DeserializeObject<TokenResponse>(Settings.Token);
+            if (Settings.IsRemembered && token?.Expiration > DateTime.Now)
+            {
+                await NavigationService.NavigateAsync("/CafsaMasterDetailPage/NavigationPage/ActivitiesPage");
+            }
+            else
+            {
+                await NavigationService.NavigateAsync("/NavigationPage/LoginPage");
+            }
+
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -37,6 +50,8 @@ namespace Cafsa.Prism
             containerRegistry.RegisterForNavigation<CafsaMasterDetailPage, CafsaMasterDetailPageViewModel>();
             containerRegistry.RegisterForNavigation<ModifyUserPage, ModifyUserPageViewModel>();
             containerRegistry.RegisterForNavigation<MapPage, MapPageViewModel>();
+            containerRegistry.RegisterForNavigation<RegisterPage, RegisterPageViewModel>();
+            containerRegistry.RegisterForNavigation<RememberPasswordPage, RememberPasswordPageViewModel>();
         }
     }
 }

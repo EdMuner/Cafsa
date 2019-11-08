@@ -17,7 +17,7 @@
                 <Image
                     Margin="22"
                     Source="logo"
-                    WidthRequest="200"/>
+                    WidthRequest="188"/>
                 <Label
                     Text="Email"/>
                 <Entry
@@ -32,12 +32,12 @@
                     Text="{Binding Password}"/>
                 <StackLayout
 	                HorizontalOptions="Center"
-	                Orientation="Horizontal">   
+	                Orientation="Horizontal">
                     <Label
-                	Text="Rememberme in this device"
-    	            VerticalOptions="Center"/>
+                	    Text="Rememberme in this device"
+    	                VerticalOptions="Center"/>
                     <CheckBox
-    	            IsChecked="{Binding IsRemember}"/>
+    	                 IsChecked="{Binding IsRemember}"/>
                 </StackLayout>
                 <Label
 	                HorizontalOptions="Center"
@@ -64,16 +64,16 @@
             </StackLayout>
             <busyindicator:SfBusyIndicator  
                 AnimationType="Globe"
-                AbsoluteLayout.LayoutBounds=".5,.5,.8,.8"
+                AbsoluteLayout.LayoutBounds="1,1,1,1"
                 AbsoluteLayout.LayoutFlags="All"
-                BackgroundColor="Transparent"
+                BackgroundColor="{StaticResource colorFontInverse}"
                 HorizontalOptions="Center"
-                TextColor="{StaticResource colorPrimary}"
+                TextColor="{StaticResource colorDanger}"
                 IsVisible="{Binding IsRunning}"
-                Title=""
+                Title="Loading..."
                 VerticalOptions="Center"
                 ViewBoxWidth="60"
-                ViewBoxHeight="60" />
+                ViewBoxHeight="60"/>
         </AbsoluteLayout>
     </ScrollView>
 </ContentPage>

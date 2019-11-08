@@ -1,4 +1,5 @@
-﻿using Cafsa.Common.Helpers;
+﻿using System;
+using Cafsa.Common.Helpers;
 using Cafsa.Common.Models;
 using Cafsa.Common.Services;
 using Newtonsoft.Json;
@@ -23,7 +24,8 @@ namespace Cafsa.Prism.ViewModels
         private bool _isRunning;
         private bool _isEnabled;
         private DelegateCommand _loginCommand;
-
+        private DelegateCommand _registerCommand;
+        private DelegateCommand _forgotPasswordCommand;
 
         public LoginPageViewModel(
             INavigationService navigationService,
@@ -35,15 +37,16 @@ namespace Cafsa.Prism.ViewModels
             Title = "Login";
             IsEnabled = true;
             IsRemember = true;
-            //TODO: delete this lines
-            Email = "edi@yopmail.com";
-            Password = "123456";
-
         }
 
         //cuando le den tab en el command el ejecuta el metodo login
         //  operador -----       aqui pregunta si es null ?? 
         public DelegateCommand LoginCommand => _loginCommand ?? (_loginCommand = new DelegateCommand(LoginAsync));
+        public DelegateCommand RegisterCommand => _registerCommand ?? (_registerCommand = new DelegateCommand(Register));
+
+        public DelegateCommand ForgotPasswordCommand => _forgotPasswordCommand ?? (_forgotPasswordCommand = new DelegateCommand(ForgotPassword));
+
+      
 
         public string Email { get; set; }
 
@@ -135,8 +138,10 @@ namespace Cafsa.Prism.ViewModels
             }
 
             var referee = response2.Result;
+
             Settings.Referee = JsonConvert.SerializeObject(referee);
             Settings.Token = JsonConvert.SerializeObject(token);
+            Settings.IsRemembered = IsRemember;
 
 
             //Se navega a la pagina activities
@@ -144,6 +149,16 @@ namespace Cafsa.Prism.ViewModels
 
             IsRunning = false;
             IsEnabled = true;
+        }
+
+        private async void Register()
+        {
+            await _navigationService.NavigateAsync("RegisterPage");
+        }
+
+        private async void ForgotPassword()
+        {
+            await _navigationService.NavigateAsync("RememberPasswordPage");
         }
     }
 }

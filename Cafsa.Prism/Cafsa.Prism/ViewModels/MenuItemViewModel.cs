@@ -1,4 +1,5 @@
-﻿using Cafsa.Common.Models;
+﻿using Cafsa.Common.Helpers;
+using Cafsa.Common.Models;
 using Prism.Commands;
 using Prism.Navigation;
 
@@ -20,6 +21,7 @@ namespace Cafsa.Prism.ViewModels
         {
             if (PageName.Equals("LoginPage"))
             {
+                Settings.IsRemembered = false;
                 await _navigationService.NavigateAsync("/NavigationPage/LoginPage");
                 return;
             }
