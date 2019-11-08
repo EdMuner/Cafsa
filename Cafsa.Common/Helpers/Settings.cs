@@ -9,8 +9,12 @@ namespace Cafsa.Common.Helpers
         private const string _activity = "Activity";
         private const string _token = "token";
         private const string _referee = "referee";
-
+        private const string _isRemembered = "IsRemembered";
         private static readonly string _stringDefault = string.Empty;
+        private static readonly bool _boolDefault = false;
+
+
+
 
         private static ISettings AppSettings => CrossSettings.Current;
 
@@ -34,6 +38,12 @@ namespace Cafsa.Common.Helpers
         {
             get => AppSettings.GetValueOrDefault(_referee, _stringDefault);
             set => AppSettings.AddOrUpdateValue(_referee, value);
+        }
+
+        public static bool IsRemembered
+        {
+            get => AppSettings.GetValueOrDefault(_isRemembered, _boolDefault);
+            set => AppSettings.AddOrUpdateValue(_isRemembered, value);
         }
 
     }

@@ -13,6 +13,7 @@ namespace Cafsa.Prism.ViewModels
         private RefereeResponse _referee;
         private ObservableCollection<ActivityItemViewModel> _activities;
         private INavigationService _navigationService;
+   
 
         public ActivitiesPageViewModel(
             INavigationService navigationService) : base(navigationService)
@@ -33,20 +34,41 @@ namespace Cafsa.Prism.ViewModels
 
         {  //se trae la informacion de las activities del referee especifico
             _referee = JsonConvert.DeserializeObject<RefereeResponse>(Settings.Referee);
-            Title = $"Activities of: {_referee.FullName}";
-            Activities = new ObservableCollection<ActivityItemViewModel>(_referee.Activities.Select(a => new ActivityItemViewModel(_navigationService)
+            if (_referee.RoleId == 1)
             {
-                Address = a.Address,
-                Services = a.Services,
-                IsAvailable = a.IsAvailable,
-                Id = a.Id,
-                Neighborhood = a.Neighborhood,
-                Price = a.Price,
-                ActivityImages = a.ActivityImages,
-                ActivityType = a.ActivityType,
-                Remarks = a.Remarks
+                Title = $"Activities of: {_referee.FullName}";
+                Activities = new ObservableCollection<ActivityItemViewModel>(_referee.Activities.Select(a => new ActivityItemViewModel(_navigationService)
+                {
+                    Address = a.Address,
+                    Services = a.Services,
+                    IsAvailable = a.IsAvailable,
+                    Id = a.Id,
+                    Neighborhood = a.Neighborhood,
+                    Price = a.Price,
+                    ActivityImages = a.ActivityImages,
+                    ActivityType = a.ActivityType,
+                    Remarks = a.Remarks
+                }).ToList());
+            }
+            else
+            {
+                Title = "Available ";
+                Activities = new ObservableCollection<ActivityItemViewModel>(_referee.Activities.Select(a => new ActivityItemViewModel(_navigationService)
+                {
+                    Address = a.Address,
+                    Services = a.Services,
+                    IsAvailable = a.IsAvailable,
+                    Id = a.Id,
+                    Neighborhood = a.Neighborhood,
+                    //Price = a.Price,
+                    ActivityImages = a.ActivityImages,
+                    ActivityType = a.ActivityType,
+                    Remarks = a.Remarks
 
-            }).ToList());
+                }).ToList()); 
+            }
+
+            
         }
     }
 }

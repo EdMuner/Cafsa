@@ -12,7 +12,7 @@
             <!-- Colors -->
             <Color x:Key="colorBackgroud">#D9D9D9</Color>
             <Color x:Key="colorPrimary">#1C5528</Color>
-            <Color x:Key="colorSecondary">#0476D9</Color>
+            <Color x:Key="colorSecondary">#155DFD</Color>
             <Color x:Key="colorDanger">#0A00FF</Color>
             <Color x:Key="colorAccent">#588C23</Color>
             <Color x:Key="colorFont">#43735C</Color>
