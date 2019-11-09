@@ -13,7 +13,7 @@ namespace Cafsa.Prism.Droid
 {
     [Activity(
         Label = "Cafsa",
-        Icon = "@mipmap/ic_launcher",
+       Icon = "@mipmap/ic_launcher",
         Theme = "@style/MainTheme",
         MainLauncher = false,
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
@@ -47,7 +47,6 @@ namespace Cafsa.Prism.Droid
                 permissions,
                 grantResults);
         }
-
     }
 
     public class AndroidInitializer : IPlatformInitializer

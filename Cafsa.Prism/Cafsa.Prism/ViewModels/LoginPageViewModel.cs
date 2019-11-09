@@ -2,6 +2,7 @@
 using Cafsa.Common.Helpers;
 using Cafsa.Common.Models;
 using Cafsa.Common.Services;
+using Cafsa.Prism.Helpers;
 using Newtonsoft.Json;
 using Prism.Commands;
 using Prism.Navigation;
@@ -34,7 +35,7 @@ namespace Cafsa.Prism.ViewModels
             //titulo de la pantalla inicial de la app
             _navigationService = navigationService;
             _apiService = apiService;
-            Title = "Login";
+            Title = Languages.Login;
             IsEnabled = true;
             IsRemember = true;
         }
@@ -75,7 +76,10 @@ namespace Cafsa.Prism.ViewModels
             //si no digitaron nada en el campo email
             if (string.IsNullOrEmpty(Email))
             {
-                await App.Current.MainPage.DisplayAlert("Error", "You must an email.", "Accept");
+                await App.Current.MainPage.DisplayAlert(
+                    Languages.Error,
+                    Languages.EmailError,
+                    Languages.Accept);
                 return;
             }
             //si no digitaron password
