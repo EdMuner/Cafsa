@@ -40,6 +40,7 @@ namespace Cafsa.Prism
         {
             //injecta navegacion de servicio
             containerRegistry.Register<IApiService, ApiService>();
+            containerRegistry.Register<IGeolocatorService, GeolocatorService>();
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
             containerRegistry.RegisterForNavigation<ActivitiesPage, ActivitiesPageViewModel>();
