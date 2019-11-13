@@ -4,6 +4,7 @@
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="Cafsa.Prism.Views.ServicesPage"
+             xmlns:i18n="clr-namespace:Cafsa.Prism.Helpers"
              IconImageSource="ic_action_list_alt"
              BackgroundColor="{StaticResource colorBackgroud}"
              Title="{Binding Title}">
@@ -21,11 +22,11 @@
             <Label
                 Grid.Column="0"
                 FontAttributes="Bold"
-                Text="Star Date"/>
+                Text="{i18n:Translate StartDate}"/>
             <Label
                 Grid.Column="1"
                 FontAttributes="Bold"
-                Text="Customer"/>
+                Text="{i18n:Translate Customer}"/>
         </Grid>
         <ListView       
             ItemsSource="{Binding Services}">

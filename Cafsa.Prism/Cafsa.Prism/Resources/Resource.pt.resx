@@ -237,4 +237,112 @@
   <data name="RegisterNewUser" xml:space="preserve">
     <value>Registrar novo usuário</value>
   </data>
+  <data name="EnterEmail" xml:space="preserve">
+    <value>Você precisa inserir o seu endereço de email.</value>
+  </data>
+  <data name="SelectRole" xml:space="preserve">
+    <value>Você deve selecionar uma função.</value>
+  </data>
+  <data name="EnterPassword" xml:space="preserve">
+    <value>Digite uma senha.</value>
+  </data>
+  <data name="RecoverPassword" xml:space="preserve">
+    <value>Recuperar Senha</value>
+  </data>
+  <data name="EmailValid" xml:space="preserve">
+    <value>Digite um e-mail válido!</value>
+  </data>
+  <data name="Service" xml:space="preserve">
+    <value>Serviço</value>
+  </data>
+  <data name="Remarks" xml:space="preserve">
+    <value>Comentários:</value>
+  </data>
+  <data name="CurrentPasswordPlaceHolder" xml:space="preserve">
+    <value>Digite a senha atual</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>Nova senha:</value>
+  </data>
+  <data name="NewPasswordPlaceHolder" xml:space="preserve">
+    <value>Insira a nova senha:</value>
+  </data>
+  <data name="ConfirmNewPasswordPlaceHolder" xml:space="preserve">
+    <value>Confirmar nova senha</value>
+  </data>
+  <data name="CurrentPasswordNew" xml:space="preserve">
+    <value>Senha atual</value>
+  </data>
+  <data name="ConfirmNewPassword" xml:space="preserve">
+    <value>Confirmar nova senha</value>
+  </data>
+  <data name="Procesing" xml:space="preserve">
+    <value>Processo ...</value>
+  </data>
+  <data name="Document" xml:space="preserve">
+    <value>Documento</value>
+  </data>
+  <data name="DocumentPlaceHolder" xml:space="preserve">
+    <value>Documento...</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="FirstNamePlaceHolder" xml:space="preserve">
+    <value>Nome...</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Apelido</value>
+  </data>
+  <data name="LastNamePlaceHolder" xml:space="preserve">
+    <value>Apelido</value>
+  </data>
+  <data name="Addres" xml:space="preserve">
+    <value>Residência</value>
+  </data>
+  <data name="AddresPlaceHolder" xml:space="preserve">
+    <value>Residência</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>Telefone</value>
+  </data>
+  <data name="PhonePlaceHolder" xml:space="preserve">
+    <value>Telefone</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Salvar</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Carregando</value>
+  </data>
+  <data name="EmailNew" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="RegisterAs" xml:space="preserve">
+    <value>Registar-se como</value>
+  </data>
+  <data name="SelectAnRole" xml:space="preserve">
+    <value>Selecionar uma função</value>
+  </data>
+  <data name="EnterAnPassword" xml:space="preserve">
+    <value>Insira uma senha</value>
+  </data>
+  <data name="ConfirmAPassword" xml:space="preserve">
+    <value>Confirmar Senha:</value>
+  </data>
+  <data name="ConfirmAPasswordPlaceHolder" xml:space="preserve">
+    <value>Confirmar Senha:</value>
+  </data>
+  <data name="Registering" xml:space="preserve">
+    <value>Registrando</value>
+  </data>
+  <data name="Recovering" xml:space="preserve">
+    <value>Recuperando</value>
+  </data>
+  <data name="Customer" xml:space="preserve">
+    <value>Cliente</value>
+  </data>
+  <data name="StartDate" xml:space="preserve">
+    <value>Data de início</value>
+  </data>
 </root>

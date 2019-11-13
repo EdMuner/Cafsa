@@ -255,4 +255,94 @@
   <data name="Service" xml:space="preserve">
     <value>Service</value>
   </data>
+  <data name="Remarks" xml:space="preserve">
+    <value>Remarks</value>
+  </data>
+  <data name="CurrentPasswordPlaceHolder" xml:space="preserve">
+    <value>Current password...</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>New Password</value>
+  </data>
+  <data name="NewPasswordPlaceHolder" xml:space="preserve">
+    <value>New password...</value>
+  </data>
+  <data name="ConfirmNewPasswordPlaceHolder" xml:space="preserve">
+    <value>Confirm new password...</value>
+  </data>
+  <data name="CurrentPasswordNew" xml:space="preserve">
+    <value>Current Password</value>
+  </data>
+  <data name="ConfirmNewPassword" xml:space="preserve">
+    <value>Confirm New Password</value>
+  </data>
+  <data name="Procesing" xml:space="preserve">
+    <value>Procesing... </value>
+  </data>
+  <data name="Document" xml:space="preserve">
+    <value>Document</value>
+  </data>
+  <data name="DocumentPlaceHolder" xml:space="preserve">
+    <value>Document...</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>First Name</value>
+  </data>
+  <data name="FirstNamePlaceHolder" xml:space="preserve">
+    <value>First name...</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="LastNamePlaceHolder" xml:space="preserve">
+    <value>Last name...</value>
+  </data>
+  <data name="Addres" xml:space="preserve">
+    <value>Addres</value>
+  </data>
+  <data name="AddresPlaceHolder" xml:space="preserve">
+    <value>Address...</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>Phone Number</value>
+  </data>
+  <data name="PhonePlaceHolder" xml:space="preserve">
+    <value>Phone number...</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="EmailNew" xml:space="preserve">
+    <value>Email...</value>
+  </data>
+  <data name="RegisterAs" xml:space="preserve">
+    <value>Register as</value>
+  </data>
+  <data name="SelectAnRole" xml:space="preserve">
+    <value>Select a role...</value>
+  </data>
+  <data name="EnterAnPassword" xml:space="preserve">
+    <value>Enter  a password...</value>
+  </data>
+  <data name="ConfirmAPassword" xml:space="preserve">
+    <value>Confirm Password</value>
+  </data>
+  <data name="ConfirmAPasswordPlaceHolder" xml:space="preserve">
+    <value>Confirm password...</value>
+  </data>
+  <data name="Registering" xml:space="preserve">
+    <value>Registering...</value>
+  </data>
+  <data name="Recovering" xml:space="preserve">
+    <value>Recovering...</value>
+  </data>
+  <data name="Customer" xml:space="preserve">
+    <value>Customer</value>
+  </data>
+  <data name="StartDate" xml:space="preserve">
+    <value>Start Date</value>
+  </data>
 </root>

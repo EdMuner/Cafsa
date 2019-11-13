@@ -88,6 +88,24 @@ namespace Cafsa.Prism.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Addres.
+        /// </summary>
+        public static string Addres {
+            get {
+                return ResourceManager.GetString("Addres", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Address....
+        /// </summary>
+        public static string AddresPlaceHolder {
+            get {
+                return ResourceManager.GetString("AddresPlaceHolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Adress.
         /// </summary>
         public static string Address {
@@ -115,6 +133,42 @@ namespace Cafsa.Prism.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirm Password.
+        /// </summary>
+        public static string ConfirmAPassword {
+            get {
+                return ResourceManager.GetString("ConfirmAPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm password....
+        /// </summary>
+        public static string ConfirmAPasswordPlaceHolder {
+            get {
+                return ResourceManager.GetString("ConfirmAPasswordPlaceHolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm New Password.
+        /// </summary>
+        public static string ConfirmNewPassword {
+            get {
+                return ResourceManager.GetString("ConfirmNewPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm new password....
+        /// </summary>
+        public static string ConfirmNewPasswordPlaceHolder {
+            get {
+                return ResourceManager.GetString("ConfirmNewPasswordPlaceHolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You must enter your a password confirm..
         /// </summary>
         public static string ConfirmPassword {
@@ -129,6 +183,33 @@ namespace Cafsa.Prism.Resources {
         public static string CurrentPassword {
             get {
                 return ResourceManager.GetString("CurrentPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current Password.
+        /// </summary>
+        public static string CurrentPasswordNew {
+            get {
+                return ResourceManager.GetString("CurrentPasswordNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current password....
+        /// </summary>
+        public static string CurrentPasswordPlaceHolder {
+            get {
+                return ResourceManager.GetString("CurrentPasswordPlaceHolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Customer.
+        /// </summary>
+        public static string Customer {
+            get {
+                return ResourceManager.GetString("Customer", resourceCulture);
             }
         }
         
@@ -151,6 +232,24 @@ namespace Cafsa.Prism.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Document.
+        /// </summary>
+        public static string Document {
+            get {
+                return ResourceManager.GetString("Document", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Document....
+        /// </summary>
+        public static string DocumentPlaceHolder {
+            get {
+                return ResourceManager.GetString("DocumentPlaceHolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email.
         /// </summary>
         public static string Email {
@@ -165,6 +264,15 @@ namespace Cafsa.Prism.Resources {
         public static string EmailError {
             get {
                 return ResourceManager.GetString("EmailError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email....
+        /// </summary>
+        public static string EmailNew {
+            get {
+                return ResourceManager.GetString("EmailNew", resourceCulture);
             }
         }
         
@@ -192,6 +300,15 @@ namespace Cafsa.Prism.Resources {
         public static string EnterAddres {
             get {
                 return ResourceManager.GetString("EnterAddres", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter  a password....
+        /// </summary>
+        public static string EnterAnPassword {
+            get {
+                return ResourceManager.GetString("EnterAnPassword", resourceCulture);
             }
         }
         
@@ -268,6 +385,24 @@ namespace Cafsa.Prism.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to First Name.
+        /// </summary>
+        public static string FirstName {
+            get {
+                return ResourceManager.GetString("FirstName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to First name....
+        /// </summary>
+        public static string FirstNamePlaceHolder {
+            get {
+                return ResourceManager.GetString("FirstNamePlaceHolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Forgot your password....
         /// </summary>
         public static string ForgotPassword {
@@ -295,11 +430,38 @@ namespace Cafsa.Prism.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Last Name.
+        /// </summary>
+        public static string LastName {
+            get {
+                return ResourceManager.GetString("LastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last name....
+        /// </summary>
+        public static string LastNamePlaceHolder {
+            get {
+                return ResourceManager.GetString("LastNamePlaceHolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You must enter a new password at least 6 characters length..
         /// </summary>
         public static string LengthPassword {
             get {
                 return ResourceManager.GetString("LengthPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading....
+        /// </summary>
+        public static string Loading {
+            get {
+                return ResourceManager.GetString("Loading", resourceCulture);
             }
         }
         
@@ -358,6 +520,24 @@ namespace Cafsa.Prism.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New Password.
+        /// </summary>
+        public static string NewPassword {
+            get {
+                return ResourceManager.GetString("NewPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New password....
+        /// </summary>
+        public static string NewPasswordPlaceHolder {
+            get {
+                return ResourceManager.GetString("NewPasswordPlaceHolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
         public static string Ok {
@@ -385,11 +565,47 @@ namespace Cafsa.Prism.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Phone Number.
+        /// </summary>
+        public static string PhoneNumber {
+            get {
+                return ResourceManager.GetString("PhoneNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phone number....
+        /// </summary>
+        public static string PhonePlaceHolder {
+            get {
+                return ResourceManager.GetString("PhonePlaceHolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Price.
         /// </summary>
         public static string Price {
             get {
                 return ResourceManager.GetString("Price", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Procesing... .
+        /// </summary>
+        public static string Procesing {
+            get {
+                return ResourceManager.GetString("Procesing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recovering....
+        /// </summary>
+        public static string Recovering {
+            get {
+                return ResourceManager.GetString("Recovering", resourceCulture);
             }
         }
         
@@ -412,6 +628,24 @@ namespace Cafsa.Prism.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Register as.
+        /// </summary>
+        public static string RegisterAs {
+            get {
+                return ResourceManager.GetString("RegisterAs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registering....
+        /// </summary>
+        public static string Registering {
+            get {
+                return ResourceManager.GetString("Registering", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Register new user.
         /// </summary>
         public static string RegisterNewUser {
@@ -421,11 +655,38 @@ namespace Cafsa.Prism.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remarks.
+        /// </summary>
+        public static string Remarks {
+            get {
+                return ResourceManager.GetString("Remarks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rememberme in this device.
         /// </summary>
         public static string Rememberme {
             get {
                 return ResourceManager.GetString("Rememberme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select a role....
+        /// </summary>
+        public static string SelectAnRole {
+            get {
+                return ResourceManager.GetString("SelectAnRole", resourceCulture);
             }
         }
         
@@ -453,6 +714,15 @@ namespace Cafsa.Prism.Resources {
         public static string Services {
             get {
                 return ResourceManager.GetString("Services", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start Date.
+        /// </summary>
+        public static string StartDate {
+            get {
+                return ResourceManager.GetString("StartDate", resourceCulture);
             }
         }
         
