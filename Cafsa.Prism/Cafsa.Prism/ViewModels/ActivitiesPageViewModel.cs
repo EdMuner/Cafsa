@@ -1,5 +1,6 @@
 ﻿using Cafsa.Common.Helpers;
 using Cafsa.Common.Models;
+using Cafsa.Prism.Helpers;
 using Newtonsoft.Json;
 using Prism.Navigation;
 using System;
@@ -19,7 +20,7 @@ namespace Cafsa.Prism.ViewModels
             INavigationService navigationService) : base(navigationService)
         {
             _navigationService = navigationService;
-            Title = "Activities";
+            Title = Languages.Activities;
             LoadReferee();
         }
 
@@ -36,7 +37,7 @@ namespace Cafsa.Prism.ViewModels
             _referee = JsonConvert.DeserializeObject<RefereeResponse>(Settings.Referee);
             if (_referee.RoleId == 1)
             {
-                Title = $"Activities of: {_referee.FullName}";
+                Title = $"Actividades {_referee.FullName}";
                 Activities = new ObservableCollection<ActivityItemViewModel>(_referee.Activities.Select(a => new ActivityItemViewModel(_navigationService)
                 {
                     Address = a.Address,
@@ -52,7 +53,7 @@ namespace Cafsa.Prism.ViewModels
             }
             else
             {
-                Title = "Available ";
+                Title = Languages.Activities;
                 Activities = new ObservableCollection<ActivityItemViewModel>(_referee.Activities.Select(a => new ActivityItemViewModel(_navigationService)
                 {
                     Address = a.Address,

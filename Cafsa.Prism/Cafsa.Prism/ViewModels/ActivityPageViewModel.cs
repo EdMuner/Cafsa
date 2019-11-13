@@ -1,5 +1,6 @@
 ﻿using Cafsa.Common.Helpers;
 using Cafsa.Common.Models;
+using Cafsa.Prism.Helpers;
 using Newtonsoft.Json;
 using Prism.Navigation;
 using System;
@@ -18,7 +19,7 @@ namespace Cafsa.Prism.ViewModels
         public ActivityPageViewModel(
             INavigationService navigationService) : base(navigationService)
         {
-            Title = "Details";
+            Title = Languages.Details;
           
         }
         //este metodo sirve para que cuando yo navegue capturar la actividad y la bindamos para traer todos los campos referentes

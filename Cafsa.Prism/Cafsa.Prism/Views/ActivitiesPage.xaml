@@ -4,6 +4,7 @@
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" 
              prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:i18n="clr-namespace:Cafsa.Prism.Helpers"
              x:Class="Cafsa.Prism.Views.ActivitiesPage"
              BackgroundColor="{StaticResource colorBackgroud}"
              Title="{Binding Title}">
@@ -57,7 +58,7 @@
                                            Grid.Row="0"
                                            Grid.Column="0"
                                            FontAttributes="Bold"
-                                           Text="Neighborhood"/>
+                                           Text="{i18n:Translate Neighborhood}"/>
                                         <Label
                                            Grid.Row="0"
                                            Grid.Column="1"
@@ -66,7 +67,7 @@
                                             Grid.Row="1"
                                             Grid.Column="0"
                                             FontAttributes="Bold"
-                                            Text="Adress"/>
+                                            Text="{i18n:Translate Address}"/>
                                         <Label
                                             Grid.Row="1"
                                             Grid.Column="1"
@@ -75,7 +76,7 @@
                                             Grid.Row="2"
                                             Grid.Column="0"
                                             FontAttributes="Bold"
-                                            Text="Price"/>
+                                             Text="{i18n:Translate Price}"/>
                                         <Label
                                             Grid.Row="2"
                                             Grid.Column="1"
@@ -84,7 +85,7 @@
                                             Grid.Row="3"
                                             Grid.Column="0"
                                             FontAttributes="Bold"
-                                            Text="Type"/>
+                                            Text="{i18n:Translate ActivityType}"/>
                                         <Label
                                            Grid.Row="3"
                                             Grid.Column="1"
@@ -93,7 +94,7 @@
                                             Grid.Row="4"
                                             Grid.Column="0"
                                             FontAttributes="Bold"
-                                            Text="Is Available"
+                                            Text="{i18n:Translate IsAvailable}"
                                             VerticalOptions="Center"/>
                                         <CheckBox
                                             Grid.Row="4"

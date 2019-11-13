@@ -1,5 +1,4 @@
-﻿using System;
-using Cafsa.Common.Models;
+﻿using Cafsa.Common.Models;
 using Prism.Commands;
 using Prism.Navigation;
 

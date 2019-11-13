@@ -1,6 +1,7 @@
 ﻿using Cafsa.Common.Helpers;
 using Cafsa.Common.Models;
 using Cafsa.Common.Services;
+using Cafsa.Prism.Helpers;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
@@ -26,7 +27,7 @@ namespace Cafsa.Prism.ViewModels
         {
             _navigationService = navigationService;
             _apiService = apiService;
-            Title = "Recover Password";
+            Title = Languages.RecoverPassword;
             _isEnabled = true;
         }
         public DelegateCommand RecoverCommand => _recoverCommand ?? (_recoverCommand = new DelegateCommand(Recover));
@@ -74,16 +75,16 @@ namespace Cafsa.Prism.ViewModels
             if (!response.IsSuccess)
             {
                 await App.Current.MainPage.DisplayAlert(
-                    "Error",
+                    Languages.Error,
                     response.Message,
-                    "Accept");
+                    Languages.Accept);
                 return;
             }
 
             await App.Current.MainPage.DisplayAlert(
-                "Ok",
+                Languages.Ok,
                 response.Message,
-                "Accept");
+                Languages.Accept);
             await _navigationService.GoBackAsync();
         }
 
@@ -92,9 +93,9 @@ namespace Cafsa.Prism.ViewModels
             if (string.IsNullOrEmpty(Email) || !RegexHelper.IsValidEmail(Email))
             {
                 await App.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "Your must enter a valid Email.",
-                    "Accept");
+                    Languages.Error,
+                    Languages.EmailValid,
+                    Languages.Accept);
                 return false;
             }
 

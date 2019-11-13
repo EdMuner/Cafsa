@@ -1,6 +1,7 @@
 ﻿using Cafsa.Common.Helpers;
 using Cafsa.Common.Models;
 using Cafsa.Common.Services;
+using Cafsa.Prism.Helpers;
 using Newtonsoft.Json;
 using Prism.Commands;
 using Prism.Navigation;
@@ -25,7 +26,7 @@ namespace Cafsa.Prism.ViewModels
             _navigationService = navigationService;
             _apiService = apiService;
 
-            Title = "Modify User";
+            Title = Languages.ModifyUser;
             IsEnabled = true;
             Referee = JsonConvert.DeserializeObject<RefereeResponse>(Settings.Referee);
         }
@@ -91,18 +92,18 @@ namespace Cafsa.Prism.ViewModels
             if (!response.IsSuccess)
             {
                 await App.Current.MainPage.DisplayAlert(
-                    "Error",
+                    Languages.Accept,
                     response.Message,
-                    "Accept");
+                    Languages.Accept);
                 return;
             }
 
             Settings.Referee = JsonConvert.SerializeObject(Referee);
 
             await App.Current.MainPage.DisplayAlert(
-                "Ok",
-                "User updated sucessfully.",
-                "Accept");
+                Languages.Ok,
+                Languages.UserUpdateSuccessfull,
+                Languages.Accept);
         }
 
         private async Task<bool> ValidateDataAsync()
@@ -110,45 +111,45 @@ namespace Cafsa.Prism.ViewModels
             if (string.IsNullOrEmpty(Referee.Document))
             {
                 await App.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "You must to enter a document.",
-                    "Accept");
+                    Languages.Error,
+                    Languages.EnterDocument,
+                    Languages.Accept);
                 return false;
             }
 
             if (string.IsNullOrEmpty(Referee.FirstName))
             {
                 await App.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "You must to enter a first name.",
-                    "Accept");
+                    Languages.Error,
+                    Languages.EnterFirstName,
+                    Languages.Accept);
                 return false;
             }
 
             if (string.IsNullOrEmpty(Referee.LastName))
             {
                 await App.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "You must to enter a last name.",
-                    "Accept");
+                    Languages.Error,
+                    Languages.EnterLastName,
+                    Languages.Accept);
                 return false;
             }
 
             if (string.IsNullOrEmpty(Referee.Address))
             {
                 await App.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "You must to enter an address.",
-                    "Accept");
+                    Languages.Error,
+                    Languages.Address,
+                    Languages.Accept);
                 return false;
             }
 
             if (string.IsNullOrEmpty(Referee.PhoneNumber))
             {
                 await App.Current.MainPage.DisplayAlert(
-                   "Error",
-                   "You must to enter an phone number.",
-                   "Accept");
+                   Languages.Error,
+                   Languages.EnterPhone,
+                   Languages.Accept);
                 return false;
             }
 

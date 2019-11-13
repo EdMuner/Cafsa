@@ -23,7 +23,7 @@
                    Text="{i18n:Translate Email}"/>
                 <Entry
                     Keyboard="Email"
-                   Placeholder="{i18n:Translate EmailPlaceHolder}"
+                    Placeholder="{i18n:Translate EmailPlaceHolder}"
                     Text="{Binding Email}"/>
                 <Label
                    Text="{i18n:Translate Password}"/>
@@ -71,7 +71,7 @@
                 HorizontalOptions="Center"
                 TextColor="{StaticResource colorDanger}"
                 IsVisible="{Binding IsRunning}"
-                Title="{i18n:Translate Loading}"
+                Title="{i18n:Translate LoadingPlaceHolder}"
                 VerticalOptions="Center"
                 ViewBoxWidth="60"
                 ViewBoxHeight="60"/>

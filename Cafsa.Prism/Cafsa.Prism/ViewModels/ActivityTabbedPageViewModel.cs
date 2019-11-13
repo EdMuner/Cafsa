@@ -11,7 +11,7 @@ namespace Cafsa.Prism.ViewModels
             INavigationService navigationService) : base(navigationService)
         {
             var activity = JsonConvert.DeserializeObject<ActivityResponse>(Settings.Activity);
-            Title = $"Activity: {activity.Neighborhood}";
+            Title = $"Actividad: {activity.Neighborhood}";
 
         }
     }
