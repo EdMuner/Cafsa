@@ -1,4 +1,5 @@
 ﻿using Cafsa.Common.Models;
+using Cafsa.Prism.Helpers;
 using Prism.Navigation;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -29,35 +30,35 @@ namespace Cafsa.Prism.ViewModels
                 {
                     Icon = "ic_home",
                     PageName = "ActivitiesPage",
-                    Title = "Activities"
+                    Title = Languages.Activities
                 },
 
                 new Menu
                 {
                     Icon = "ic_list_alt",
                     PageName = "ServicesPage",
-                    Title = "Services"
+                    Title = Languages.Services
                 },
 
                 new Menu
                 {
                     Icon = "ic_person",
                     PageName = "ModifyUserPage",
-                    Title = "Modify User"
+                    Title = Languages.ModifyUser
                 },
 
                 new Menu
                 {
                     Icon = "ic_map",
                     PageName = "MapPage",
-                    Title = "Map"
+                    Title = Languages.Map
                 },
 
                 new Menu
                 {
                     Icon = "ic_exit_to_app",
                     PageName = "LoginPage",
-                    Title = "Logout"
+                    Title = Languages.Logout
                 }
             };
 

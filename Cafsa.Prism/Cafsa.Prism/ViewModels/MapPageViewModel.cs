@@ -1,4 +1,5 @@
-﻿using Prism.Navigation;
+﻿using Cafsa.Prism.Helpers;
+using Prism.Navigation;
 
 namespace Cafsa.Prism.ViewModels
 {
@@ -6,7 +7,7 @@ namespace Cafsa.Prism.ViewModels
     {
         public MapPageViewModel(INavigationService navigationService) : base(navigationService)
         {
-            Title = "Map";
+            Title = Languages.Map;
         }
     }
 }

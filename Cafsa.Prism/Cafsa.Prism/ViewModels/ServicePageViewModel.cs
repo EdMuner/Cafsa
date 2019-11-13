@@ -1,10 +1,6 @@
 ﻿using Cafsa.Common.Models;
-using Prism.Commands;
-using Prism.Mvvm;
+using Cafsa.Prism.Helpers;
 using Prism.Navigation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Cafsa.Prism.ViewModels
 {
@@ -14,7 +10,7 @@ namespace Cafsa.Prism.ViewModels
         public ServicePageViewModel(
               INavigationService navigationService) : base(navigationService)
         {
-            Title = "Service";
+            Title = Languages.Service;
         }
         public ServiceResponse Service
         {
@@ -28,7 +24,7 @@ namespace Cafsa.Prism.ViewModels
             if (parameters.ContainsKey("service"))
             {
                 Service = parameters.GetValue<ServiceResponse>("service");
-                Title = $"Service to: {Service.Client.FullName}";
+                Title = $"Servicio a: {Service.Client.FullName}";
             }
         }
     }

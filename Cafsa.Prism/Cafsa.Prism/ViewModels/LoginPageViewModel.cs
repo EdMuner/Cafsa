@@ -85,7 +85,10 @@ namespace Cafsa.Prism.ViewModels
             //si no digitaron password
             if (string.IsNullOrEmpty(Password))
             {
-                await App.Current.MainPage.DisplayAlert("Error", "You must enter an password.", "Accept");
+                await App.Current.MainPage.DisplayAlert(
+                    Languages.Error,
+                    Languages.PasswordPlaceHolder,
+                    Languages.Accept);
                 return;
             }
 
@@ -101,7 +104,10 @@ namespace Cafsa.Prism.ViewModels
             {
                 IsEnabled = true;
                 IsRunning = false;
-                await App.Current.MainPage.DisplayAlert("Error", "Check the internet connection.", "Accept");
+                await App.Current.MainPage.DisplayAlert(
+                    Languages.Error,
+                    Languages.CheckConnection,
+                    Languages.Accept);
                 return;
             }
 
@@ -118,7 +124,10 @@ namespace Cafsa.Prism.ViewModels
 	        {
                 IsRunning = false;
                 IsEnabled = true;
-                await App.Current.MainPage.DisplayAlert("Error", "User or password incorrect.", "Accept");
+                await App.Current.MainPage.DisplayAlert(
+                    Languages.Error, 
+                    Languages.UserAndPasswordIncorrect, 
+                    Languages.Accept);
     	        Password = string.Empty;
     	        return;
 	        }
@@ -137,7 +146,10 @@ namespace Cafsa.Prism.ViewModels
             {
                 IsRunning = false;
                 IsEnabled = true;
-                await App.Current.MainPage.DisplayAlert("Error", "Problem with user data, call Edison Munera", "Accept");           
+                await App.Current.MainPage.DisplayAlert(
+                    Languages.Error, 
+                    Languages.DataProblem,
+                    Languages.Accept);           
                 return;
             }
 

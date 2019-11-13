@@ -1,5 +1,6 @@
 ﻿using Cafsa.Common.Helpers;
 using Cafsa.Common.Models;
+using Cafsa.Prism.Helpers;
 using Newtonsoft.Json;
 using Prism.Navigation;
 using System.Collections.ObjectModel;
@@ -16,7 +17,7 @@ namespace Cafsa.Prism.ViewModels
         public ServicesPageViewModel(INavigationService navigationService) : base(navigationService)
         {
             _navigationService = navigationService;
-            Title = "Services";
+            Title = Languages.Services;
             Activity = JsonConvert.DeserializeObject<ActivityResponse>(Settings.Activity);
             LoadContracts();
         }
