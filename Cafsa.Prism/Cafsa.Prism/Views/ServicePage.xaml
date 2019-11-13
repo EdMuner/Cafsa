@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:i18n="clr-namespace:Cafsa.Prism.Helpers"
              x:Class="Cafsa.Prism.Views.ServicePage"
              BackgroundColor="{StaticResource colorBackgroud}"
              Title="{Binding Title}">
@@ -30,7 +31,7 @@
                         Grid.Row="0"
                         Grid.Column="0"             
                         FontAttributes="Bold"
-                        Text="Customer"/>
+                        Text="{i18n:Translate Customer}"/>
                 <Label
                         Grid.Row="0"               
                         Grid.Column="1"
@@ -39,7 +40,7 @@
                         Grid.Row="1"
                         Grid.Column="0"             
                         FontAttributes="Bold"
-                        Text="Start Date"/>
+                        Text="{i18n:Translate StartDate}"/>
                 <Label
                         Grid.Row="1"             
                         Grid.Column="1"
@@ -48,7 +49,7 @@
                         Grid.Row="2"
                         Grid.Column="0"
                         FontAttributes="Bold"
-                        Text="Price"/>
+                        Text="{i18n:Translate Price}"/>
                 <Label
                         Grid.Row="2"
                         Grid.Column="1"
@@ -58,18 +59,18 @@
                         Grid.Row="3"
                         Grid.Column="0"
                         FontAttributes="Bold"
-                        Text="Is Active?"
+                        Text="{i18n:Translate IsAvailable}"
                         VerticalOptions="Center"/>
                 <CheckBox
                         Grid.Row="3"
                         Grid.Column="1"
                         IsChecked="{Binding Service.IsActive}"/>
-           
+
                 <Label
                         Grid.Row="4"
                         Grid.Column="0"
                         FontAttributes="Bold"
-                        Text="Remarks"/>
+                        Text="{i18n:Translate Remarks}"/>
                 <Label
                         Grid.Row="4"
                         Grid.Column="1"

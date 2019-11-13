@@ -105,6 +105,63 @@ namespace Cafsa.Prism.Helpers
 
         public static string Service => Resource.Service;
 
+        public static string Remarks => Resource.Remarks;
+
+        public static string CurrentPasswordPlaceHolder => Resource.CurrentPasswordPlaceHolder;
+
+        public static string NewPassword => Resource.NewPassword;
+
+        public static string NewPasswordPlaceHolder => Resource.NewPasswordPlaceHolder;
+
+        public static string CurrentPasswordNew => Resource.CurrentPasswordNew;
+
+        public static string ConfirmNewPasswordPlaceHolder => Resource.ConfirmNewPasswordPlaceHolder;
+
+        public static string Procesing => Resource.Procesing;
+
+        public static string Document => Resource.Document;
+
+        public static string DocumentPlaceHolder => Resource.DocumentPlaceHolder;
+
+        public static string FirstName => Resource.FirstName;
+
+        public static string FirstNamePlaceHolder => Resource.FirstNamePlaceHolder;
+
+        public static string LastName => Resource.LastName;
+
+        public static string LastNamePlaceHolder => Resource.LastNamePlaceHolder;
+
+        public static string Addres => Resource.Addres;
+
+        public static string AddresPlaceHolder => Resource.AddresPlaceHolder;
+
+        public static string PhoneNumber => Resource.PhoneNumber;
+
+        public static string PhonePlaceHolder => Resource.PhonePlaceHolder;
+
+        public static string Save => Resource.Save;
+
+        public static string EmailNew => Resource.EmailNew;
+
+        public static string RegisterAs => Resource.RegisterAs;
+
+        public static string SelectAnRole => Resource.SelectAnRole;
+
+        public static string EnterAnPassword => Resource.EnterAnPassword;
+
+        public static string ConfirmAPassword => Resource.ConfirmAPassword;
+
+        public static string ConfirmAPasswordPlaceHolder => Resource.ConfirmAPasswordPlaceHolder;
+
+        public static string Registering => Resource.Registering;
+
+        public static string Recovering => Resource.Recovering;
+
+        public static string Customer => Resource.Customer;
+
+        public static string StartDate => Resource.StartDate;
+
+
 
     }
 }
