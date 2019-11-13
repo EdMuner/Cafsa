@@ -229,5 +229,8 @@
   <ItemGroup>
     <BundleResource Include="Resources\drawable\ic_person.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\drawable\ic_action_add_circle_outline.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

@@ -161,6 +161,10 @@ namespace Cafsa.Prism.Helpers
 
         public static string StartDate => Resource.StartDate;
 
+        public static string ErrorNoReferee => Resource.ErrorNoReferee;
+
+        public static string AddActivity => Resource.AddActivity;
+
 
 
     }

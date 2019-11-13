@@ -2,6 +2,7 @@
 using Cafsa.Common.Models;
 using Cafsa.Prism.Helpers;
 using Newtonsoft.Json;
+using Prism.Commands;
 using Prism.Navigation;
 using System;
 using System.Collections.ObjectModel;
@@ -14,6 +15,7 @@ namespace Cafsa.Prism.ViewModels
         private RefereeResponse _referee;
         private ObservableCollection<ActivityItemViewModel> _activities;
         private INavigationService _navigationService;
+        private DelegateCommand _addActivityCommand;
    
 
         public ActivitiesPageViewModel(
@@ -30,7 +32,10 @@ namespace Cafsa.Prism.ViewModels
             set => SetProperty(ref _activities, value);
         }
 
-    
+        public DelegateCommand AddActivityCommand => _addActivityCommand ?? (_addActivityCommand = new DelegateCommand(AddActivityAsync));
+
+      
+
         private void LoadReferee()
 
         {  //se trae la informacion de las activities del referee especifico
@@ -68,8 +73,11 @@ namespace Cafsa.Prism.ViewModels
 
                 }).ToList()); 
             }
+        }
 
-            
+        private async void AddActivityAsync()
+        {
+            await _navigationService.NavigateAsync("EditActivityPage");
         }
     }
 }

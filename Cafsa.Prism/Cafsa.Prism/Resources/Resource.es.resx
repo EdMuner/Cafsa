@@ -345,4 +345,10 @@
   <data name="StartDate" xml:space="preserve">
     <value>Fecha - Hora</value>
   </data>
+  <data name="ErrorNoReferee" xml:space="preserve">
+    <value>¡No eres un árbitro!</value>
+  </data>
+  <data name="AddActivity" xml:space="preserve">
+    <value>Agregar Actividad</value>
+  </data>
 </root>

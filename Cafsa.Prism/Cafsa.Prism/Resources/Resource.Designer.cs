@@ -88,6 +88,15 @@ namespace Cafsa.Prism.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Activity.
+        /// </summary>
+        public static string AddActivity {
+            get {
+                return ResourceManager.GetString("AddActivity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Addres.
         /// </summary>
         public static string Addres {
@@ -381,6 +390,15 @@ namespace Cafsa.Prism.Resources {
         public static string ErrorConfirmPassword {
             get {
                 return ResourceManager.GetString("ErrorConfirmPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are not an referee.
+        /// </summary>
+        public static string ErrorNoReferee {
+            get {
+                return ResourceManager.GetString("ErrorNoReferee", resourceCulture);
             }
         }
         

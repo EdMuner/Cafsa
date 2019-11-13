@@ -345,4 +345,10 @@
   <data name="StartDate" xml:space="preserve">
     <value>Start Date</value>
   </data>
+  <data name="ErrorNoReferee" xml:space="preserve">
+    <value>You are not an referee</value>
+  </data>
+  <data name="AddActivity" xml:space="preserve">
+    <value>Add Activity</value>
+  </data>
 </root>
